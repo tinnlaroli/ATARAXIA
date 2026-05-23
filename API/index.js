@@ -30,6 +30,7 @@ import SubcriterionRouter from './routes/subcriterionRoutes.js';
 import ContactRouter from './routes/contactRoutes.js';
 import InteractionRouter from './routes/interactionRoutes.js';
 import MLRouter from './routes/mlRoutes.js';
+import stressAssessmentRoutes from './routes/stressAssessmentRoutes.js';
 dotenv.config();
 
 const app = express();
@@ -55,7 +56,14 @@ const allowedOrigins = process.env.FRONTEND_URL
           .map((o) => o.trim())
           .map((o) => o.replace(/\/$/, ''))
           .filter(Boolean)
-    : ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:3000'];
+    : [
+          'http://localhost:5173',
+          'http://localhost:5174',
+          'http://localhost:3000',
+          'http://localhost:8080',
+          'http://localhost:4322',
+          'http://localhost:4100',
+      ];
 
 const normalizeOrigin = (value) => String(value || '').trim().replace(/\/$/, '');
 const corsOptions = {
@@ -176,6 +184,7 @@ app.use('/api/v2', SubcriterionRouter);
 app.use('/api/v2', ContactRouter);
 app.use('/api/v2', InteractionRouter);
 app.use('/api/v2', MLRouter);
+app.use('/api/v2', stressAssessmentRoutes);
 
 
 const PORT = process.env.PORT || 3000;

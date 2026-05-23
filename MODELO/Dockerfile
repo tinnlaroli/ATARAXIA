@@ -1,4 +1,4 @@
-# SMARTUR API (FastAPI + motor de recomendación)
+# ATARAXIA Wellness API (FastAPI + clasificador de estrés)
 FROM python:3.11-slim-bookworm
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -14,8 +14,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY data/ ./data/
+COPY data/wellness/ ./data/wellness/
 COPY models/ ./models/
+COPY scripts/ ./scripts/
 COPY src/ ./src/
 
 WORKDIR /app/src

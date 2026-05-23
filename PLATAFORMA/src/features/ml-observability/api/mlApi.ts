@@ -19,8 +19,16 @@ export interface MLMetrics {
     };
 }
 
+export interface WellnessMetrics {
+    accuracy?: number;
+    macro_f1?: number;
+    n_train?: number;
+    n_test?: number;
+}
+
 export interface MLHealth {
-    latest_metrics: MLMetrics | null;
+    latest_metrics: MLMetrics | WellnessMetrics | null;
+    wellness_destinations?: number;
     daily_sessions: {
         total: number;
         avg_latency_ms: string;
@@ -33,6 +41,9 @@ export interface MLHealth {
 }
 
 export interface ModelStatus {
+    mode?: string;
+    stress_model_loaded?: boolean;
+    destinations_count?: number;
     engine_ready: boolean;
     rf_ready: boolean;
     gbm_ready: boolean;

@@ -1,0 +1,33 @@
+# Reglas heurísticas para etiquetar perfiles de estrés (dataset sintético)
+# Ajustar con validación de dominio clínico.
+
+profiles:
+  - Burnout
+  - Fatiga_Fisica
+  - Hiperactividad_Ansiosa
+
+noise_rate: 0.10
+
+rules:
+  Burnout:
+  # Q1 bajo (1-2), Q3 alto (2-3), Q4 medio-alto (2-3)
+    score: "((4 - q1) + q3 + q4) / 9"
+    min_score: 0.55
+
+  Fatiga_Fisica:
+  # Q2 alto dominante
+    score: "(q2 + (4 - q1) * 0.5) / 7"
+    min_score: 0.50
+    requires_q2_min: 3
+
+  Hiperactividad_Ansiosa:
+  # Q4 alto + Q3 alto, Q2 no dominante
+    score: "((q4 + q3) * 0.5 + (4 - q2) * 0.3) / 6"
+    min_score: 0.50
+    requires_q4_min: 2
+
+distributions:
+  q1: {1: 0.35, 2: 0.40, 3: 0.25}
+  q2: {1: 0.20, 2: 0.30, 3: 0.30, 4: 0.20}
+  q3: {1: 0.25, 2: 0.45, 3: 0.30}
+  q4: {1: 0.30, 2: 0.40, 3: 0.30}

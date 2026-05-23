@@ -1,123 +1,94 @@
-import { useState, useEffect, useRef } from 'react';
-import { Step1PerfilBasico } from './Step1PerfilBasico';
-import { Step2Preferencias } from './Step2Preferencias';
-import { Step3Contexto } from './Step3Contexto';
-import { Step4Condiciones } from './Step4Condiciones';
-import { ProgressIndicator } from './ProgressIndicator';
-import { RecommendationsResult } from './RecommendationsResult';
-import { X } from 'lucide-react';
-import type { FormContext, RecommendationsResponse } from '../types/types';
-import { useTheme } from '../../../contexts/ThemeContext';
-
-interface FormModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-}
-
-export function FormModal({ isOpen, onClose }: FormModalProps) {
-    const [currentStep, setCurrentStep] = useState(0);
-    const [formData, setFormData] = useState<Partial<FormContext>>({});
-    const [isStep4Loading, setIsStep4Loading] = useState(false);
-    const [showRecommendations, setShowRecommendations] = useState(false);
-    const [recommendationsData, setRecommendationsData] = useState<RecommendationsResponse | null>(null);
-    const { theme } = useTheme();
-    const scrollRef = useRef<HTMLDivElement>(null);
-    const isDark = theme === 'dark';
-
-    // Lock body scroll when modal is open
-    useEffect(() => {
-        if (isOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'unset';
-        }
-        return () => {
-            document.body.style.overflow = 'unset';
-        };
-    }, [isOpen]);
-
-    // Scroll modal back to top whenever the step changes
-    useEffect(() => {
-        scrollRef.current?.scrollTo({ top: 0, behavior: 'instant' });
-    }, [currentStep]);
-
-    if (!isOpen) return null;
-
-    const totalSteps = 4;
-
-    const nextStep = () => {
-        setCurrentStep((prev) => Math.min(prev + 1, totalSteps - 1));
-    };
-
-    const prevStep = () => {
-        setCurrentStep((prev) => Math.max(prev - 1, 0));
-    };
-
-    const updateFormData = (newData: Partial<FormContext>) => {
-        setFormData((prev) => ({ ...prev, ...newData }));
-    };
-
-    const handleShowRecommendations = (result: RecommendationsResponse) => {
-        setRecommendationsData(result);
-        setShowRecommendations(true);
-    };
-
-    const handleCloseFinal = () => {
-        setShowRecommendations(false);
-        onClose();
-    };
-
-    return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
-            {/* Backdrop */}
-            <button
-                type="button"
-                aria-label="Cerrar modal"
-                className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300 cursor-default"
-                onClick={onClose}
-            />
-            
-            {/* Modal Card */}
-            <div
-                className={`relative w-full max-w-4xl max-h-[85vh] overflow-hidden rounded-3xl shadow-2xl animate-in zoom-in-95 duration-300 flex flex-col ${
-                    isDark ? 'border border-zinc-800 bg-zinc-900' : 'border border-zinc-200 bg-white'
-                }`}
-            >
-                <button 
-                    onClick={onClose}
-                    className={`absolute top-6 right-6 z-10 rounded-full p-2 transition-colors ${
-                        isDark ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900'
-                    }`}
-                >
-                    <X className="size-6" />
-                </button>
-
-                <div ref={scrollRef} className="p-6 md:p-8 overflow-y-auto">
-                    <ProgressIndicator currentStep={currentStep + 1} totalSteps={totalSteps} isStep4Loading={isStep4Loading} />
-
-                    <div className="mt-8">
-                        {currentStep === 0 && <Step1PerfilBasico data={formData} onNext={nextStep} onChange={updateFormData} />}
-                        {currentStep === 1 && <Step2Preferencias data={formData} onNext={nextStep} onBack={prevStep} onChange={updateFormData} />}
-                        {currentStep === 2 && <Step3Contexto data={formData} onNext={nextStep} onBack={prevStep} onChange={updateFormData} />}
-                        {currentStep === 3 && (
-                            <Step4Condiciones 
-                                data={formData} 
-                                onBack={prevStep} 
-                                onChange={updateFormData} 
-                                onLoadingChange={setIsStep4Loading} 
-                                onShowRecommendations={handleShowRecommendations} 
-                            />
-                        )}
-                    </div>
-                </div>
-            </div>
-
-            {showRecommendations && recommendationsData && (
-                <RecommendationsResult 
-                    recommendations={recommendationsData.recommendations} 
-                    onClose={handleCloseFinal} 
-                />
-            )}
-        </div>
-    );
-}
+import { useState, useEffect, useRef } from 'react';
+import { WellnessFormWizard } from './WellnessFormWizard';
+import { WellnessRecommendationsResult } from './WellnessRecommendationsResult';
+import { X } from 'lucide-react';
+import type { WellnessRecommendationsResponse } from '../types/types';
+import { useTheme } from '../../../contexts/ThemeContext';
+
+interface FormModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+}
+
+export function FormModal({ isOpen, onClose }: FormModalProps) {
+    const [showResults, setShowResults] = useState(false);
+    const [resultData, setResultData] = useState<WellnessRecommendationsResponse | null>(null);
+    const { theme } = useTheme();
+    const scrollRef = useRef<HTMLDivElement>(null);
+    const isDark = theme === 'dark';
+
+    const token = localStorage.getItem('token');
+    const storedUser = localStorage.getItem('user');
+    const user = storedUser ? JSON.parse(storedUser) : { id: 2 };
+
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+            setShowResults(false);
+            setResultData(null);
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isOpen]);
+
+    useEffect(() => {
+        scrollRef.current?.scrollTo({ top: 0, behavior: 'instant' });
+    }, [showResults]);
+
+    if (!isOpen) return null;
+
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+            <button
+                type="button"
+                aria-label="Cerrar modal"
+                className="absolute inset-0 bg-black/70 backdrop-blur-md animate-in fade-in duration-300 cursor-default"
+                onClick={onClose}
+            />
+
+            <div
+                className={`relative w-full max-w-3xl max-h-[90vh] overflow-hidden rounded-3xl shadow-2xl animate-in zoom-in-95 duration-300 flex flex-col ${
+                    isDark ? 'border border-zinc-800 bg-zinc-950' : 'border border-zinc-200 bg-white'
+                }`}
+            >
+                <button
+                    onClick={onClose}
+                    className={`absolute top-5 right-5 z-10 rounded-full p-2 transition-colors ${
+                        isDark ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-500 hover:bg-zinc-100'
+                    }`}
+                >
+                    <X className="size-6" />
+                </button>
+
+                <div ref={scrollRef} className="p-6 md:p-10 overflow-y-auto">
+                    {showResults && resultData ? (
+                        <WellnessRecommendationsResult
+                            data={resultData}
+                            onClose={() => {
+                                setShowResults(false);
+                                onClose();
+                            }}
+                            onRetake={() => {
+                                setShowResults(false);
+                                setResultData(null);
+                            }}
+                        />
+                    ) : (
+                        <WellnessFormWizard
+                            userId={user.id}
+                            token={token}
+                            onClose={onClose}
+                            onComplete={(result) => {
+                                setResultData(result);
+                                setShowResults(true);
+                            }}
+                        />
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+}

@@ -1,9 +1,12 @@
+name: ataraxia-modelo
+
 services:
-  smartur-api:
+  modelo:
     build: .
-    image: smartur-api:local
+    image: ataraxia-modelo:local
+    container_name: ataraxia-modelo
     ports:
-      - "8000:8000"
+      - "${MODELO_HOST_PORT:-8100}:8000"
     restart: unless-stopped
     # Primera vez: si falta el RF entrenado, el arranque puede tardar varios minutos.
     healthcheck:

@@ -286,6 +286,39 @@ def fetch_evaluation_scores() -> pd.DataFrame:
     return pd.DataFrame(rows, columns=cols)
 
 
+def fetch_traveler_wellness_preferences(user_id) -> dict | None:
+    """Preferencias para matchmaking wellness (traveler_profile activo)."""
+    try:
+        uid = int(user_id)
+    except (ValueError, TypeError):
+        return None
+
+    query = """
+        SELECT interests, activity_level, preferred_place, has_accessibility
+        FROM traveler_profile
+        WHERE user_id = %s AND is_active = TRUE
+        LIMIT 1
+    """
+    try:
+        with get_poi_connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(query, (uid,))
+                row = cur.fetchone()
+        if not row:
+            return None
+        interests, activity_level, preferred_place, has_accessibility = row
+        return {
+            "interests": list(interests) if interests else [],
+            "activity_level": int(activity_level or 3),
+            "preferred_place": (preferred_place or "indiferente").lower(),
+            "has_accessibility": bool(has_accessibility),
+        }
+    except Exception as exc:
+        import logging
+        logging.getLogger(__name__).warning("fetch_traveler_wellness_preferences: %s", exc)
+        return None
+
+
 def fetch_traveler_profile(user_id):
     """
     Reads traveler_profile for a numeric user_id and returns a context dict

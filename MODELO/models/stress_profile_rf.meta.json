@@ -1,0 +1,57 @@
+{
+  "accuracy": 0.5379241516966068,
+  "macro_f1": 0.5357636471711316,
+  "classification_report": {
+    "Burnout": {
+      "precision": 0.46319018404907975,
+      "recall": 0.438953488372093,
+      "f1-score": 0.4507462686567164,
+      "support": 344.0
+    },
+    "Fatiga_Fisica": {
+      "precision": 0.5910290237467019,
+      "recall": 0.6726726726726727,
+      "f1-score": 0.6292134831460674,
+      "support": 333.0
+    },
+    "Hiperactividad_Ansiosa": {
+      "precision": 0.5521885521885522,
+      "recall": 0.5046153846153846,
+      "f1-score": 0.5273311897106109,
+      "support": 325.0
+    },
+    "accuracy": 0.5379241516966068,
+    "macro avg": {
+      "precision": 0.5354692533281113,
+      "recall": 0.5387471818867168,
+      "f1-score": 0.5357636471711316,
+      "support": 1002.0
+    },
+    "weighted avg": {
+      "precision": 0.5345422831155835,
+      "recall": 0.5379241516966068,
+      "f1-score": 0.5348976476661672,
+      "support": 1002.0
+    }
+  },
+  "n_train": 4006,
+  "n_test": 1002,
+  "n_real_assessments": 8,
+  "n_features": 7,
+  "feature_cols": [
+    "q1_energia_cognitiva",
+    "q2_tension_fisica",
+    "q3_rumiacion",
+    "q4_activacion_negativa",
+    "cognitive_load",
+    "somatic_stress",
+    "hyperarousal"
+  ],
+  "model_type": "HistGradientBoosting+CalibratedClassifierCV",
+  "hybrid_threshold": 0.58,
+  "class_distribution": {
+    "Burnout": 1721,
+    "Fatiga_Fisica": 1665,
+    "Hiperactividad_Ansiosa": 1622
+  }
+}

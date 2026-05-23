@@ -1,25 +1,27 @@
+name: ataraxia
+
 services:
   # ============================================================
   # Database
   # ============================================================
   postgres:
     image: postgres:16-alpine
-    container_name: smartur-postgres
+    container_name: ataraxia-postgres
     restart: unless-stopped
     environment:
       POSTGRES_USER: ${DB_USER:-postgres}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-12345678}
-      POSTGRES_DB: ${DB_NAME:-smartur}
+      POSTGRES_DB: ${DB_NAME:-ataraxia}
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./API/bd.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-smartur}']
+      test: ['CMD-SHELL', 'pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-ataraxia}']
       interval: 10s
       timeout: 5s
       retries: 5
     networks:
-      - smartur-net
+      - ataraxia-net
 
   # ============================================================
   # API Backend
@@ -28,19 +30,19 @@ services:
     build:
       context: ./API
       dockerfile: Dockerfile
-    container_name: smartur-api
+    container_name: ataraxia-api
     restart: unless-stopped
     environment:
       PORT: 3000
       DB_HOST: postgres
       DB_PORT: 5432
-      DB_NAME: ${DB_NAME:-smartur}
+      DB_NAME: ${DB_NAME:-ataraxia}
       DB_USER: ${DB_USER:-postgres}
       DB_PASSWORD: ${DB_PASSWORD:-12345678}
       JWT_SECRET: ${JWT_SECRET:-tu_contraseña_secreta}
       EMAIL_USER: ${EMAIL_USER:-smarturutcv@gmail.com}
       EMAIL_PASS: ${EMAIL_PASS:-lihichglnpzlhddg}
-      FRONTEND_URL: http://plataforma:5173,http://landing:4321,http://localhost:5173,http://${VPS_IP:-localhost},http://${VPS_IP:-localhost}:5173,http://${VPS_IP:-localhost}:4321
+      FRONTEND_URL: http://plataforma:5173,http://landing:4321,http://localhost:${PLATAFORMA_HOST_PORT:-8080},http://localhost:${LANDING_HOST_PORT:-4322},http://${VPS_IP:-localhost},http://${VPS_IP:-localhost}:${PLATAFORMA_HOST_PORT:-8080},http://${VPS_IP:-localhost}:${LANDING_HOST_PORT:-4322}
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-77253773974-b412uvcqhrqmchhtdq5rq6tl81hpados.apps.googleusercontent.com}
       CLOUDINARY_CLOUD_NAME: ${CLOUDINARY_CLOUD_NAME:-dke5fhmpk}
       CLOUDINARY_API_KEY: ${CLOUDINARY_API_KEY:-759781756841837}
@@ -52,6 +54,10 @@ services:
       SIGHTENGINE_NUDITY_THRESHOLD: ${SIGHTENGINE_NUDITY_THRESHOLD:-0.55}
       SIGHTENGINE_OFFENSIVE_THRESHOLD: ${SIGHTENGINE_OFFENSIVE_THRESHOLD:-0.6}
       SIGHTENGINE_SUBSTANCE_THRESHOLD: ${SIGHTENGINE_SUBSTANCE_THRESHOLD:-0.75}
+      MODELO_URL: http://modelo:8000
+      ML_AUTO_RETRAIN: ${ML_AUTO_RETRAIN:-1}
+      ML_RETRAIN_DEBOUNCE_MS: ${ML_RETRAIN_DEBOUNCE_MS:-45000}
+      ML_RETRAIN_TIMEOUT_MS: ${ML_RETRAIN_TIMEOUT_MS:-120000}
     depends_on:
       postgres:
         condition: service_healthy
@@ -62,7 +68,7 @@ services:
       retries: 3
       start_period: 20s
     networks:
-      - smartur-net
+      - ataraxia-net
 
   # ============================================================
   # ML Model Service
@@ -71,22 +77,21 @@ services:
     build:
       context: ./MODELO
       dockerfile: Dockerfile
-    container_name: smartur-modelo
+    container_name: ataraxia-modelo
     restart: unless-stopped
     environment:
       POI_DB_HOST: postgres
       POI_DB_PORT: 5432
-      POI_DB_NAME: ${DB_NAME:-smartur}
+      POI_DB_NAME: ${DB_NAME:-ataraxia}
       POI_DB_USER: ${DB_USER:-postgres}
       POI_DB_PASSWORD: ${DB_PASSWORD:-12345678}
       SKIP_MODEL_BOOT: ${SKIP_MODEL_BOOT:-0}
-      AUTO_BOOTSTRAP: ${AUTO_BOOTSTRAP:-1}
-      KAGGLE_USERNAME: ${KAGGLE_USERNAME:-}
-      KAGGLE_KEY: ${KAGGLE_KEY:-}
-      CORS_ORIGINS: "http://localhost:5173,http://localhost:3000,http://${VPS_IP:-localhost},http://${VPS_IP:-localhost}:5173,http://${VPS_IP:-localhost}:4000"
+      WELLNESS_SYNC_DB: ${WELLNESS_SYNC_DB:-1}
+      CORS_ORIGINS: "http://localhost:${PLATAFORMA_HOST_PORT:-8080},http://localhost:3000,http://${VPS_IP:-localhost},http://${VPS_IP:-localhost}:${PLATAFORMA_HOST_PORT:-8080},http://${VPS_IP:-localhost}:${API_HOST_PORT:-4100}"
     volumes:
-      - modelo_data:/app/data
-      - modelo_models:/app/models
+      - ./MODELO/data/wellness:/app/data/wellness
+      - ./MODELO/models:/app/models
+      - ./MODELO/scripts:/app/scripts:ro
     depends_on:
       postgres:
         condition: service_healthy
@@ -95,9 +100,9 @@ services:
       interval: 30s
       timeout: 10s
       retries: 10
-      start_period: 1800s
+      start_period: 120s
     networks:
-      - smartur-net
+      - ataraxia-net
 
   # ============================================================
   # Platform (Dashboard) Frontend
@@ -107,19 +112,19 @@ services:
       context: ./PLATAFORMA
       dockerfile: Dockerfile
       args:
-        VITE_API_URL: http://${VPS_IP:-localhost}:4000/api/v2
-        VITE_MODELO_URL: http://${VPS_IP:-localhost}:8000
-        VITE_BUSINESS_URL: http://${VPS_IP:-localhost}:4321/
-    container_name: smartur-plataforma
+        VITE_API_URL: http://${VPS_IP:-localhost}:${API_HOST_PORT:-4100}/api/v2
+        VITE_MODELO_URL: http://${VPS_IP:-localhost}:${MODELO_HOST_PORT:-8100}
+        VITE_BUSINESS_URL: http://${VPS_IP:-localhost}:${LANDING_HOST_PORT:-4322}/
+    container_name: ataraxia-plataforma
     restart: unless-stopped
     environment:
-      VITE_API_URL: http://${VPS_IP:-localhost}:4000/api/v2
-      VITE_BUSINESS_URL: http://${VPS_IP:-localhost}:4321/
-      VITE_MODELO_URL: http://${VPS_IP:-localhost}:8000
+      VITE_API_URL: http://${VPS_IP:-localhost}:${API_HOST_PORT:-4100}/api/v2
+      VITE_BUSINESS_URL: http://${VPS_IP:-localhost}:${LANDING_HOST_PORT:-4322}/
+      VITE_MODELO_URL: http://${VPS_IP:-localhost}:${MODELO_HOST_PORT:-8100}
     depends_on:
       - api
     networks:
-      - smartur-net
+      - ataraxia-net
 
   # ============================================================
   # Landing Page Frontend
@@ -129,29 +134,29 @@ services:
       context: ./LANDING
       dockerfile: Dockerfile
       args:
-        PUBLIC_TOURIST_APP_URL: http://${VPS_IP:-localhost}/
-        PUBLIC_API_URL: http://${VPS_IP:-localhost}:4000/api/v2
-    container_name: smartur-landing
+        PUBLIC_TOURIST_APP_URL: http://${VPS_IP:-localhost}:${PLATAFORMA_HOST_PORT:-8080}/
+        PUBLIC_API_URL: http://${VPS_IP:-localhost}:${API_HOST_PORT:-4100}/api/v2
+    container_name: ataraxia-landing
     restart: unless-stopped
     environment:
-      PUBLIC_TOURIST_APP_URL: http://${VPS_IP:-localhost}/
+      PUBLIC_TOURIST_APP_URL: http://${VPS_IP:-localhost}:${PLATAFORMA_HOST_PORT:-8080}/
     depends_on:
       - plataforma
     networks:
-      - smartur-net
+      - ataraxia-net
 
   # ============================================================
   # Nginx Reverse Proxy
   # ============================================================
   nginx:
     image: nginx:alpine
-    container_name: smartur-nginx
+    container_name: ataraxia-nginx
     restart: unless-stopped
     ports:
-      - '80:80'
-      - '4321:4321'
-      - '4000:4000'
-      - '8000:8000'
+      - '${PLATAFORMA_HOST_PORT:-8080}:8080'
+      - '${LANDING_HOST_PORT:-4322}:4322'
+      - '${API_HOST_PORT:-4100}:4100'
+      - '${MODELO_HOST_PORT:-8100}:8100'
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
@@ -159,13 +164,12 @@ services:
       - landing
       - api
     networks:
-      - smartur-net
+      - ataraxia-net
 
 networks:
-  smartur-net:
+  ataraxia-net:
     driver: bridge
 
 volumes:
   postgres_data:
-  modelo_data:
-  modelo_models:
+    name: ataraxia_postgres_data

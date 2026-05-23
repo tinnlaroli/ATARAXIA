@@ -1,85 +1,88 @@
-# AGENTS.md — SMARTUR v4
+# AGENTS.md — ATARAXIA MODELO (Wellness)
 
-## Project summary
-Hybrid recommendation system (Collaborative Filtering via Pearson + KNN, and contextual Random Forest) using the Yelp dataset. Exposes a FastAPI on port 8000.
+## Resumen
 
-## Key commands
+Recomendador de **turismo de salud y bienestar** a nivel nacional (México):
+
+1. **Random Forest clasificador** — Q1–Q4 (+ features derivadas) → perfil de estrés con confianza
+2. **Beneficio óptimo** — `benefit_profiles.yaml` pondera restauración, aislamiento y demanda física por perfil
+3. **Matchmaking híbrido** — 50% beneficio + 35% alineación vectorial + 15% confianza del clasificador; diversificación por categoría
+4. **Catálogo** — `data/wellness/destinos_wellness.csv` + sync a PostgreSQL (`wellness_destination`)
+
+No usa Yelp, CF ni LightFM. No hay modelos pre-entrenados públicos para Q1–Q4 → perfil wellness;
+se usa **HistGradientBoosting calibrado** (sklearn) + **reglas heurísticas** como respaldo y
+**peso ×3** en evaluaciones reales de `stress_assessment`.
+
+## Comandos
 
 ```bash
-# Install deps
-pip install -r requirements.txt
+# Generar catálogo y usuarios sintéticos
+python MODELO/scripts/build_destinos_seed.py
+python MODELO/scripts/generate_synthetic_users.py
 
-# Download Yelp dataset (via kagglehub)
-python descargar_yelp.py
+# Entrenar clasificador
+cd MODELO/src && python -m stress_classifier --train
 
-# Pre-process raw Yelp JSON → cleaned CSVs (run when data changes or first time)
-cd src && python pre_procesamiento.py
+# Sync catálogo → Postgres (stack levantado)
+cd MODELO/src && python -m wellness_catalog --sync
 
-# Start API (auto-trains RF if no model in /models)
-cd src && python api.py
-# Swagger: http://localhost:8000/docs
-
-# Run CLI recommendation demo
-cd src && python main.py
-
-# Run evaluation (RMSE, MAE, NDCG, Precision, Hit Rate)
-cd src && python evaluate.py
-
-# Optimize alpha via grid search
-cd src && python optimize_alpha.py
-
-# Run tests
-pytest          # configured: pythonpath=.,src  testpaths=tests
+# API local (Docker host)
+# http://localhost:8100/docs
 ```
 
-## Architecture
+## Endpoints (FastAPI, puerto interno 8000 → host 8100)
 
-```
-src/
-  api.py             — FastAPI entrypoint (uvicorn). Imports from sibling modules directly.
-  engine.py          — CF engine: loads CSVs, builds sparse user-item matrix, KNN model
-  cf.py              — Pearson prediction from KNN neighbors
-  rf_model.py        — Random Forest contextual model with synthetic user simulation
-  context_encoder.py — Transforms React form JSON → numeric features (budget, age, tourism types, group type, match features)
-  fusion.py          — Two-stage pipeline: retrieval (KNN pool) → hard/soft filters → RF ranking → α-blended final score
-  pre_procesamiento.py — NLP + extraction: Yelp JSON → data_negocios_limpio.csv, data_reviews_limpio.csv
-  evaluate.py        — RMSE/MAE + ranking metrics (NDCG@K, Precision@K, Hit Rate@K)
-  optimize_alpha.py  — Grid search for optimal α weight
-```
-
-## Data flow
-
-1. `descargar_yelp.py` → raw JSON in `data/`
-2. `pre_procesamiento.py` → cleaned CSVs in `data/` (gitignored)
-3. `api.py` startup → loads CSVs via `engine.py`, trains/loads RF from `models/rf_context_yelp.joblib`
-4. `POST /recommend/{user_id}` → `fusion.py` hybrid pipeline → JSON response
-
-## API endpoints
-
-| Method | Path | Description |
+| Método | Ruta | Descripción |
 |--------|------|-------------|
-| POST | `/recommend/{user_id}` | Hybrid CF+RF recommendation with context |
-| GET | `/metrics` | Returns `models/algorithm_metrics.json` — latest RMSE/MAE/NDCG per algorithm. Used by PLATAFORMA ML dashboard. Returns 404 if no metrics file exists yet. |
-| GET | `/health` | Liveness check |
+| GET | `/health` | `stress_model_loaded`, `destinations_count` |
+| POST | `/recommend/{user_id}` | Body: `{ q1, q2, q3, q4, top_n?, similarity? }` |
+| GET | `/metrics` | accuracy, macro_f1 del clasificador |
+| GET | `/evaluate` | Informe offline (clasificador + matchmaking) |
+| POST | `/train-stress` | Reentrena clasificador (sintético + real ×3 peso) |
+| POST | `/sync-catalog` | UPSERT CSV → Postgres |
 
-## Important gotchas
+## Datos
 
-- **Working directory**: All src scripts must be run from `src/` directory (relative imports like `from engine import SmarturEngine`). The Dockerfile sets `WORKDIR /app/src` for this reason.
-- **pytest.ini**: `pythonpath = . src` so tests can import from `src/` without `cd src`.
-- **Large Yelp JSON files**: `data/*.json` and `data/*_limpio.csv` are gitignored. Models (`models/*.joblib`) are also gitignored. First run or fresh clone requires data download + preprocessing + RF training.
-- **RF training is slow**: The Random Forest trains on ~80k interactions with 35+ features. Takes several minutes on first start. API auto-trains if `models/rf_context_yelp.joblib` is missing.
-- **Default alpha = 0.2**: README recommends α=0.2 (80% RF weight, 20% CF). Code default in POST payload is 0.1.
-- **CORS**: API has `allow_origins=["*"]` — permissive for local dev.
-- **Context fields**: The POST `/recommend/{user_id}` endpoint accepts `context` dict with fields: `presupuesto_bucket`, `edad_range`, `tiposTurismo`, `group_type`, `wants_tours`, `needs_hotel`, `pref_food`, `requiere_accesibilidad`, `pref_outdoor`.
-- **Hard filters** (`fusion.py:filtro_duro`): `needs_hotel` eliminates non-hotels; `pref_food=false` eliminates food places; `requiere_accesibilidad` eliminates non-accessible venues; `pref_outdoor` prioritizes outdoor seating.
+| Archivo | Uso |
+|---------|-----|
+| `data/wellness/destinos_wellness.csv` | Catálogo (~180 destinos) |
+| `data/wellness/entrenamiento_usuarios.csv` | 5000 usuarios sintéticos |
+| `data/wellness/labeling_rules.yaml` | Reglas de etiquetado |
+| `data/wellness/benefit_profiles.yaml` | Pesos de beneficio terapéutico por perfil |
+| `models/stress_profile_rf.joblib` | Modelo entrenado |
+| `models/stress_profile_rf.meta.json` | Métricas |
+| `models/wellness_eval_report.json` | Evaluación offline |
 
-## Docker
+## Módulos
 
-```bash
-docker compose up --build   # image: smartur-api:local, port 8000
-# First start may take several minutes if RF model is missing (healthcheck start_period: 300s)
-```
+| Archivo | Rol |
+|---------|-----|
+| `stress_classifier.py` | HistGradientBoosting calibrado + híbrido con reglas |
+| `stress_labeling.py` | Etiquetas heurísticas (entrenamiento real + baja confianza) |
+| `user_preferences.py` | Boost por `traveler_profile` en matchmaking |
+| `benefit_scoring.py` | Score de beneficio óptimo por destino/perfil |
+| `training_data.py` | Merge sintético + `stress_assessment`, features engineered |
+| `wellness_matchmaker.py` | Beneficio + alineación + diversificación |
+| `evaluate_wellness.py` | Métricas offline del pipeline |
+| `wellness_catalog.py` | CSV ↔ Postgres |
+| `api.py` | FastAPI wellness |
+| `poi_repository.py` | Conexión Postgres |
+
+## Variables de entorno
+
+- `POI_DB_*` — Postgres (mismo que API)
+- `WELLNESS_SYNC_DB=1` — sync al arranque
+- `SKIP_MODEL_BOOT=1` — saltar carga (tests)
+
+## Producción — bucle de mejora
+
+1. Cliente llama `POST /api/v2/ml/recommend/:userId` (PLATAFORMA o MOBILE con JWT).
+2. API persiste `stress_assessment` y programa reentrenamiento (`ML_AUTO_RETRAIN=1`, debounce 45s).
+3. `POST /train-stress` fusiona sintético + reales (etiqueta por reglas, no predicción guardada).
+4. Preferencias de `traveler_profile` se envían al matchmaker para personalizar destinos.
 
 ## Tests
 
-Single test file `tests/test_module.py` with basic instantiation tests. Tests gracefully handle missing data files (catch `FileNotFoundError`). For full tests, ensure cleaned CSVs exist in `data/`.
+```bash
+cd MODELO && pytest tests/test_wellness.py -q
+```

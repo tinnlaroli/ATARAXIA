@@ -1,3 +1,58 @@
+export interface WellnessAnswers {
+    q1: number;
+    q2: number;
+    q3: number;
+    q4: number;
+}
+
+export interface WellnessRecommendation {
+    id_destino: string;
+    nombre_lugar: string;
+    estado: string;
+    categoria_principal: string;
+    match_pct: number;
+    beneficio_optimo_pct?: number;
+    alineacion_pct?: number;
+    rank?: number;
+    beneficio_descripcion?: string;
+    nivel_aislamiento: number;
+    restauracion_pasiva: number;
+    demanda_fisica: number;
+    lat?: number | null;
+    lon?: number | null;
+}
+
+export interface WellnessRecommendationsResponse {
+    user_id: string;
+    perfil_estres: string;
+    perfil_estres_label: string;
+    perfil_probabilities: Record<string, number>;
+    stress_confidence?: number;
+    beneficio_objetivo?: string;
+    recommendations: WellnessRecommendation[];
+    session_id?: number;
+    latency_ms?: number;
+}
+
+export interface WellnessFormPreferences {
+    interests: string[];
+    activity_level: number;
+    preferred_place: string;
+    has_accessibility: boolean;
+    travel_type?: string;
+}
+
+export interface GetWellnessRecommendationsParams {
+    userId: string;
+    q1: number;
+    q2: number;
+    q3: number;
+    q4: number;
+    top_n?: number;
+    token?: string | null;
+}
+
+/** @deprecated Legacy tourism form — use WellnessAnswers */
 export interface FormContext {
     edad?: number;
     edad_range?: string;
@@ -15,23 +70,13 @@ export interface FormContext {
     needs_transport: boolean;
     pref_food: boolean;
     wants_tours: boolean;
-    accesibilidad: string; // 'si' | 'no' in UI
-    requiere_accesibilidad?: boolean; // mapping for AI
+    accesibilidad: string;
+    requiere_accesibilidad?: boolean;
     detalleAcc: string;
     visitado: string;
 }
 
-export interface AIRecommendationContext {
-    presupuesto_bucket?: string;
-    edad_range?: string;
-    tiposTurismo: string[];
-    group_type?: string;
-    wants_tours: boolean;
-    needs_hotel: boolean;
-    pref_food: boolean;
-    requiere_accesibilidad: boolean;
-    pref_outdoor: boolean;
-}
+export type RecommendationsResponse = WellnessRecommendationsResponse;
 
 export interface Recommendation {
     item_id: string;
@@ -43,18 +88,6 @@ export interface Recommendation {
     pred_rf: number;
     kind?: string;
     image_url?: string | null;
-}
-
-export interface RecommendationsResponse {
-    recommendations: Recommendation[];
-    user_id: string | number;
-    message?: string;
-}
-
-export interface GetRecommendationsParams {
-    userId: string;
-    alpha?: number;
-    top_n?: number;
-    context: AIRecommendationContext;
-    token?: string | null;
+    match_pct?: number;
+    estado?: string;
 }

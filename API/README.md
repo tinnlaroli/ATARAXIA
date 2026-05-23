@@ -12,7 +12,7 @@ docker compose up -d
 docker compose build api && docker compose up -d api
 
 # Watch logs
-docker logs -f smartur-api
+docker logs -f ataraxia-api
 ```
 
 ## Local development (without Docker)
@@ -47,10 +47,11 @@ Schema lives entirely in `bd.sql` — no separate migration files.
 
 ```bash
 # Apply schema to local Docker container
-Get-Content "bd.sql" | docker exec -i smartur-postgres psql -U postgres -d smartur
+Get-Content "bd.sql" | docker exec -i ataraxia-postgres psql -U postgres -d ataraxia
 
 # Apply to production VPS
 ssh root@2.24.112.25 "docker exec -i smartur-postgres psql -U postgres -d smartur" < bd.sql
+# ATARAXIA local: contenedor ataraxia-postgres, DB ataraxia
 ```
 
 **Any DB change must be applied to all three targets simultaneously**: local Docker, VPS, and `bd.sql`.

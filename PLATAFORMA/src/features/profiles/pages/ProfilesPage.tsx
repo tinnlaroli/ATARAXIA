@@ -68,7 +68,7 @@ export const ProfilesPage = () => {
                 <UserCircle className="size-5 mt-0.5 shrink-0" style={{ color: MODULE_COLORS.profiles }} />
                 <div>
                     <p className="text-sm font-semibold mb-0.5" style={{ color: 'var(--color-text)' }}>Perfiles de viajero</p>
-                    <p className="text-sm" style={{ color: 'var(--color-text-alt)' }}>Los perfiles agrupan preferencias de viaje recopiladas mediante el formulario inteligente. Se usan para personalizar las recomendaciones del motor de IA.</p>
+                    <p className="text-sm" style={{ color: 'var(--color-text-alt)' }}>Preferencias de bienestar y estilo de viaje del check-in turístico. El motor las combina con el perfil de estrés para recomendar destinos terapéuticos.</p>
                 </div>
             </div>
 

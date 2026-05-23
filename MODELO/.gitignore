@@ -45,7 +45,12 @@ Thumbs.db
 
 # Models & checkpoints
 models/*.joblib
+!models/stress_profile_rf.joblib
 models/*.pkl
+
+# Generated training merge / eval (rebuilt on train)
+data/wellness/entrenamiento_merged.csv
+models/wellness_eval_report.json
 
 # Results & temp data
 data/raw/

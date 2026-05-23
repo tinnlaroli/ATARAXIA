@@ -1,33 +1,35 @@
+name: ataraxia-api
+
 services:
     postgres:
         image: postgres:16-alpine
-        container_name: smartur-postgres
+        container_name: ataraxia-postgres
         restart: unless-stopped
         environment:
             POSTGRES_USER: ${DB_USER:-postgres}
             POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
-            POSTGRES_DB: ${DB_NAME:-smartur}
+            POSTGRES_DB: ${DB_NAME:-ataraxia}
         ports:
-            - '${DB_HOST_PORT:-5432}:5432'
+            - '${DB_HOST_PORT:-5433}:5432'
         volumes:
             - postgres_data:/var/lib/postgresql/data
             - ./bd.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
         healthcheck:
-            test: ['CMD-SHELL', 'pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-smartur}']
+            test: ['CMD-SHELL', 'pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-ataraxia}']
             interval: 10s
             timeout: 5s
             retries: 5
             start_period: 10s
         networks:
-            - smartur-net
+            - ataraxia-net
 
     redis:
         image: redis:7-alpine
-        container_name: smartur-redis
+        container_name: ataraxia-redis
         restart: unless-stopped
         command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-redispass}
         ports:
-            - '6380:6379'
+            - '${REDIS_HOST_PORT:-6381}:6379'
         volumes:
             - redis_data:/data
         healthcheck:
@@ -36,13 +38,13 @@ services:
             timeout: 5s
             retries: 5
         networks:
-            - smartur-net
+            - ataraxia-net
 
     api:
         build:
             context: .
             dockerfile: Dockerfile
-        container_name: smartur-api
+        container_name: ataraxia-api
         restart: unless-stopped
         env_file:
             - .env
@@ -52,7 +54,7 @@ services:
         ports:
             # Puerto interno del contenedor: 3000 (API)
             # Puerto externo configurable para evitar puertos bloqueados en host.
-            - '${API_BIND_IP:-0.0.0.0}:${API_HOST_PORT:-4000}:3000'
+            - '${API_BIND_IP:-0.0.0.0}:${API_HOST_PORT:-4100}:3000'
         depends_on:
             postgres:
                 condition: service_healthy
@@ -65,31 +67,34 @@ services:
             retries: 3
             start_period: 20s
         networks:
-            - smartur-net
+            - ataraxia-net
 
     grafana:
         image: grafana/grafana:latest
-        container_name: smartur-grafana
+        container_name: ataraxia-grafana
         restart: unless-stopped
         ports:
             # Puerto interno de Grafana: 3000
             # Puerto externo configurable para evitar conflictos/bloqueos.
-            - '127.0.0.1:${GRAFANA_HOST_PORT:-4001}:3000'
+            - '127.0.0.1:${GRAFANA_HOST_PORT:-4101}:3000'
         environment:
             - GF_SECURITY_ADMIN_USER=${GRAFANA_USER:-admin}
             - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
             - GF_USERS_ALLOW_SIGN_UP=false
-            - GF_SERVER_ROOT_URL=http://localhost:${GRAFANA_HOST_PORT:-4001}
+            - GF_SERVER_ROOT_URL=http://localhost:${GRAFANA_HOST_PORT:-4101}
         volumes:
             - grafana_data:/var/lib/grafana
         networks:
-            - smartur-net
+            - ataraxia-net
 
 volumes:
     postgres_data:
+        name: ataraxia_api_postgres_data
     redis_data:
+        name: ataraxia_redis_data
     grafana_data:
+        name: ataraxia_grafana_data
 
 networks:
-    smartur-net:
+    ataraxia-net:
         driver: bridge

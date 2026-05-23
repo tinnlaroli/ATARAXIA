@@ -8,7 +8,6 @@ faiss-cpu>=1.7.4
 scipy>=1.10
 matplotlib>=3.7
 pytest>=7.2
-kagglehub>=0.1
 psycopg2-binary>=2.9
-lightfm>=1.17
+pyyaml>=6.0
 

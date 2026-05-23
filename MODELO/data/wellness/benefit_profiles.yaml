@@ -1,0 +1,37 @@
+# Pesos de beneficio terapéutico por perfil de estrés (0-1 por dimensión del destino)
+# beneficio = suma ponderada de atributos alineados con la necesidad clínica del perfil
+
+Burnout:
+  description: Recuperación cognitiva — silencio, baja demanda, retiro
+  weights:
+    restauracion_pasiva: 0.45
+    nivel_aislamiento: 0.25
+    demanda_fisica: -0.35
+  category_bonus:
+    Retiro_Silencio: 0.12
+    Spa: 0.10
+    Termal: 0.08
+
+Fatiga_Fisica:
+  description: Recuperación corporal — termal, spa, mínimo esfuerzo
+  weights:
+    restauracion_pasiva: 0.35
+    demanda_fisica: -0.45
+    nivel_aislamiento: 0.15
+  category_bonus:
+    Termal: 0.15
+    Spa: 0.12
+    Lago: 0.08
+
+Hiperactividad_Ansiosa:
+  description: Regulación — aislamiento, estructura pasiva, evitar sobre-estimulación activa
+  weights:
+    nivel_aislamiento: 0.35
+    restauracion_pasiva: 0.30
+    demanda_fisica: -0.25
+  category_bonus:
+    Retiro_Silencio: 0.12
+    Bosque: 0.10
+    Montaña: 0.06
+  category_penalty:
+    Ecoturismo_Activo: -0.15

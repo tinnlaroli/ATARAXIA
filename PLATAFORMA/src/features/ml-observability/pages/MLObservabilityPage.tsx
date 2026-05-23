@@ -192,7 +192,8 @@ export const MLObservabilityPage = () => {
     const metrics        = data?.latest_metrics;
     const sessions       = data?.daily_sessions ?? [];
     const ctr            = data?.ctr_30d;
-    const hasAlgorithms  = metrics != null && Object.keys(metrics.algorithms ?? {}).length > 0;
+    const wellnessMetrics = metrics && 'accuracy' in metrics ? metrics : null;
+    const hasAlgorithms  = metrics != null && 'algorithms' in metrics && Object.keys((metrics as { algorithms?: Record<string, unknown> }).algorithms ?? {}).length > 0;
     const ranking        = metrics?.ranking;
     const localBlend     = metrics?.local_blend;
 
@@ -357,11 +358,22 @@ export const MLObservabilityPage = () => {
                             </div>
                         ) : modelStatus ? (
                             <div className="flex flex-wrap gap-2">
+                                {modelStatus.mode === 'wellness' || modelStatus.stress_model_loaded != null ? (
+                                    <>
+                                        <ModelBadge label="Clasificador estrés (RF)" ready={Boolean(modelStatus.stress_model_loaded ?? modelStatus.rf_ready)} />
+                                        <ModelBadge label={`Destinos (${modelStatus.destinations_count ?? data?.wellness_destinations ?? 0})`} ready={(modelStatus.destinations_count ?? data?.wellness_destinations ?? 0) > 0} />
+                                    </>
+                                ) : (
+                                    <>
                                 <ModelBadge label="CF / SVD" ready={modelStatus.engine_ready && modelStatus.svd_ready} />
                                 <ModelBadge label="Random Forest" ready={modelStatus.rf_ready} />
                                 <ModelBadge label="Gradient Boosting" ready={modelStatus.gbm_ready} />
                                 <ModelBadge label="LightFM WARP" ready={modelStatus.lightfm_ready} />
-                                <ModelBadge label="Content TF-IDF" ready={modelStatus.content_ready} />
+                                    </>
+                                )}
+                                {modelStatus.mode !== 'wellness' && modelStatus.stress_model_loaded == null && (
+                                    <ModelBadge label="Content TF-IDF" ready={modelStatus.content_ready} />
+                                )}
                             </div>
                         ) : null}
                     </div>
@@ -374,9 +386,19 @@ export const MLObservabilityPage = () => {
                     ) : (
                         <>
                             <KpiCard
-                                label={copy.kpiRmse}
-                                value={bestRmse != null ? bestRmse.toFixed(3) : '—'}
-                                sub={copy.kpiRmseSub}
+                                label={wellnessMetrics?.accuracy != null ? 'Accuracy clasificador' : copy.kpiRmse}
+                                value={
+                                    wellnessMetrics?.accuracy != null
+                                        ? `${(wellnessMetrics.accuracy * 100).toFixed(1)}%`
+                                        : bestRmse != null
+                                          ? bestRmse.toFixed(3)
+                                          : '—'
+                                }
+                                sub={
+                                    wellnessMetrics?.macro_f1 != null
+                                        ? `Macro-F1 ${(wellnessMetrics.macro_f1 * 100).toFixed(1)}%`
+                                        : copy.kpiRmseSub
+                                }
                                 icon={BarChart2}
                                 accent={DASHBOARD_COLORS.purple}
                             />
