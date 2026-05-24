@@ -16,7 +16,7 @@ interface Props {
 }
 
 const selectClass =
-    'w-full rounded-lg border border-zinc-300 dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white px-4 py-2 focus:ring-2 focus:ring-violet-500 outline-none transition-all cursor-pointer disabled:opacity-50';
+    'w-full rounded-lg border border-zinc-300 dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white px-4 py-2 focus:ring-2 focus:ring-wellness-500 outline-none transition-all cursor-pointer disabled:opacity-50';
 
 export default function CreateTouristServiceModal({ onClose, onSubmit }: Props) {
     const { lang } = useLanguage();
@@ -100,11 +100,11 @@ export default function CreateTouristServiceModal({ onClose, onSubmit }: Props) 
     };
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/60 z-50 backdrop-blur-sm animate-in fade-in duration-200">
-            <div className="bg-white dark:bg-[#121214] rounded-xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all">
-                <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 px-6 py-4">
+        <div className="fixed inset-0 flex items-center justify-center bg-[var(--overlay-scrim)] z-50 backdrop-blur-sm animate-in fade-in duration-200">
+            <div className="wellness-modal rounded-xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all">
+                <div className="flex items-center justify-between border-b border-[var(--color-border)] px-6 py-4">
                     <h2 className="text-lg font-semibold text-zinc-900 dark:text-white flex items-center gap-2">
-                        <Wrench className="size-5 text-violet-500" />
+                        <Wrench className="size-5 text-wellness-500" />
                         {mod.touristServices.createTitle}
                     </h2>
                     <button
@@ -126,7 +126,7 @@ export default function CreateTouristServiceModal({ onClose, onSubmit }: Props) 
                             name="name"
                             value={formData.name}
                             onChange={handleFieldChange}
-                            className={`w-full rounded-lg border px-4 py-2 focus:ring-2 outline-none transition-all dark:bg-zinc-800/50 dark:text-white ${errors.name ? 'border-red-400 focus:ring-red-400 dark:border-red-500' : 'border-zinc-300 dark:border-zinc-700 focus:ring-violet-500'}`}
+                            className={`w-full rounded-lg border px-4 py-2 focus:ring-2 outline-none transition-all dark:bg-zinc-800/50 dark:text-white ${errors.name ? 'border-red-400 focus:ring-red-400 dark:border-red-500' : 'border-zinc-300 dark:border-zinc-700 focus:ring-wellness-500'}`}
                             placeholder={mod.touristServices.serviceNamePh}
                         />
                         {errors.name && <p className="flex items-center gap-1 text-xs text-red-500 mt-0.5"><AlertCircle className="size-3" />{errors.name}</p>}
@@ -143,7 +143,7 @@ export default function CreateTouristServiceModal({ onClose, onSubmit }: Props) 
                             value={formData.description}
                             onChange={handleFieldChange}
                             rows={3}
-                            className="w-full rounded-lg border border-zinc-300 dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white px-4 py-2 focus:ring-2 focus:ring-violet-500 outline-none transition-all resize-none"
+                            className="w-full rounded-lg border border-zinc-300 dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white px-4 py-2 focus:ring-2 focus:ring-wellness-500 outline-none transition-all resize-none"
                             placeholder={mod.touristServices.descriptionPh}
                         />
                     </div>
@@ -154,7 +154,7 @@ export default function CreateTouristServiceModal({ onClose, onSubmit }: Props) 
                             {mod.touristServices.serviceImage}
                         </label>
                         <div className="flex items-center gap-3">
-                            <label className="inline-flex items-center gap-2 rounded-lg border border-dashed border-zinc-300 dark:border-zinc-700 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 cursor-pointer hover:border-violet-500/60 hover:text-violet-500 transition-colors">
+                            <label className="inline-flex items-center gap-2 rounded-lg border border-dashed border-zinc-300 dark:border-zinc-700 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 cursor-pointer hover:border-wellness-500/60 hover:text-wellness-500 transition-colors">
                                 <ImagePlus className="size-4" />
                                 {mod.touristServices.uploadImage}
                                 <input
@@ -171,7 +171,7 @@ export default function CreateTouristServiceModal({ onClose, onSubmit }: Props) 
                             </span>
                         </div>
                         {imagePreview && (
-                            <div className="mt-3 overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-800">
+                            <div className="mt-3 overflow-hidden rounded-lg border border-[var(--color-border)]">
                                 <img src={imagePreview} alt="Previsualizacion" className="h-32 w-full object-cover" />
                             </div>
                         )}
@@ -251,7 +251,7 @@ export default function CreateTouristServiceModal({ onClose, onSubmit }: Props) 
                         )}
                     </div>
 
-                    <div className="flex justify-end gap-3 pt-6 border-t border-zinc-200 dark:border-zinc-800">
+                    <div className="flex justify-end gap-3 pt-6 border-t border-[var(--color-border)]">
                         <button
                             type="button"
                             onClick={onClose}
@@ -262,7 +262,7 @@ export default function CreateTouristServiceModal({ onClose, onSubmit }: Props) 
                         <button
                             type="submit"
                             disabled={loadingOptions || formData.id_company === 0 || formData.id_location === 0}
-                            className="rounded-lg bg-violet-600 px-5 py-2 text-sm font-medium text-white shadow-lg hover:bg-violet-700 active:scale-[0.98] transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="rounded-lg bg-wellness-600 px-5 py-2 text-sm font-medium text-white shadow-lg hover:bg-wellness-600 active:scale-[0.98] transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             <Plus className="size-4" />
                             {mod.touristServices.createSubmit}

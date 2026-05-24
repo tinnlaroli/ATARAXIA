@@ -31,13 +31,13 @@ const DashboardLoader = ({ label }: { label: string }) => (
         <div className="relative size-14">
             <div
                 className="absolute inset-0 animate-ping rounded-full"
-                style={{ background: `${DASHBOARD_COLORS.purple}33` }}
+                style={{ background: `${DASHBOARD_COLORS.chart1}33` }}
             />
             <div
                 className="relative flex size-14 items-center justify-center rounded-full"
-                style={{ background: `${DASHBOARD_COLORS.purple}18` }}
+                style={{ background: `${DASHBOARD_COLORS.chart1}18` }}
             >
-                <Loader2 className="size-7 animate-spin" style={{ color: DASHBOARD_COLORS.purple }} />
+                <Loader2 className="size-7 animate-spin" style={{ color: DASHBOARD_COLORS.chart1 }} />
             </div>
         </div>
         <p className="text-sm" style={{ color: 'var(--color-text-alt)' }}>
@@ -251,7 +251,7 @@ export const Home = () => {
                         type="button"
                         onClick={() => { void fetchStats('initial'); }}
                         className="mt-5 inline-flex items-center gap-2 rounded-2xl px-5 py-2 text-sm font-semibold text-white transition hover:opacity-90"
-                        style={{ background: DASHBOARD_COLORS.purple }}
+                        style={{ background: DASHBOARD_COLORS.chart1 }}
                     >
                         <RefreshCw className="h-3.5 w-3.5" />
                         {copy.home.retry}

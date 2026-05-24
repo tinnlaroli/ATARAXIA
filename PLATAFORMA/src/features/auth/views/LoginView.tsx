@@ -6,7 +6,6 @@ import { authApi } from '../authApi';
 import { useToast } from '../../../shared/context/ToastContext';
 import SmartURLoader from '../components/SmartURLoader';
 import { useAuthModal, type AuthStep } from '../context/AuthModalContext';
-import { useTheme } from '../../../contexts/ThemeContext';
 import { useLanguage, useUserPreferences } from '../../../contexts/LanguageContext';
 
 interface LoginViewProps {
@@ -30,9 +29,6 @@ export const LoginView = ({ onSwitchStep, onClose }: LoginViewProps) => {
     const [isLoginReady, setIsLoginReady] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const pendingActionRef = useRef<(() => void) | null>(null);
-    const { theme } = useTheme();
-    const isDark = theme === 'dark';
-
     const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
@@ -97,17 +93,17 @@ export const LoginView = ({ onSwitchStep, onClose }: LoginViewProps) => {
                 />
             )}
             <div className="mb-6 flex justify-center">
-                <img src="/image.png" alt="Smartur" className="h-12 w-auto object-contain" />
+                <img src="/image.png" alt="ATARAXIA" className="h-12 w-auto object-contain" />
             </div>
 
             <div className="mb-8 text-center">
-                <h2 className={`text-2xl font-semibold ${isDark ? 'text-white' : 'text-zinc-900'}`}>{t('auth.login.title')}</h2>
-                <p className={`mt-1 text-sm ${isDark ? 'text-zinc-400' : 'text-zinc-500'}`}>{t('auth.login.subtitle')}</p>
+                <h2 className="text-2xl font-semibold" style={{ color: 'var(--color-text)' }}>{t('auth.login.title')}</h2>
+                <p className="mt-1 text-sm wellness-muted">{t('auth.login.subtitle')}</p>
             </div>
 
             <form onSubmit={handleLogin} className="space-y-5">
                 <div className="space-y-1.5">
-                    <label htmlFor="user-email" className={`text-xs font-medium tracking-wider uppercase ${isDark ? 'text-zinc-400' : 'text-zinc-600'}`}>
+                    <label htmlFor="user-email" className="text-xs font-medium tracking-wider uppercase wellness-muted">
                         {t('auth.login.email.label')}
                     </label>
                     <div className="relative">
@@ -119,18 +115,15 @@ export const LoginView = ({ onSwitchStep, onClose }: LoginViewProps) => {
                             value={formData.email}
                             onChange={handleFieldChange}
                             placeholder={t('auth.login.email.placeholder')}
-                            className={`w-full rounded-lg border py-2.5 pr-4 pl-9 text-sm transition-colors focus:border-[var(--color-purple)] focus:ring-1 focus:ring-[var(--color-purple)] focus:outline-none ${
-                                isDark
-                                    ? 'border-zinc-800 bg-zinc-950 text-white placeholder:text-zinc-500'
-                                    : 'border-zinc-300 bg-white text-zinc-900 placeholder:text-zinc-400'
-                            }`}
+                            className="w-full rounded-lg border py-2.5 pr-4 pl-9 text-sm transition-colors focus:border-[var(--color-primary-deep)] focus:ring-1 focus:ring-[var(--color-primary-deep)] focus:outline-none wellness-card-solid"
+                            style={{ color: 'var(--color-text)' }}
                         />
-                        <Mail className={`absolute top-1/2 left-3 size-4 -translate-y-1/2 ${isDark ? 'text-zinc-500' : 'text-zinc-400'}`} />
+                        <Mail className="absolute top-1/2 left-3 size-4 -translate-y-1/2 wellness-muted" />
                     </div>
                 </div>
 
                 <div className="space-y-1.5">
-                    <label htmlFor="user-password" className={`text-xs font-medium tracking-wider uppercase ${isDark ? 'text-zinc-400' : 'text-zinc-600'}`}>
+                    <label htmlFor="user-password" className="text-xs font-medium tracking-wider uppercase wellness-muted">
                         {t('auth.login.password.label')}
                     </label>
                     <div className="relative">
@@ -142,19 +135,14 @@ export const LoginView = ({ onSwitchStep, onClose }: LoginViewProps) => {
                             value={formData.password}
                             onChange={handleFieldChange}
                             placeholder="………………"
-                            className={`w-full rounded-lg border py-2.5 pr-10 pl-9 text-sm transition-colors focus:border-[var(--color-purple)] focus:ring-1 focus:ring-[var(--color-purple)] focus:outline-none ${
-                                isDark
-                                    ? 'border-zinc-800 bg-zinc-950 text-white placeholder:text-zinc-500'
-                                    : 'border-zinc-300 bg-white text-zinc-900 placeholder:text-zinc-400'
-                            }`}
+                            className="w-full rounded-lg border py-2.5 pr-10 pl-9 text-sm transition-colors focus:border-[var(--color-primary-deep)] focus:ring-1 focus:ring-[var(--color-primary-deep)] focus:outline-none wellness-card-solid"
+                            style={{ color: 'var(--color-text)' }}
                         />
-                        <Lock className={`absolute top-1/2 left-3 size-4 -translate-y-1/2 ${isDark ? 'text-zinc-500' : 'text-zinc-400'}`} />
+                        <Lock className="absolute top-1/2 left-3 size-4 -translate-y-1/2 wellness-muted" />
                         <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className={`absolute top-1/2 right-3 -translate-y-1/2 rounded-md p-1 transition-colors ${
-                                isDark ? 'text-zinc-500 hover:text-zinc-300' : 'text-zinc-400 hover:text-zinc-600'
-                            }`}
+                            className="absolute top-1/2 right-3 -translate-y-1/2 rounded-md p-1 transition-colors wellness-muted hover:opacity-80"
                         >
                             {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
                         </button>
@@ -165,7 +153,7 @@ export const LoginView = ({ onSwitchStep, onClose }: LoginViewProps) => {
                     <button
                         type="button"
                         onClick={() => onSwitchStep('forgotPassword')}
-                        className="flex items-center gap-1 text-xs text-[var(--color-purple)] transition-colors hover:opacity-80"
+                        className="flex items-center gap-1 text-xs wellness-accent-text transition-colors hover:opacity-80"
                     >
                         {t('auth.login.forgot')}
                     </button>
@@ -174,13 +162,11 @@ export const LoginView = ({ onSwitchStep, onClose }: LoginViewProps) => {
                 <button
                     type="submit"
                     disabled={isLoading}
-                    className={`w-full rounded-lg bg-[var(--color-purple)] px-4 py-2.5 text-sm font-medium text-white transition-colors hover:opacity-90 focus:ring-2 focus:ring-[var(--color-purple)] focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 ${
-                        isDark ? 'focus:ring-offset-zinc-900' : 'focus:ring-offset-white'
-                    }`}
+                    className="w-full rounded-lg px-4 py-2.5 text-sm font-medium wellness-btn-primary transition-colors focus:ring-2 focus:ring-[var(--color-primary-deep)] focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                 >
                     {isLoading ? (
                         <div className="flex items-center justify-center gap-2">
-                            <div className="size-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                            <div className="size-4 animate-spin rounded-full border-2 border-[var(--color-forest)]/30 border-t-[var(--color-forest)]" />
                             <span>{t('auth.login.submitting')}</span>
                         </div>
                     ) : (
@@ -193,21 +179,20 @@ export const LoginView = ({ onSwitchStep, onClose }: LoginViewProps) => {
 
                 <div className="relative my-6">
                     <div className="absolute inset-0 flex items-center">
-                        <div className={`w-full border-t ${isDark ? 'border-zinc-800' : 'border-zinc-200'}`}></div>
+                        <div className="w-full border-t" style={{ borderColor: 'var(--color-border)' }} />
                     </div>
                     <div className="relative flex justify-center text-xs uppercase">
-                        <span className={`${isDark ? 'bg-zinc-900 text-zinc-500' : 'bg-white text-zinc-500'} px-4`}>{t('auth.login.first_time')}</span>
+                        <span className="px-4 wellness-muted" style={{ background: 'var(--color-bg)' }}>
+                            {t('auth.login.first_time')}
+                        </span>
                     </div>
                 </div>
 
                 <button
                     type="button"
                     onClick={() => onSwitchStep('signup')}
-                    className={`flex w-full items-center justify-center gap-2 rounded-lg border bg-transparent px-4 py-2.5 text-sm font-medium transition-colors focus:ring-2 focus:ring-[var(--color-purple)] focus:ring-offset-2 focus:outline-none ${
-                        isDark
-                            ? 'border-zinc-800 text-zinc-300 hover:bg-zinc-800 hover:text-white focus:ring-offset-zinc-900'
-                            : 'border-zinc-300 text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900 focus:ring-offset-white'
-                    }`}
+                    className="flex w-full items-center justify-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-medium transition-colors focus:ring-2 focus:ring-[var(--color-primary-deep)] focus:outline-none wellness-card-solid"
+                    style={{ color: 'var(--color-text)' }}
                 >
                     <UserPlus className="size-4" />
                     <span>{t('auth.login.create')}</span>

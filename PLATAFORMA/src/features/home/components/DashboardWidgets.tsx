@@ -134,10 +134,10 @@ const cardSurface = {
 } as const;
 
 const TONE_STYLES: Record<DashboardMetric['tone'], { accent: string; glow: string }> = {
-    primary: { accent: DASHBOARD_COLORS.purple, glow: `${DASHBOARD_COLORS.purple}20` },
+    primary: { accent: DASHBOARD_COLORS.chart1, glow: `${DASHBOARD_COLORS.chart1}20` },
     success: { accent: DASHBOARD_COLORS.success, glow: `${DASHBOARD_COLORS.success}1a` },
     warning: { accent: DASHBOARD_COLORS.warning, glow: `${DASHBOARD_COLORS.warning}1a` },
-    neutral: { accent: DASHBOARD_COLORS.cyan, glow: `${DASHBOARD_COLORS.cyan}1a` },
+    neutral: { accent: DASHBOARD_COLORS.chart2, glow: `${DASHBOARD_COLORS.chart2}1a` },
 };
 
 const METRIC_META: Record<DashboardMetric['id'], { icon: ElementType; eyebrowKey: DashboardMetric['id'] }> = {
@@ -270,7 +270,7 @@ const ToggleRow = ({
         </div>
         <div
             className="flex h-7 w-12 shrink-0 items-center rounded-full p-1 transition"
-            style={{ background: checked ? DASHBOARD_COLORS.purple : 'rgba(var(--rgb-text), 0.12)' }}
+            style={{ background: checked ? DASHBOARD_COLORS.chart1 : 'rgba(var(--rgb-text), 0.12)' }}
         >
             <span
                 className="size-5 rounded-full bg-white shadow-sm transition"
@@ -304,9 +304,9 @@ const PanelCard = ({
                 <div className="flex items-center gap-2">
                     <div
                         className="flex size-9 shrink-0 items-center justify-center rounded-2xl"
-                        style={{ background: `${DASHBOARD_COLORS.purple}16` }}
+                        style={{ background: `${DASHBOARD_COLORS.chart1}16` }}
                     >
-                        <Icon className="size-4" style={{ color: DASHBOARD_COLORS.purple }} />
+                        <Icon className="size-4" style={{ color: DASHBOARD_COLORS.chart1 }} />
                     </div>
                     <div className="min-w-0">
                         <h2 className="truncate text-sm font-bold" style={{ color: 'var(--color-text)' }}>
@@ -424,7 +424,7 @@ export const DashboardLoadingShell = ({ density }: { density: DensityMode }) => 
                             aria-hidden
                             className="absolute inset-x-10 bottom-12 top-10 rounded-[20px] border-b-2 sy-shimmer-pulse"
                             style={{
-                                borderBottomColor: DASHBOARD_COLORS.cyan,
+                                borderBottomColor: DASHBOARD_COLORS.chart2,
                                 borderBottomStyle: 'solid',
                                 animationDelay: '0.3s',
                             }}
@@ -476,7 +476,7 @@ const TrendTooltip = ({ active, label, payload }: TrendTooltipProps) => {
             <div className="mt-2 space-y-1.5">
                 {payload.map((item) => (
                     <div key={item.dataKey ?? item.name} className="flex items-center gap-2 text-xs">
-                        <span className="h-2.5 w-2.5 rounded-full" style={{ background: item.color ?? DASHBOARD_COLORS.purple }} />
+                        <span className="h-2.5 w-2.5 rounded-full" style={{ background: item.color ?? DASHBOARD_COLORS.chart1 }} />
                         <span style={{ color: 'var(--color-text-alt)' }}>{item.name}</span>
                         <span className="ml-auto font-semibold" style={{ color: 'var(--color-text)' }}>
                             {typeof item.value === 'number' ? item.value.toLocaleString(locale, { maximumFractionDigits: 1 }) : item.value}
@@ -524,9 +524,9 @@ export const DashboardHeader = ({
                                 onClick={onOpenCatalog}
                                 className="inline-flex items-center gap-2 rounded-2xl border px-4 py-2 text-sm font-semibold transition hover:opacity-90"
                                 style={{
-                                    borderColor: DASHBOARD_COLORS.purple,
-                                    background: `${DASHBOARD_COLORS.purple}12`,
-                                    color: DASHBOARD_COLORS.purple,
+                                    borderColor: DASHBOARD_COLORS.chart1,
+                                    background: `${DASHBOARD_COLORS.chart1}12`,
+                                    color: DASHBOARD_COLORS.chart1,
                                 }}
                             >
                                 <Plus className="size-4" />
@@ -556,7 +556,7 @@ export const DashboardHeader = ({
                                 type="button"
                                 onClick={onToggleEditing}
                                 className="inline-flex items-center gap-2 rounded-2xl px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90"
-                                style={{ background: DASHBOARD_COLORS.purple }}
+                                style={{ background: DASHBOARD_COLORS.chart1 }}
                             >
                                 <Check className="size-4" />
                                 {copy.editDone}
@@ -571,7 +571,7 @@ export const DashboardHeader = ({
                             type="button"
                             onClick={onRefresh}
                             className="inline-flex items-center gap-2 rounded-2xl px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90"
-                            style={{ background: DASHBOARD_COLORS.purple }}
+                            style={{ background: DASHBOARD_COLORS.chart1 }}
                         >
                             <RefreshCw className={`size-4 ${refreshing ? 'animate-spin' : ''}`} />
                             {copy.refresh}
@@ -846,7 +846,7 @@ export const OperationalMixCard = ({
                                         <p className="text-xs font-semibold" style={{ color: 'var(--color-text)' }}>
                                             {point.payload?.name}
                                         </p>
-                                        <p className="mt-1 text-sm font-bold" style={{ color: point.color ?? DASHBOARD_COLORS.purple }}>
+                                        <p className="mt-1 text-sm font-bold" style={{ color: point.color ?? DASHBOARD_COLORS.chart1 }}>
                                             {(Number(point.value) || 0).toLocaleString(locale)}
                                         </p>
                                     </div>
@@ -902,19 +902,19 @@ export const TrendChartCard = ({
                 <div className="flex flex-wrap items-center justify-end gap-2">
                     <span
                         className={pillClassName}
-                        style={{ borderColor: `${DASHBOARD_COLORS.purple}40`, background: `${DASHBOARD_COLORS.purple}10`, color: DASHBOARD_COLORS.purple }}
+                        style={{ borderColor: `${DASHBOARD_COLORS.chart1}40`, background: `${DASHBOARD_COLORS.chart1}10`, color: DASHBOARD_COLORS.chart1 }}
                     >
                         {timeRangeLabel[timeRange]}
                     </span>
                     {(chartMode === 'mixed' || chartMode === 'volume') && (
                         <span className={pillClassName} style={{ borderColor: 'var(--color-border)', color: 'var(--color-text-alt)' }}>
-                            <span className="size-2 rounded-full" style={{ background: DASHBOARD_COLORS.purple }} />
+                            <span className="size-2 rounded-full" style={{ background: DASHBOARD_COLORS.chart1 }} />
                             {copy.evaluationsLegend}
                         </span>
                     )}
                     {(chartMode === 'mixed' || chartMode === 'score') && (
                         <span className={pillClassName} style={{ borderColor: 'var(--color-border)', color: 'var(--color-text-alt)' }}>
-                            <span className="size-2 rounded-full" style={{ background: DASHBOARD_COLORS.cyan }} />
+                            <span className="size-2 rounded-full" style={{ background: DASHBOARD_COLORS.chart2 }} />
                             {copy.averageScoreLegend}
                         </span>
                     )}
@@ -980,7 +980,7 @@ export const TrendChartCard = ({
                                         yAxisId="left"
                                         dataKey="evaluations"
                                         name={copy.evaluationsLegend}
-                                        fill={DASHBOARD_COLORS.purple}
+                                        fill={DASHBOARD_COLORS.chart1}
                                         radius={[10, 10, 3, 3]}
                                         maxBarSize={density === 'compact' ? 18 : 22}
                                         minPointSize={6}
@@ -993,11 +993,11 @@ export const TrendChartCard = ({
                                         type="monotone"
                                         dataKey="averageScore"
                                         name={copy.averageScoreLegend}
-                                        stroke={DASHBOARD_COLORS.cyan}
+                                        stroke={DASHBOARD_COLORS.chart2}
                                         strokeWidth={chartMode === 'score' ? 3 : 2.5}
                                         opacity={chartMode === 'volume' ? 0.5 : 1}
-                                        dot={{ r: 3.5, fill: DASHBOARD_COLORS.cyan, stroke: 'var(--color-bg)', strokeWidth: 1.5 }}
-                                        activeDot={{ r: 6, fill: DASHBOARD_COLORS.cyan, stroke: 'var(--color-bg)', strokeWidth: 2 }}
+                                        dot={{ r: 3.5, fill: DASHBOARD_COLORS.chart2, stroke: 'var(--color-bg)', strokeWidth: 1.5 }}
+                                        activeDot={{ r: 6, fill: DASHBOARD_COLORS.chart2, stroke: 'var(--color-bg)', strokeWidth: 2 }}
                                         isAnimationActive
                                         animationDuration={1250}
                                         animationEasing="ease-out"
@@ -1120,7 +1120,7 @@ export const TopServicesCard = ({
                             <div className="flex items-start gap-3">
                                 <div
                                     className="flex size-8 shrink-0 items-center justify-center rounded-2xl text-xs font-bold text-white"
-                                    style={{ background: DASHBOARD_COLORS.purple }}
+                                    style={{ background: DASHBOARD_COLORS.chart1 }}
                                 >
                                     {index + 1}
                                 </div>
@@ -1319,7 +1319,7 @@ export const TopCompaniesCard = ({
                                 <div className="flex items-center gap-2.5">
                                     <div
                                         className="flex size-7 shrink-0 items-center justify-center rounded-xl text-xs font-bold text-white"
-                                        style={{ background: DASHBOARD_COLORS.purple }}
+                                        style={{ background: DASHBOARD_COLORS.chart1 }}
                                     >
                                         {index + 1}
                                     </div>

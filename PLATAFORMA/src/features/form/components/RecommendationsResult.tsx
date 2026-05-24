@@ -617,7 +617,7 @@ export const RecommendationsResult: React.FC<RecommendationsResultProps> = ({ re
             <div className="animate-in zoom-in-95 relative flex h-full sm:h-[92vh] sm:max-h-[860px] w-full sm:max-w-[1380px] flex-col overflow-hidden sm:rounded-[2rem] border-0 sm:border border-zinc-200 bg-white shadow-2xl duration-300 dark:border-zinc-800 dark:bg-zinc-950">
                 <div className="flex items-start justify-between gap-3 border-b border-zinc-200 bg-white/85 p-4 sm:p-6 backdrop-blur-xl md:p-8 dark:border-zinc-800 dark:bg-zinc-950/80">
                     <div className="flex items-start gap-4">
-                        <div className="hidden sm:flex size-12 items-center justify-center rounded-2xl bg-violet-600 shadow-lg shadow-violet-500/20">
+                        <div className="hidden sm:flex size-12 items-center justify-center rounded-2xl bg-wellness-600 shadow-lg shadow-wellness-500/20">
                             <MapPin className="size-6 text-white" />
                         </div>
                         <div className="space-y-2">
@@ -633,7 +633,7 @@ export const RecommendationsResult: React.FC<RecommendationsResultProps> = ({ re
                                     {locatedRecommendations.length} con ubicacion en mapa
                                 </span>
                                 {selectedRecommendation && (
-                                    <span className="rounded-full border border-violet-200 bg-violet-50 px-3 py-1 text-[11px] font-semibold text-violet-700 dark:border-violet-500/20 dark:bg-violet-500/10 dark:text-violet-300">
+                                    <span className="rounded-full border border-wellness-200 bg-wellness-50 px-3 py-1 text-[11px] font-semibold text-wellness-600 dark:border-wellness-500/20 dark:bg-wellness-500/10 dark:text-wellness-300">
                                         Seleccion actual: {selectedRecommendation.title || 'Destino Turistico'}
                                     </span>
                                 )}
@@ -826,7 +826,7 @@ export const RecommendationsResult: React.FC<RecommendationsResultProps> = ({ re
                                             onBlur={() => setHoveredIndex((current) => (current === index ? null : current))}
                                             className={`group relative w-full overflow-hidden rounded-[26px] border text-left transition-all duration-300 ${
                                                 isSelected
-                                                    ? 'border-violet-400/60 ring-2 ring-violet-500/25 shadow-[0_24px_60px_-28px_rgba(139,92,246,0.55)]'
+                                                    ? 'border-wellness-400/60 ring-2 ring-wellness-500/25 shadow-[0_24px_60px_-28px_rgba(139,92,246,0.55)]'
                                                     : isActive
                                                       ? 'border-zinc-300 shadow-lg dark:border-zinc-700'
                                                       : 'border-zinc-200 hover:border-zinc-300 dark:border-zinc-800 dark:hover:border-zinc-700'
@@ -844,7 +844,7 @@ export const RecommendationsResult: React.FC<RecommendationsResultProps> = ({ re
                                                             loading="lazy"
                                                         />
                                                     ) : (
-                                                        <div className="absolute inset-0 bg-violet-600/20 dark:bg-violet-500/25" />
+                                                        <div className="absolute inset-0 bg-wellness-600/20 dark:bg-wellness-500/25" />
                                                     )}
                                                     {!recommendation.image_url && (
                                                         <div className="absolute inset-0 bg-black/30" />
@@ -866,7 +866,7 @@ export const RecommendationsResult: React.FC<RecommendationsResultProps> = ({ re
                                                                     Recomendacion #{recommendation.rank}
                                                                 </span>
                                                             </div>
-                                                            <h4 className="line-clamp-2 text-lg font-semibold text-zinc-950 transition-colors group-hover:text-violet-600 dark:text-zinc-100 dark:group-hover:text-violet-300">
+                                                            <h4 className="line-clamp-2 text-lg font-semibold text-zinc-950 transition-colors group-hover:text-wellness-600 dark:text-zinc-100 dark:group-hover:text-wellness-300">
                                                                 {recommendation.title || 'Destino Turistico'}
                                                             </h4>
                                                         </div>
@@ -902,7 +902,7 @@ export const RecommendationsResult: React.FC<RecommendationsResultProps> = ({ re
                                                                 {recommendation.locationLabel || 'No se encontro una ubicacion exacta en el catalogo'}
                                                             </span>
                                                         </div>
-                                                        <span className="font-semibold text-violet-600 dark:text-violet-300">
+                                                        <span className="font-semibold text-wellness-600 dark:text-wellness-300">
                                                             {isSelected ? 'Seleccionado' : isActive ? 'En foco' : 'Ver en mapa'}
                                                         </span>
                                                     </div>
@@ -927,7 +927,7 @@ export const RecommendationsResult: React.FC<RecommendationsResultProps> = ({ re
                         </button>
                         <button
                             onClick={handleShare}
-                            className="flex items-center gap-2 rounded-xl border border-violet-200 bg-violet-50 px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base font-semibold text-violet-700 transition-all hover:bg-violet-100 active:scale-95 dark:border-violet-500/20 dark:bg-violet-500/10 dark:text-violet-300 dark:hover:bg-violet-500/15"
+                            className="flex items-center gap-2 rounded-xl border border-wellness-200 bg-wellness-50 px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base font-semibold text-wellness-600 transition-all hover:bg-wellness-100 active:scale-95 dark:border-wellness-500/20 dark:bg-wellness-500/10 dark:text-wellness-300 dark:hover:bg-wellness-500/15"
                         >
                             <Share2 className="size-4 sm:size-5" />
                             <span>Compartir</span>
@@ -935,7 +935,7 @@ export const RecommendationsResult: React.FC<RecommendationsResultProps> = ({ re
                     </div>
                     <button
                         onClick={onClose}
-                        className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-violet-600 px-8 sm:px-10 py-2.5 sm:py-3 text-sm sm:text-base font-semibold text-white shadow-lg shadow-violet-500/25 transition-all hover:bg-violet-500 active:scale-95"
+                        className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-wellness-600 px-8 sm:px-10 py-2.5 sm:py-3 text-sm sm:text-base font-semibold text-white shadow-lg shadow-wellness-500/25 transition-all hover:bg-wellness-500 active:scale-95"
                     >
                         <span>Finalizar</span>
                         <ArrowRight className="size-5" />

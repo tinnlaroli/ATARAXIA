@@ -30,11 +30,11 @@ const UserDetailModal: React.FC<Props> = ({ isOpen, onClose, userId, updateUser 
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-            <div className="animate-in fade-in zoom-in-95 w-full max-w-md overflow-hidden rounded-xl bg-white shadow-2xl duration-200 dark:bg-[#121214]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--overlay-scrim)] backdrop-blur-sm">
+            <div className="animate-in fade-in zoom-in-95 wellness-modal w-full max-w-md overflow-hidden rounded-xl shadow-2xl duration-200">
                 <div className="flex items-center justify-between border-b border-zinc-200 px-6 py-4 dark:border-zinc-800">
                     <h2 className="flex items-center gap-2 text-lg font-semibold text-zinc-900 dark:text-white">
-                        <UserIcon className="size-5 text-violet-500" />
+                        <UserIcon className="size-5 text-wellness-500" />
                         {mod.users.detailTitle}
                     </h2>                    <button onClick={onClose} className="rounded-lg p-1 text-zinc-400 transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800">
                         <X className="size-5" />
@@ -44,7 +44,7 @@ const UserDetailModal: React.FC<Props> = ({ isOpen, onClose, userId, updateUser 
                 <div className="p-6">
                     {isLoading && (
                         <div className="flex justify-center py-8">
-                            <div className="size-8 animate-spin rounded-full border-4 border-zinc-200 border-t-violet-600 dark:border-zinc-700 dark:border-t-violet-500"></div>
+                            <div className="size-8 animate-spin rounded-full border-4 border-zinc-200 border-t-wellness-600 dark:border-zinc-700 dark:border-t-wellness-500"></div>
                         </div>
                     )}
 
@@ -87,7 +87,7 @@ const UserDetailModal: React.FC<Props> = ({ isOpen, onClose, userId, updateUser 
                                 </span>                                <span
                                     className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${
                                         user.role_id === 1
-                                            ? 'bg-violet-100 text-violet-800 dark:bg-violet-900/40 dark:text-violet-300'
+                                            ? 'bg-wellness-100 text-wellness-700 dark:bg-wellness-100 dark:text-wellness-300'
                                             : 'bg-zinc-100 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-300'
                                     }`}
                                 >
@@ -127,7 +127,7 @@ const UserDetailModal: React.FC<Props> = ({ isOpen, onClose, userId, updateUser 
                             <div className="col-span-2 border-t border-zinc-200 pt-6 dark:border-zinc-800">
                                 <button
                                     onClick={() => setIsEditModalOpen(true)}
-                                    className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-violet-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:bg-violet-700 active:scale-[0.98]"
+                                    className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-wellness-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:bg-wellness-600 active:scale-[0.98]"
                                 >
                                     <UserPen className="size-4" />
                                     <span>{mod.users.editUser}</span>                                </button>

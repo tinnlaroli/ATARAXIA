@@ -20,7 +20,7 @@ function AuthorAvatar({ author }: { author: { name: string; photo_url: string | 
     }
     const initials = author.name.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2);
     return (
-        <div className="flex size-9 items-center justify-center rounded-full bg-violet-600 text-xs font-bold text-white ring-2 ring-white dark:ring-zinc-800">
+        <div className="flex size-9 items-center justify-center rounded-full bg-wellness-600 text-xs font-bold text-white ring-2 ring-white dark:ring-zinc-800">
             {initials}
         </div>
     );

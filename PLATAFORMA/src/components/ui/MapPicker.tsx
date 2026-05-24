@@ -48,7 +48,7 @@ export default function MapPicker({ lat, lng, onChange }: Props) {
         map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
         map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
 
-        const marker = new maplibregl.Marker({ color: '#7c3aed', draggable: true })
+        const marker = new maplibregl.Marker({ color: 'rgb(var(--rgb-primary-deep))', draggable: true })
             .setLngLat(center)
             .addTo(map);
 

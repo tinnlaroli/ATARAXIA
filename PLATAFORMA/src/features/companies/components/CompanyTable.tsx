@@ -31,7 +31,7 @@ const SECTOR_LABELS: Record<number, string> = {
 const SECTOR_COLORS: Record<number, string> = {
     1: TABLE_BADGE_COLORS.sky,
     2: TABLE_BADGE_COLORS.emerald,
-    3: TABLE_BADGE_COLORS.violet,
+    3: TABLE_BADGE_COLORS.wellness,
     4: TABLE_BADGE_COLORS.amber,
     5: TABLE_BADGE_COLORS.rose,
 };

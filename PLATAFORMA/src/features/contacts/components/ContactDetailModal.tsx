@@ -28,7 +28,7 @@ const REASON_COLOR: Record<string, string> = {
 
 const REASON_TEXT: Record<string, string> = {
     download: '#ef4444',
-    join: '#7c3aed',
+    join: 'var(--color-primary-deep)',
     tourist: '#10b981',
     pricing: '#d97706',
     evaluation: '#0891b2',
@@ -68,7 +68,7 @@ export default function ContactDetailModal({ contact, onClose, onStatusChange }:
     const statusStyle = STATUS_STYLE[status];
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--overlay-scrim)] p-4 backdrop-blur-sm">
             <div className="w-full max-w-lg rounded-2xl border shadow-2xl" style={{ background: 'var(--color-bg)', borderColor: 'var(--color-border)' }}>
                 {/* Header */}
                 <div className="flex items-start justify-between border-b px-5 py-4" style={{ borderColor: 'var(--color-border)' }}>

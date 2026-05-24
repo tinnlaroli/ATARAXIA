@@ -63,9 +63,9 @@ export default function EditTouristServiceModal({ onClose, onSubmit, service }: 
     };
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/60 z-[60] backdrop-blur-sm animate-in fade-in duration-200">
-            <div className="bg-white dark:bg-[#121214] rounded-xl shadow-2xl w-full max-w-md overflow-hidden">
-                <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 px-6 py-4">
+        <div className="fixed inset-0 flex items-center justify-center bg-[var(--overlay-scrim)] z-[60] backdrop-blur-sm animate-in fade-in duration-200">
+            <div className="wellness-modal rounded-xl shadow-2xl w-full max-w-md overflow-hidden">
+                <div className="flex items-center justify-between border-b border-[var(--color-border)] px-6 py-4">
                     <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">
                         {mod.touristServices.editTitle}
                     </h2>
@@ -87,7 +87,7 @@ export default function EditTouristServiceModal({ onClose, onSubmit, service }: 
                             name="name"
                             value={formData.name}
                             onChange={handleFieldChange}
-                            className={`w-full rounded-lg border px-4 py-2 focus:ring-2 outline-none transition-all dark:bg-zinc-800/50 dark:text-white ${errors.name ? 'border-red-400 focus:ring-red-400 dark:border-red-500' : 'border-zinc-300 dark:border-zinc-700 focus:ring-violet-500'}`}
+                            className={`w-full rounded-lg border px-4 py-2 focus:ring-2 outline-none transition-all dark:bg-zinc-800/50 dark:text-white ${errors.name ? 'border-red-400 focus:ring-red-400 dark:border-red-500' : 'border-zinc-300 dark:border-zinc-700 focus:ring-wellness-500'}`}
                         />
                         {errors.name && <p className="flex items-center gap-1 text-xs text-red-500 mt-0.5"><AlertCircle className="size-3" />{errors.name}</p>}
                     </div>
@@ -102,7 +102,7 @@ export default function EditTouristServiceModal({ onClose, onSubmit, service }: 
                             value={formData.description}
                             onChange={handleFieldChange}
                             rows={3}
-                            className="w-full rounded-lg border border-zinc-300 dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white px-4 py-2 focus:ring-2 focus:ring-violet-500 outline-none transition-all resize-none"
+                            className="w-full rounded-lg border border-zinc-300 dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white px-4 py-2 focus:ring-2 focus:ring-wellness-500 outline-none transition-all resize-none"
                         />
                     </div>
 
@@ -116,7 +116,7 @@ export default function EditTouristServiceModal({ onClose, onSubmit, service }: 
                                 name="service_type"
                                 value={formData.service_type}
                                 onChange={handleFieldChange}
-                                className="w-full rounded-lg border border-zinc-300 dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white px-4 py-2 focus:ring-2 focus:ring-violet-500 outline-none transition-all cursor-pointer"
+                                className="w-full rounded-lg border border-zinc-300 dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white px-4 py-2 focus:ring-2 focus:ring-wellness-500 outline-none transition-all cursor-pointer"
                             >
                                 {SERVICE_TYPE_KEYS.map((k) => (
                                     <option key={k} value={k}>{mod.touristServices.serviceTypeLabels[k]}</option>
@@ -133,7 +133,7 @@ export default function EditTouristServiceModal({ onClose, onSubmit, service }: 
                                 name="active"
                                 value={String(formData.active)}
                                 onChange={handleFieldChange}
-                                className="w-full rounded-lg border border-zinc-300 dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white px-4 py-2 focus:ring-2 focus:ring-violet-500 outline-none transition-all cursor-pointer"
+                                className="w-full rounded-lg border border-zinc-300 dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white px-4 py-2 focus:ring-2 focus:ring-wellness-500 outline-none transition-all cursor-pointer"
                             >
                                 <option value="true">{mod.users.statusActive}</option>
                                 <option value="false">{mod.users.statusInactive}</option>
@@ -146,7 +146,7 @@ export default function EditTouristServiceModal({ onClose, onSubmit, service }: 
                             {mod.touristServices.serviceImage}
                         </label>
                         <div className="flex items-center gap-3">
-                            <label className="inline-flex items-center gap-2 rounded-lg border border-dashed border-zinc-300 dark:border-zinc-700 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 cursor-pointer hover:border-violet-500/60 hover:text-violet-500 transition-colors">
+                            <label className="inline-flex items-center gap-2 rounded-lg border border-dashed border-zinc-300 dark:border-zinc-700 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 cursor-pointer hover:border-wellness-500/60 hover:text-wellness-500 transition-colors">
                                 <ImagePlus className="size-4" />
                                 {mod.touristServices.changeImage}
                                 <input
@@ -163,13 +163,13 @@ export default function EditTouristServiceModal({ onClose, onSubmit, service }: 
                             </span>
                         </div>
                         {imagePreview && (
-                            <div className="mt-3 overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-800">
+                            <div className="mt-3 overflow-hidden rounded-lg border border-[var(--color-border)]">
                                 <img src={imagePreview} alt="Previsualizacion" className="h-32 w-full object-cover" />
                             </div>
                         )}
                     </div>
 
-                    <div className="flex justify-end gap-3 pt-6 border-t border-zinc-200 dark:border-zinc-800">
+                    <div className="flex justify-end gap-3 pt-6 border-t border-[var(--color-border)]">
                         <button
                             type="button"
                             onClick={onClose}
@@ -179,7 +179,7 @@ export default function EditTouristServiceModal({ onClose, onSubmit, service }: 
                         </button>
                         <button
                             type="submit"
-                            className="rounded-lg bg-violet-600 px-5 py-2 text-sm font-medium text-white shadow-lg hover:bg-violet-700 active:scale-[0.98] transition-all flex items-center gap-2"
+                            className="rounded-lg bg-wellness-600 px-5 py-2 text-sm font-medium text-white shadow-lg hover:bg-wellness-600 active:scale-[0.98] transition-all flex items-center gap-2"
                         >
                             <Save className="size-4" />
                             {mod.common.saveChanges}

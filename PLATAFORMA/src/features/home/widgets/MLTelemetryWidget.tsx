@@ -89,9 +89,9 @@ const MLTelemetryWidget: React.FC<Props> = ({ density }) => {
             <div className="mb-3 flex items-center gap-2.5 shrink-0">
                 <div
                     className="flex size-9 shrink-0 items-center justify-center rounded-2xl"
-                    style={{ background: `${DASHBOARD_COLORS.purple}16` }}
+                    style={{ background: `${DASHBOARD_COLORS.chart1}16` }}
                 >
-                    <BrainCircuit className="size-4" style={{ color: DASHBOARD_COLORS.purple }} />
+                    <BrainCircuit className="size-4" style={{ color: DASHBOARD_COLORS.chart1 }} />
                 </div>
                 <div className="min-w-0">
                     <h2 className="truncate text-sm font-bold" style={{ color: 'var(--color-text)' }}>
@@ -119,25 +119,25 @@ const MLTelemetryWidget: React.FC<Props> = ({ density }) => {
                     icon={Activity}
                     label={copy.mlTelemetryRmse}
                     value={loading ? '…' : rmse}
-                    color={DASHBOARD_COLORS.purple}
+                    color={DASHBOARD_COLORS.chart1}
                 />
                 <MetricCell
                     icon={MousePointerClick}
                     label={copy.mlTelemetryCtr}
                     value={loading ? '…' : ctr}
-                    color={DASHBOARD_COLORS.cyan}
+                    color={DASHBOARD_COLORS.chart2}
                 />
                 <MetricCell
                     icon={Timer}
                     label={copy.mlTelemetryLatency}
                     value={loading ? '…' : latency}
-                    color={DASHBOARD_COLORS.green}
+                    color={DASHBOARD_COLORS.chart5}
                 />
                 <MetricCell
                     icon={Zap}
                     label={copy.mlTelemetrySessions}
                     value={loading ? '…' : sessions}
-                    color={DASHBOARD_COLORS.orange}
+                    color={DASHBOARD_COLORS.chart3}
                 />
             </div>
         </section>

@@ -47,9 +47,9 @@ export default function EditCompanyModal({ onClose, onSubmit, company }: Props) 
     };
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-[60]">
+        <div className="fixed inset-0 flex items-center justify-center bg-[var(--overlay-scrim)] backdrop-blur-sm z-[60]">
             <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-2xl w-full max-w-md">
-                <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 px-6 py-4">
+                <div className="flex items-center justify-between border-b border-[var(--color-border)] px-6 py-4">
                     <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">
                         {mod.companies.editTitle}
                     </h2>
@@ -79,7 +79,7 @@ export default function EditCompanyModal({ onClose, onSubmit, company }: Props) 
                             name="name"
                             value={formData.name}
                             onChange={handleFieldChange}
-                            className={`w-full rounded-lg border px-4 py-2 focus:ring-2 outline-none transition-all dark:bg-zinc-800 dark:text-white ${errors.name ? 'border-red-400 focus:ring-red-400 dark:border-red-500' : 'border-zinc-300 dark:border-zinc-700 focus:ring-violet-500'}`}
+                            className={`w-full rounded-lg border px-4 py-2 focus:ring-2 outline-none transition-all dark:bg-zinc-800 dark:text-white ${errors.name ? 'border-red-400 focus:ring-red-400 dark:border-red-500' : 'border-zinc-300 dark:border-zinc-700 focus:ring-wellness-500'}`}
                         />
                         {errors.name && <p className="flex items-center gap-1 text-xs text-red-500 mt-0.5"><AlertCircle className="size-3" />{errors.name}</p>}
                     </div>
@@ -104,7 +104,7 @@ export default function EditCompanyModal({ onClose, onSubmit, company }: Props) 
                             name="phone"
                             value={formData.phone}
                             onChange={handleFieldChange}
-                            className={`w-full rounded-lg border px-4 py-2 focus:ring-2 outline-none transition-all dark:bg-zinc-800 dark:text-white ${errors.phone ? 'border-red-400 focus:ring-red-400 dark:border-red-500' : 'border-zinc-300 dark:border-zinc-700 focus:ring-violet-500'}`}
+                            className={`w-full rounded-lg border px-4 py-2 focus:ring-2 outline-none transition-all dark:bg-zinc-800 dark:text-white ${errors.phone ? 'border-red-400 focus:ring-red-400 dark:border-red-500' : 'border-zinc-300 dark:border-zinc-700 focus:ring-wellness-500'}`}
                         />
                         {errors.phone && <p className="flex items-center gap-1 text-xs text-red-500 mt-0.5"><AlertCircle className="size-3" />{errors.phone}</p>}
                     </div>
@@ -118,7 +118,7 @@ export default function EditCompanyModal({ onClose, onSubmit, company }: Props) 
                         </button>
                         <button
                             type="submit"
-                            className="rounded-lg bg-violet-600 px-5 py-2 text-sm font-medium text-white shadow-lg"
+                            className="rounded-lg bg-wellness-600 px-5 py-2 text-sm font-medium text-white shadow-lg"
                         >
                             {mod.common.saveChanges}
                         </button>

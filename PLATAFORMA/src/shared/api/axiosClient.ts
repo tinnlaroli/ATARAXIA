@@ -11,7 +11,7 @@ function resolveApiBaseUrl(): string {
             const parsed = new URL(envUrl, window.location.origin);
             const isLocalApi =
                 (parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1') &&
-                (parsed.port === '4000' || parsed.pathname.startsWith('/api'));
+                (parsed.port === '4000' || parsed.port === '4100' || parsed.pathname.startsWith('/api'));
             if (isLocalApi && window.location.port !== '4000') {
                 return '/api/v2';
             }

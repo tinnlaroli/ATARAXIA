@@ -15,7 +15,7 @@ interface Props {
 }
 
 const selectClass =
-    'w-full rounded-lg border border-zinc-300 dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white px-4 py-2 focus:ring-2 focus:ring-violet-500 outline-none transition-all cursor-pointer disabled:opacity-50';
+    'w-full rounded-lg border border-zinc-300 dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white px-4 py-2 focus:ring-2 focus:ring-wellness-500 outline-none transition-all cursor-pointer disabled:opacity-50';
 
 export default function CreateCompanyModal({ onClose, onSubmit }: Props) {
     const { lang } = useLanguage();
@@ -73,11 +73,11 @@ export default function CreateCompanyModal({ onClose, onSubmit }: Props) {
     };
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/60 z-50 backdrop-blur-sm animate-in fade-in duration-200">
-            <div className="bg-white dark:bg-[#121214] rounded-xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all">
-                <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 px-6 py-4">
+        <div className="fixed inset-0 flex items-center justify-center bg-[var(--overlay-scrim)] z-50 backdrop-blur-sm animate-in fade-in duration-200">
+            <div className="wellness-modal rounded-xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all">
+                <div className="flex items-center justify-between border-b border-[var(--color-border)] px-6 py-4">
                     <h2 className="text-lg font-semibold text-zinc-900 dark:text-white flex items-center gap-2">
-                        <Building2 className="size-5 text-violet-500" />
+                        <Building2 className="size-5 text-wellness-500" />
                         {mod.companies.createTitle}
                     </h2>
                     <button
@@ -99,7 +99,7 @@ export default function CreateCompanyModal({ onClose, onSubmit }: Props) {
                             name="name"
                             value={formData.name}
                             onChange={handleFieldChange}
-                            className={`w-full rounded-lg border px-4 py-2 focus:ring-2 outline-none transition-all dark:bg-zinc-800/50 dark:text-white ${errors.name ? 'border-red-400 focus:ring-red-400 dark:border-red-500' : 'border-zinc-300 dark:border-zinc-700 focus:ring-violet-500'}`}
+                            className={`w-full rounded-lg border px-4 py-2 focus:ring-2 outline-none transition-all dark:bg-zinc-800/50 dark:text-white ${errors.name ? 'border-red-400 focus:ring-red-400 dark:border-red-500' : 'border-zinc-300 dark:border-zinc-700 focus:ring-wellness-500'}`}
                             placeholder={mod.companies.companyNamePh}
                         />
                         {errors.name && <p className="flex items-center gap-1 text-xs text-red-500 mt-0.5"><AlertCircle className="size-3" />{errors.name}</p>}
@@ -115,7 +115,7 @@ export default function CreateCompanyModal({ onClose, onSubmit }: Props) {
                             name="address"
                             value={formData.address}
                             onChange={handleFieldChange}
-                            className="w-full rounded-lg border border-zinc-300 dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white px-4 py-2 focus:ring-2 focus:ring-violet-500 outline-none transition-all"
+                            className="w-full rounded-lg border border-zinc-300 dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white px-4 py-2 focus:ring-2 focus:ring-wellness-500 outline-none transition-all"
                             placeholder={mod.companies.addressPh}
                         />
                     </div>
@@ -130,7 +130,7 @@ export default function CreateCompanyModal({ onClose, onSubmit }: Props) {
                             name="phone"
                             value={formData.phone}
                             onChange={handleFieldChange}
-                            className={`w-full rounded-lg border px-4 py-2 focus:ring-2 outline-none transition-all dark:bg-zinc-800/50 dark:text-white ${errors.phone ? 'border-red-400 focus:ring-red-400 dark:border-red-500' : 'border-zinc-300 dark:border-zinc-700 focus:ring-violet-500'}`}
+                            className={`w-full rounded-lg border px-4 py-2 focus:ring-2 outline-none transition-all dark:bg-zinc-800/50 dark:text-white ${errors.phone ? 'border-red-400 focus:ring-red-400 dark:border-red-500' : 'border-zinc-300 dark:border-zinc-700 focus:ring-wellness-500'}`}
                             placeholder={mod.companies.phonePh}
                         />
                         {errors.phone && <p className="flex items-center gap-1 text-xs text-red-500 mt-0.5"><AlertCircle className="size-3" />{errors.phone}</p>}
@@ -184,7 +184,7 @@ export default function CreateCompanyModal({ onClose, onSubmit }: Props) {
                         )}
                     </div>
 
-                    <div className="flex justify-end gap-3 pt-6 border-t border-zinc-200 dark:border-zinc-800">
+                    <div className="flex justify-end gap-3 pt-6 border-t border-[var(--color-border)]">
                         <button
                             type="button"
                             onClick={onClose}
@@ -195,7 +195,7 @@ export default function CreateCompanyModal({ onClose, onSubmit }: Props) {
                         <button
                             type="submit"
                             disabled={loadingOptions || formData.id_location === 0}
-                            className="rounded-lg bg-violet-600 px-5 py-2 text-sm font-medium text-white shadow-lg hover:bg-violet-700 active:scale-[0.98] transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="rounded-lg bg-wellness-600 px-5 py-2 text-sm font-medium text-white shadow-lg hover:bg-wellness-600 active:scale-[0.98] transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             <Plus className="size-4" />
                             {mod.companies.createSubmit}

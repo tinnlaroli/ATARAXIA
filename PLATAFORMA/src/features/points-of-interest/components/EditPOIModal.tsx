@@ -12,7 +12,7 @@ const POI_TYPES = [
 ];
 
 const inputClass =
-    'w-full rounded-lg border px-3 py-2 text-sm outline-none transition-colors focus:ring-2 focus:ring-violet-500 disabled:opacity-50';
+    'w-full rounded-lg border px-3 py-2 text-sm outline-none transition-colors focus:ring-2 focus:ring-wellness-500 disabled:opacity-50';
 
 interface Props {
     poi: POI;
@@ -51,7 +51,7 @@ export default function EditPOIModal({ poi, onClose, onSubmit }: Props) {
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--overlay-scrim)] p-4 backdrop-blur-sm">
             <div className="w-full max-w-md rounded-2xl border shadow-2xl" style={{ background: 'var(--color-bg)', borderColor: 'var(--color-border)' }}>
                 <div className="flex items-center justify-between border-b px-5 py-4" style={{ borderColor: 'var(--color-border)' }}>
                     <h2 className="flex items-center gap-2 text-base font-bold" style={{ color: 'var(--color-text)' }}>
@@ -122,7 +122,7 @@ export default function EditPOIModal({ poi, onClose, onSubmit }: Props) {
                             type="checkbox"
                             checked={sustainability}
                             onChange={(e) => setSustainability(e.target.checked)}
-                            className="size-4 rounded text-violet-600"
+                            className="size-4 rounded text-wellness-600"
                         />
                         <Leaf className="size-4 text-emerald-500" />
                         <div>

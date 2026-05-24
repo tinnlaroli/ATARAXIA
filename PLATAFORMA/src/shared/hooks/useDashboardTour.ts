@@ -11,7 +11,7 @@ type StepText = { title: string; description: string };
 const STEPS_BY_LANG: Record<LanguageCode, StepText[]> = {
     es: [
         {
-            title: '✦ Bienvenido a SMARTUR Admin',
+            title: '✦ Bienvenido a ATARAXIA Admin',
             description: `Este tour rápido te guiará por los módulos del panel de administración. Usa ${kw('→ / ←')} para navegar entre pasos o ${kw('Esc')} para salir en cualquier momento.`,
         },
         {
@@ -69,7 +69,7 @@ const STEPS_BY_LANG: Record<LanguageCode, StepText[]> = {
     ],
     en: [
         {
-            title: '✦ Welcome to SMARTUR Admin',
+            title: '✦ Welcome to ATARAXIA Admin',
             description: `This quick tour walks you through the main modules of the admin panel. Use ${kw('→ / ←')} to navigate or ${kw('Esc')} to exit at any time.`,
         },
         {
@@ -127,7 +127,7 @@ const STEPS_BY_LANG: Record<LanguageCode, StepText[]> = {
     ],
     fr: [
         {
-            title: '✦ Bienvenue sur SMARTUR Admin',
+            title: '✦ Bienvenue sur ATARAXIA Admin',
             description: `Cette visite rapide vous guide à travers les modules du panneau d'administration. Utilisez ${kw('→ / ←')} pour naviguer ou ${kw('Échap')} pour quitter à tout moment.`,
         },
         {

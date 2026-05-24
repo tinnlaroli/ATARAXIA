@@ -36,11 +36,11 @@ const CompanyDetailModal: React.FC<Props> = ({ isOpen, onClose, companyId, updat
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50 backdrop-blur-sm">
-            <div className="bg-white dark:bg-[#121214] rounded-xl shadow-2xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-                <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 px-6 py-4">
+        <div className="fixed inset-0 flex items-center justify-center bg-[var(--overlay-scrim)] z-50 backdrop-blur-sm">
+            <div className="wellness-modal rounded-xl shadow-2xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+                <div className="flex items-center justify-between border-b border-[var(--color-border)] px-6 py-4">
                     <h2 className="text-lg font-semibold text-zinc-900 dark:text-white flex items-center gap-2">
-                        <Building2 className="size-5 text-violet-500" />
+                        <Building2 className="size-5 text-wellness-500" />
                         {mod.companies.detailTitle}
                     </h2>
                     <button
@@ -54,7 +54,7 @@ const CompanyDetailModal: React.FC<Props> = ({ isOpen, onClose, companyId, updat
                 <div className="p-6">
                     {isLoading && (
                         <div className="flex justify-center py-8">
-                            <div className="size-8 animate-spin rounded-full border-4 border-zinc-200 border-t-violet-600 dark:border-zinc-700 dark:border-t-violet-500"></div>
+                            <div className="size-8 animate-spin rounded-full border-4 border-zinc-200 border-t-wellness-600 dark:border-zinc-700 dark:border-t-wellness-500"></div>
                         </div>
                     )}
 
@@ -69,7 +69,7 @@ const CompanyDetailModal: React.FC<Props> = ({ isOpen, onClose, companyId, updat
                     {company && !isLoading && (
                         <div className="space-y-6">
                             <div className="flex items-center gap-4 bg-zinc-50 dark:bg-zinc-900/50 p-4 rounded-xl border border-zinc-100 dark:border-zinc-800">
-                                <div className="size-12 rounded-xl bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center text-violet-600 dark:text-violet-400">
+                                <div className="size-12 rounded-xl bg-wellness-100 dark:bg-wellness-100 flex items-center justify-center text-wellness-600 dark:text-wellness-400">
                                     <Building2 className="size-6" />
                                 </div>
                                 <div className="min-w-0 flex-1">
@@ -135,12 +135,12 @@ const CompanyDetailModal: React.FC<Props> = ({ isOpen, onClose, companyId, updat
                                 </div>
                             </div>
 
-                            <div className="pt-6 border-t border-zinc-200 dark:border-zinc-800">
+                            <div className="pt-6 border-t border-[var(--color-border)]">
                                 <button
                                     onClick={() => setIsEditModalOpen(true)}
                                     className="w-full inline-flex items-center justify-center gap-2 
-                                    rounded-lg bg-violet-600 px-4 py-2.5 text-sm font-medium text-white
-                                    hover:bg-violet-700 shadow-sm transition-all duration-200 active:scale-[0.98]"
+                                    rounded-lg bg-wellness-600 px-4 py-2.5 text-sm font-medium text-white
+                                    hover:bg-wellness-600 shadow-sm transition-all duration-200 active:scale-[0.98]"
                                 >
                                     <UserPen className="size-4" />
                                     <span>{mod.companies.editCompany}</span>

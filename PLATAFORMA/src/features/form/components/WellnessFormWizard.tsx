@@ -12,7 +12,6 @@ import {
     type WellnessWizardStepId,
 } from '../wellnessFormConstants';
 import { formApi } from '../api/formApi';
-import { useTheme } from '../../../contexts/ThemeContext';
 
 interface Props {
     userId: string | number;
@@ -22,8 +21,6 @@ interface Props {
 }
 
 export function WellnessFormWizard({ userId, token, onClose, onComplete }: Props) {
-    const { theme } = useTheme();
-    const isDark = theme === 'dark';
     const { loading, error, getRecommendations } = useFormRecommendations();
 
     const [step, setStep] = useState<WellnessWizardStepId>('intro');
@@ -93,10 +90,10 @@ export function WellnessFormWizard({ userId, token, onClose, onComplete }: Props
                 <WellnessProgressIndicator currentStepId="stress" loading />
                 <SmartURLoader />
                 <div className="max-w-sm text-center space-y-2">
-                    <p className={`text-lg font-semibold ${isDark ? 'text-white' : 'text-zinc-900'}`}>
+                    <p className="text-lg font-semibold" style={{ color: 'var(--color-text)' }}>
                         Diseñando tu ruta de bienestar
                     </p>
-                    <p className={`text-sm ${isDark ? 'text-zinc-400' : 'text-zinc-600'}`}>
+                    <p className="text-sm wellness-muted">
                         Clasificamos tu perfil de estrés y cruzamos destinos terapéuticos en México…
                     </p>
                 </div>
@@ -110,26 +107,32 @@ export function WellnessFormWizard({ userId, token, onClose, onComplete }: Props
 
             {step === 'intro' && (
                 <section className="space-y-6 animate-in fade-in duration-300">
-                    <div className="rounded-2xl border border-violet-500/30 bg-gradient-to-br from-violet-600/20 via-transparent to-emerald-600/10 p-6 md:p-8">
-                        <div className="flex items-center gap-2 text-emerald-400 text-sm font-semibold mb-3">
+                    <div
+                        className="wellness-card p-6 md:p-8"
+                        style={{
+                            background:
+                                'linear-gradient(135deg, rgba(var(--rgb-primary), 0.25) 0%, rgba(var(--rgb-surface), 0.9) 60%, rgba(var(--rgb-earth), 0.12) 100%)',
+                        }}
+                    >
+                        <div className="flex items-center gap-2 text-sm font-semibold mb-3 wellness-accent-text">
                             <Leaf className="size-4" />
                             ATARAXIA · Turismo terapéutico
                         </div>
-                        <h2 className={`text-2xl md:text-3xl font-semibold leading-tight ${isDark ? 'text-white' : 'text-zinc-900'}`}>
+                        <h2 className="text-2xl md:text-3xl font-semibold leading-tight" style={{ color: 'var(--color-text)' }}>
                             No buscamos “más lugares”. Buscamos el destino que tu sistema nervioso necesita hoy.
                         </h2>
-                        <p className={`mt-4 text-base leading-relaxed ${isDark ? 'text-zinc-400' : 'text-zinc-600'}`}>
+                        <p className="mt-4 text-base leading-relaxed wellness-muted">
                             En tres pasos: cómo prefieres viajar, cómo te sientes ahora y recomendaciones nacionales con
                             beneficio óptimo para tu perfil de estrés.
                         </p>
                     </div>
-                    <ul className={`grid gap-3 text-sm ${isDark ? 'text-zinc-400' : 'text-zinc-600'}`}>
+                    <ul className="grid gap-3 text-sm wellness-muted">
                         <li className="flex gap-2">
-                            <ShieldCheck className="size-4 shrink-0 text-violet-400 mt-0.5" />
+                            <ShieldCheck className="size-4 shrink-0 wellness-accent-text mt-0.5" />
                             Tus respuestas entrenan el modelo de forma anónima y mejoran futuras recomendaciones.
                         </li>
                         <li className="flex gap-2">
-                            <ShieldCheck className="size-4 shrink-0 text-violet-400 mt-0.5" />
+                            <ShieldCheck className="size-4 shrink-0 wellness-accent-text mt-0.5" />
                             Sin diagnóstico clínico: orientación wellness basada en señales de agotamiento y recuperación.
                         </li>
                     </ul>
@@ -139,16 +142,16 @@ export function WellnessFormWizard({ userId, token, onClose, onComplete }: Props
             {step === 'preferences' && (
                 <section className="space-y-8 animate-in fade-in duration-300">
                     <header>
-                        <h2 className={`text-2xl font-semibold ${isDark ? 'text-white' : 'text-zinc-900'}`}>
+                        <h2 className="text-2xl font-semibold" style={{ color: 'var(--color-text)' }}>
                             Tu estilo de recuperación
                         </h2>
-                        <p className={`mt-2 text-sm ${isDark ? 'text-zinc-400' : 'text-zinc-600'}`}>
+                        <p className="mt-2 text-sm wellness-muted">
                             Afinamos destinos según entorno y ritmo — además de tu check-in emocional.
                         </p>
                     </header>
 
                     <div>
-                        <p className={`mb-3 text-sm font-medium ${isDark ? 'text-zinc-300' : 'text-zinc-700'}`}>
+                        <p className="mb-3 text-sm font-medium" style={{ color: 'var(--color-text)' }}>
                             ¿Qué tipo de experiencia te restaura? (elige al menos una)
                         </p>
                         <div className="grid gap-3 sm:grid-cols-2">
@@ -160,17 +163,11 @@ export function WellnessFormWizard({ userId, token, onClose, onComplete }: Props
                                         key={item.value}
                                         type="button"
                                         onClick={() => toggleInterest(item.value)}
-                                        className={`rounded-2xl border p-4 text-left transition-all ${
-                                            selected
-                                                ? 'border-violet-500 bg-violet-500/15 ring-1 ring-violet-500/40'
-                                                : isDark
-                                                  ? 'border-zinc-700 bg-zinc-800/40 hover:border-zinc-600'
-                                                  : 'border-zinc-200 bg-white hover:border-violet-200'
-                                        }`}
+                                        className={`rounded-2xl border p-4 text-left transition-all wellness-card-solid ${selected ? 'wellness-chip-active' : ''}`}
                                     >
-                                        <Icon className={`size-5 mb-2 ${selected ? 'text-violet-400' : 'text-zinc-500'}`} />
-                                        <p className={`font-semibold ${isDark ? 'text-white' : 'text-zinc-900'}`}>{item.label}</p>
-                                        <p className={`text-xs mt-1 ${isDark ? 'text-zinc-500' : 'text-zinc-500'}`}>{item.description}</p>
+                                        <Icon className={`size-5 mb-2 ${selected ? 'wellness-accent-text' : 'wellness-muted'}`} />
+                                        <p className="font-semibold" style={{ color: 'var(--color-text)' }}>{item.label}</p>
+                                        <p className="text-xs mt-1 wellness-muted">{item.description}</p>
                                     </button>
                                 );
                             })}
@@ -178,7 +175,7 @@ export function WellnessFormWizard({ userId, token, onClose, onComplete }: Props
                     </div>
 
                     <div>
-                        <p className={`mb-3 text-sm font-medium ${isDark ? 'text-zinc-300' : 'text-zinc-700'}`}>
+                        <p className="mb-3 text-sm font-medium" style={{ color: 'var(--color-text)' }}>
                             Ritmo físico deseado en el viaje
                         </p>
                         <div className="flex flex-wrap gap-2">
@@ -188,11 +185,7 @@ export function WellnessFormWizard({ userId, token, onClose, onComplete }: Props
                                     type="button"
                                     onClick={() => setPrefs((p) => ({ ...p, activity_level: lvl.value }))}
                                     className={`rounded-xl px-4 py-2 text-sm font-medium transition-all ${
-                                        prefs.activity_level === lvl.value
-                                            ? 'bg-violet-600 text-white'
-                                            : isDark
-                                              ? 'bg-zinc-800 text-zinc-400 hover:text-white'
-                                              : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'
+                                        prefs.activity_level === lvl.value ? 'wellness-btn-primary' : 'wellness-card-solid wellness-muted'
                                     }`}
                                     title={lvl.hint}
                                 >
@@ -203,7 +196,7 @@ export function WellnessFormWizard({ userId, token, onClose, onComplete }: Props
                     </div>
 
                     <div>
-                        <p className={`mb-3 text-sm font-medium ${isDark ? 'text-zinc-300' : 'text-zinc-700'}`}>
+                        <p className="mb-3 text-sm font-medium" style={{ color: 'var(--color-text)' }}>
                             Entorno preferido
                         </p>
                         <div className="grid grid-cols-3 gap-2">
@@ -215,12 +208,8 @@ export function WellnessFormWizard({ userId, token, onClose, onComplete }: Props
                                         key={place.value}
                                         type="button"
                                         onClick={() => setPrefs((p) => ({ ...p, preferred_place: place.value }))}
-                                        className={`flex flex-col items-center gap-2 rounded-xl border py-4 px-2 text-sm font-medium ${
-                                            selected
-                                                ? 'border-violet-500 bg-violet-500/15 text-violet-300'
-                                                : isDark
-                                                  ? 'border-zinc-700 text-zinc-400'
-                                                  : 'border-zinc-200 text-zinc-600'
+                                        className={`flex flex-col items-center gap-2 rounded-xl border py-4 px-2 text-sm font-medium wellness-card-solid ${
+                                            selected ? 'wellness-chip-active' : 'wellness-muted'
                                         }`}
                                     >
                                         <Icon className="size-5" />
@@ -231,18 +220,15 @@ export function WellnessFormWizard({ userId, token, onClose, onComplete }: Props
                         </div>
                     </div>
 
-                    <label
-                        className={`flex items-center gap-3 rounded-xl border p-4 cursor-pointer ${
-                            isDark ? 'border-zinc-700 bg-zinc-800/30' : 'border-zinc-200 bg-zinc-50'
-                        }`}
-                    >
+                    <label className="flex items-center gap-3 rounded-xl border p-4 cursor-pointer wellness-card-solid">
                         <input
                             type="checkbox"
                             checked={prefs.has_accessibility}
                             onChange={(e) => setPrefs((p) => ({ ...p, has_accessibility: e.target.checked }))}
-                            className="size-4 rounded border-zinc-600 text-violet-600 focus:ring-violet-500"
+                            className="size-4 rounded"
+                            style={{ accentColor: 'var(--color-primary-deep)' }}
                         />
-                        <span className={`text-sm ${isDark ? 'text-zinc-300' : 'text-zinc-700'}`}>
+                        <span className="text-sm" style={{ color: 'var(--color-text)' }}>
                             Necesito destinos con buena accesibilidad (menos esfuerzo físico intenso)
                         </span>
                     </label>
@@ -252,10 +238,10 @@ export function WellnessFormWizard({ userId, token, onClose, onComplete }: Props
             {step === 'stress' && (
                 <section className="space-y-8 animate-in fade-in duration-300">
                     <header>
-                        <h2 className={`text-2xl font-semibold ${isDark ? 'text-white' : 'text-zinc-900'}`}>
+                        <h2 className="text-2xl font-semibold" style={{ color: 'var(--color-text)' }}>
                             Check-in emocional
                         </h2>
-                        <p className={`mt-2 text-sm ${isDark ? 'text-zinc-400' : 'text-zinc-600'}`}>
+                        <p className="mt-2 text-sm wellness-muted">
                             Responde con honestidad cómo te sientes <strong className="font-medium">esta semana</strong>.
                             Definimos tu perfil de estrés y los destinos con mayor beneficio terapéutico.
                         </p>
@@ -265,17 +251,14 @@ export function WellnessFormWizard({ userId, token, onClose, onComplete }: Props
                         const Icon = q.icon;
                         const selected = answers[q.key];
                         return (
-                            <div
-                                key={q.key}
-                                className={`rounded-2xl border p-5 ${isDark ? 'border-zinc-800 bg-zinc-900/50' : 'border-zinc-200 bg-zinc-50/80'}`}
-                            >
+                            <div key={q.key} className="rounded-2xl border p-5 wellness-card-solid">
                                 <div className="flex items-start gap-3 mb-4">
-                                    <div className="rounded-xl bg-violet-500/15 p-2">
-                                        <Icon className="size-5 text-violet-400" />
+                                    <div className="rounded-xl p-2" style={{ background: 'rgba(var(--rgb-primary), 0.25)' }}>
+                                        <Icon className="size-5 wellness-accent-text" />
                                     </div>
                                     <div>
-                                        <h3 className={`font-semibold ${isDark ? 'text-white' : 'text-zinc-900'}`}>{q.title}</h3>
-                                        <p className={`text-sm mt-0.5 ${isDark ? 'text-zinc-500' : 'text-zinc-600'}`}>{q.subtitle}</p>
+                                        <h3 className="font-semibold" style={{ color: 'var(--color-text)' }}>{q.title}</h3>
+                                        <p className="text-sm mt-0.5 wellness-muted">{q.subtitle}</p>
                                     </div>
                                 </div>
                                 <div className="grid gap-2 sm:grid-cols-2">
@@ -284,20 +267,14 @@ export function WellnessFormWizard({ userId, token, onClose, onComplete }: Props
                                             key={opt.value}
                                             type="button"
                                             onClick={() => setAnswers((a) => ({ ...a, [q.key]: opt.value }))}
-                                            className={`rounded-xl border px-4 py-3 text-left transition-all ${
-                                                selected === opt.value
-                                                    ? 'border-violet-500 bg-violet-500/15'
-                                                    : isDark
-                                                      ? 'border-zinc-700 hover:border-zinc-600'
-                                                      : 'border-zinc-200 bg-white hover:border-violet-200'
+                                            className={`rounded-xl border px-4 py-3 text-left transition-all wellness-card-solid ${
+                                                selected === opt.value ? 'wellness-chip-active' : ''
                                             }`}
                                         >
-                                            <span className={`block font-medium text-sm ${isDark ? 'text-white' : 'text-zinc-900'}`}>
+                                            <span className="block font-medium text-sm" style={{ color: 'var(--color-text)' }}>
                                                 {opt.label}
                                             </span>
-                                            <span className={`block text-xs mt-0.5 ${isDark ? 'text-zinc-500' : 'text-zinc-500'}`}>
-                                                {opt.detail}
-                                            </span>
+                                            <span className="block text-xs mt-0.5 wellness-muted">{opt.detail}</span>
                                         </button>
                                     ))}
                                 </div>
@@ -308,19 +285,13 @@ export function WellnessFormWizard({ userId, token, onClose, onComplete }: Props
             )}
 
             {error && (
-                <p className="text-sm text-red-400 rounded-xl bg-red-500/10 border border-red-500/30 px-4 py-3" role="alert">
+                <p className="text-sm rounded-xl px-4 py-3 wellness-alert-error" role="alert">
                     {error}
                 </p>
             )}
 
-            <div className="flex justify-between pt-2 border-t border-zinc-800/50">
-                <button
-                    type="button"
-                    onClick={goBack}
-                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium ${
-                        isDark ? 'text-zinc-400 hover:text-white' : 'text-zinc-600 hover:text-zinc-900'
-                    }`}
-                >
+            <div className="flex justify-between pt-2" style={{ borderTop: '1px solid var(--color-border)' }}>
+                <button type="button" onClick={goBack} className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium wellness-muted hover:opacity-80">
                     <ArrowLeft className="size-4" />
                     {step === 'intro' ? 'Salir' : 'Atrás'}
                 </button>
@@ -332,7 +303,7 @@ export function WellnessFormWizard({ userId, token, onClose, onComplete }: Props
                         savingPrefs
                     }
                     onClick={() => void goNext()}
-                    className="flex items-center gap-2 px-6 py-2.5 bg-violet-600 hover:bg-violet-500 text-white rounded-xl text-sm font-semibold disabled:opacity-40 transition-colors"
+                    className="flex items-center gap-2 px-6 py-2.5 wellness-btn-primary rounded-xl text-sm font-semibold disabled:opacity-40"
                 >
                     {step === 'stress' ? 'Obtener mis destinos' : 'Continuar'}
                     <ArrowRight className="size-4" />

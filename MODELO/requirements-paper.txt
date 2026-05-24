@@ -1,0 +1,5 @@
+# Dependencias opcionales para notebooks y figuras de paper
+-r requirements.txt
+seaborn>=0.12
+jupyter>=1.0
+ipykernel>=6.0

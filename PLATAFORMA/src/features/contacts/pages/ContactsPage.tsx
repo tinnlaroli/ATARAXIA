@@ -51,7 +51,7 @@ const REASON_COLOR: Record<string, string> = {
 
 const REASON_TEXT: Record<string, string> = {
     download: '#ef4444',
-    join: '#7c3aed',
+    join: 'var(--color-primary-deep)',
     tourist: '#10b981',
     pricing: '#d97706',
     evaluation: '#0891b2',

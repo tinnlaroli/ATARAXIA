@@ -41,7 +41,7 @@ const ResizeHandle: React.FC<ResizeHandleProps> = ({
     onPointerMove,
     onPointerUp,
 }) => {
-    const purple = DASHBOARD_COLORS.purple;
+    const purple = DASHBOARD_COLORS.chart1;
 
     const commonProps = {
         onPointerDown: (e: React.PointerEvent<HTMLDivElement>) => onPointerDown(axis, e),
@@ -237,9 +237,9 @@ export const WidgetShell: React.FC<WidgetShellProps> = ({
                 // Wobble only when editing and NOT actively resizing (stops jitter during resize)
                 isEditing && !isResizing ? 'widget-wobble' : '',
                 // Drop-target highlight when dragging another widget over this one
-                isDragOver ? 'ring-2 ring-violet-500 ring-offset-0 rounded-[28px]' : '',
+                isDragOver ? 'ring-2 ring-wellness-500 ring-offset-0 rounded-[28px]' : '',
                 // Active resize ring
-                isResizing ? 'ring-2 ring-violet-400 ring-offset-0 rounded-[28px]' : '',
+                isResizing ? 'ring-2 ring-wellness-400 ring-offset-0 rounded-[28px]' : '',
             ].filter(Boolean).join(' ')}
             style={isEditing && !isResizing ? { animationDelay: wobbleDelay } : undefined}
             /* HTML5 drag-to-reorder — disabled while a resize drag is in progress */

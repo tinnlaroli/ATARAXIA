@@ -23,7 +23,7 @@ export const TemplatesPage = () => {
                     <h1 className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-white">{m.templates.title}</h1>
                     <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">{m.templates.subtitle}</p>
                 </div>
-                <button className="mt-4 flex items-center gap-2 rounded-lg bg-violet-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-violet-500 sm:mt-0">
+                <button className="mt-4 flex items-center gap-2 rounded-lg bg-wellness-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-wellness-500 sm:mt-0">
                     <Plus className="size-4" />
                     {m.templates.new}
                 </button>
@@ -58,7 +58,7 @@ export const TemplatesPage = () => {
                                     <span className={`h-2.5 w-2.5 rounded-full ${template.estado ? 'bg-green-500' : 'bg-zinc-300'}`} />
                                     <button
                                         type="button"
-                                        className="text-sm font-semibold text-violet-600 dark:text-violet-400"
+                                        className="text-sm font-semibold text-wellness-600 dark:text-wellness-400"
                                     >
                                         {m.templates.edit}
                                     </button>

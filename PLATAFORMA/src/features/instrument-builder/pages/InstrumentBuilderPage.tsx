@@ -89,7 +89,7 @@ export const InstrumentBuilderPage = () => {
                 </div>
                 <button
                     onClick={() => setShowCreate(true)}
-                    className="inline-flex items-center gap-2 rounded-xl bg-violet-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-violet-500/20 transition-all hover:scale-[1.02] hover:bg-violet-500 hover:shadow-xl active:scale-[0.98]"
+                    className="inline-flex items-center gap-2 rounded-xl bg-wellness-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-wellness-500/20 transition-all hover:scale-[1.02] hover:bg-wellness-500 hover:shadow-xl active:scale-[0.98]"
                 >
                     <Plus className="size-4" />
                     {m.instruments.newButton}
@@ -120,16 +120,16 @@ export const InstrumentBuilderPage = () => {
                     placeholder={m.instruments.searchPlaceholder}
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="w-full rounded-xl border border-zinc-200 bg-white py-2.5 pl-10 pr-4 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100"
+                    className="w-full rounded-xl border border-zinc-200 bg-white py-2.5 pl-10 pr-4 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-wellness-500 focus:ring-2 focus:ring-wellness-500/20 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100"
                 />
             </div>
 
             {loading ? (
                 <div className="flex min-h-[40vh] items-center justify-center">
-                    <Loader2 className="size-8 animate-spin text-violet-500" />
+                    <Loader2 className="size-8 animate-spin text-wellness-500" />
                 </div>
             ) : filtered.length === 0 ? (
-                <div className="flex min-h-[40vh] flex-col items-center justify-center rounded-2xl border-2 border-dashed border-zinc-200 dark:border-zinc-800">
+                <div className="flex min-h-[40vh] flex-col items-center justify-center rounded-2xl border-2 border-dashed border-[var(--color-border)]">
                     <ListChecks className="mb-4 size-16 text-zinc-300 dark:text-zinc-600" />
                     <p className="text-lg font-medium text-zinc-500 dark:text-zinc-400">
                         {search ? m.instruments.emptyNoResults : m.instruments.emptyDefaultTitle}
@@ -146,7 +146,7 @@ export const InstrumentBuilderPage = () => {
                             className="group relative overflow-hidden rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm transition-all hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900"
                         >
                             <div className="mb-4 flex items-start justify-between">
-                                <div className="flex size-10 items-center justify-center rounded-xl bg-violet-600 text-white shadow-sm">
+                                <div className="flex size-10 items-center justify-center rounded-xl bg-wellness-600 text-white shadow-sm">
                                     <FileText className="size-5" />
                                 </div>
                                 <span
@@ -181,7 +181,7 @@ export const InstrumentBuilderPage = () => {
                             <div className="mt-4 flex items-center gap-2 border-t border-zinc-100 pt-4 dark:border-zinc-800">
                                 <button
                                     onClick={() => navigate(`/dashboard/instrumentos/${t.id}`)}
-                                    className="flex items-center gap-1.5 rounded-lg bg-violet-50 px-3 py-1.5 text-xs font-medium text-violet-600 transition-colors hover:bg-violet-100 dark:bg-violet-950/30 dark:text-violet-400 dark:hover:bg-violet-950/50"
+                                    className="flex items-center gap-1.5 rounded-lg bg-wellness-50 px-3 py-1.5 text-xs font-medium text-wellness-600 transition-colors hover:bg-wellness-100 dark:bg-wellness-100 dark:text-wellness-400 dark:hover:bg-wellness-50"
                                 >
                                     <Edit3 className="h-3.5 w-3.5" />
                                     {m.instruments.edit}
@@ -211,7 +211,7 @@ export const InstrumentBuilderPage = () => {
 
             {showCreate && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-                    <button type="button" aria-label={m.instruments.closeAria} className="fixed inset-0 bg-black/60 backdrop-blur-sm cursor-default" onClick={() => setShowCreate(false)} />
+                    <button type="button" aria-label={m.instruments.closeAria} className="fixed inset-0 bg-[var(--overlay-scrim)] backdrop-blur-sm cursor-default" onClick={() => setShowCreate(false)} />
                     <div className="relative w-full max-w-md rounded-2xl border border-zinc-200 bg-white p-6 shadow-2xl dark:border-zinc-800 dark:bg-zinc-900">
                         <h2 className="text-xl font-semibold text-zinc-900 dark:text-white">{m.instruments.modalNewTitle}</h2>
                         <p className="mt-1 text-sm text-zinc-500">{m.instruments.modalNewSubtitle}</p>
@@ -257,7 +257,7 @@ export const InstrumentBuilderPage = () => {
                                     id="new-active"
                                     checked={newTemplate.active}
                                     onChange={(e) => setNewTemplate((prev) => ({ ...prev, active: e.target.checked }))}
-                                    className="rounded border-zinc-300 text-violet-600 dark:border-zinc-600"
+                                    className="rounded border-zinc-300 text-wellness-600 dark:border-zinc-600"
                                 />
                                 <label htmlFor="new-active" className="text-sm text-zinc-700 dark:text-zinc-300">{m.instruments.checkboxActive}</label>
                             </div>
@@ -266,7 +266,7 @@ export const InstrumentBuilderPage = () => {
                             <button onClick={() => setShowCreate(false)} className="rounded-lg px-4 py-2 text-sm text-zinc-600 transition-colors hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800">
                                 {m.instruments.cancel}
                             </button>
-                            <button onClick={handleCreate} className="rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-violet-500">
+                            <button onClick={handleCreate} className="rounded-lg bg-wellness-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-wellness-500">
                                 {m.instruments.create}
                             </button>
                         </div>

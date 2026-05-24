@@ -55,7 +55,7 @@ export default function CreatePostModal({ onClose, onSubmit }: Props) {
     const canSubmit = placeId && (caption.trim() || image) && !submitting;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--overlay-scrim)] backdrop-blur-sm">
             <div className="w-full max-w-md rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200"
                 style={{ background: 'var(--color-bg)', border: '1px solid var(--color-border)' }}>
                 {/* Header */}
@@ -80,7 +80,7 @@ export default function CreatePostModal({ onClose, onSubmit }: Props) {
                             maxLength={2000}
                             rows={3}
                             placeholder="Escribe algo sobre este lugar..."
-                            className="w-full rounded-xl border px-3 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-violet-500/50"
+                            className="w-full rounded-xl border px-3 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-wellness-500/50"
                             style={{ background: 'var(--color-bg-alt)', borderColor: 'var(--color-border)', color: 'var(--color-text)' }}
                         />
                         <p className="text-right text-xs mt-1" style={{ color: 'var(--color-text-alt)' }}>{caption.length}/2000</p>
@@ -98,7 +98,7 @@ export default function CreatePostModal({ onClose, onSubmit }: Props) {
                                 <button
                                     type="button"
                                     onClick={() => { setImage(null); setPreview(null); if (fileRef.current) fileRef.current.value = ''; }}
-                                    className="absolute top-2 right-2 rounded-full bg-black/60 p-1 text-white hover:bg-black/80"
+                                    className="absolute top-2 right-2 rounded-full bg-[var(--overlay-scrim)] p-1 text-white hover:bg-black/80"
                                 >
                                     <X className="size-3.5" />
                                 </button>
@@ -107,7 +107,7 @@ export default function CreatePostModal({ onClose, onSubmit }: Props) {
                             <button
                                 type="button"
                                 onClick={() => fileRef.current?.click()}
-                                className="w-full flex flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed py-6 transition-colors hover:border-violet-400 hover:bg-violet-50/30 dark:hover:bg-violet-900/10"
+                                className="w-full flex flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed py-6 transition-colors hover:border-wellness-400 hover:bg-wellness-50/30 dark:hover:bg-wellness-50"
                                 style={{ borderColor: 'var(--color-border)' }}
                             >
                                 <ImagePlus className="size-6" style={{ color: 'var(--color-text-alt)' }} />
@@ -129,7 +129,7 @@ export default function CreatePostModal({ onClose, onSubmit }: Props) {
                                     onClick={() => setPlaceKind(k)}
                                     className={`flex-1 flex items-center justify-center gap-1.5 rounded-xl py-2 text-xs font-semibold transition-colors ${
                                         placeKind === k
-                                            ? 'bg-violet-600 text-white'
+                                            ? 'bg-wellness-600 text-white'
                                             : 'border text-zinc-500 hover:bg-zinc-50 dark:hover:bg-zinc-800'
                                     }`}
                                     style={placeKind !== k ? { borderColor: 'var(--color-border)' } : {}}
@@ -144,7 +144,7 @@ export default function CreatePostModal({ onClose, onSubmit }: Props) {
                             value={placeId}
                             onChange={(e) => setPlaceId(e.target.value)}
                             disabled={loadingPlaces}
-                            className="w-full rounded-xl border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/50 disabled:opacity-50"
+                            className="w-full rounded-xl border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-wellness-500/50 disabled:opacity-50"
                             style={{ background: 'var(--color-bg-alt)', borderColor: 'var(--color-border)', color: 'var(--color-text)' }}
                         >
                             <option value="">{loadingPlaces ? 'Cargando...' : `Seleccionar ${placeKind === 'svc' ? 'servicio' : 'POI'}`}</option>
@@ -168,7 +168,7 @@ export default function CreatePostModal({ onClose, onSubmit }: Props) {
                         <button
                             type="submit"
                             disabled={!canSubmit}
-                            className="flex-1 rounded-xl bg-violet-600 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-violet-700 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95"
+                            className="flex-1 rounded-xl bg-wellness-600 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-wellness-600 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95"
                         >
                             {submitting ? 'Publicando...' : 'Publicar'}
                         </button>

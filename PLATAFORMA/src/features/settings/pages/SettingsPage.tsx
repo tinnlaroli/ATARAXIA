@@ -42,7 +42,7 @@ const PreferenceToggle = ({ checked, description, label, onChange }: PreferenceT
         type="button"
         onClick={onChange}
         aria-pressed={checked}
-        className="flex w-full items-start justify-between gap-4 rounded-2xl border p-4 text-left transition-colors hover:border-violet-400/50"
+        className="flex w-full items-start justify-between gap-4 rounded-2xl border p-4 text-left transition-colors hover:border-wellness-400/50"
         style={{ background: 'var(--color-bg)', borderColor: 'var(--color-border)' }}
     >
         <div>
@@ -55,7 +55,7 @@ const PreferenceToggle = ({ checked, description, label, onChange }: PreferenceT
         </div>
         <span
             className={`mt-0.5 inline-flex h-6 w-11 shrink-0 items-center rounded-full p-1 transition-colors ${
-                checked ? 'justify-end bg-violet-600' : 'justify-start bg-zinc-300 dark:bg-zinc-700'
+                checked ? 'justify-end bg-wellness-600' : 'justify-start bg-zinc-300 dark:bg-zinc-700'
             }`}
         >
             <span className="size-4 rounded-full bg-white shadow-sm" />
@@ -237,7 +237,7 @@ export const SettingsPage = () => {
                                 }}
                             >
                                 <div className="flex items-center gap-2">
-                                    <Moon className="size-4 text-violet-400" />
+                                    <Moon className="size-4 text-wellness-400" />
                                     <p className="text-sm font-semibold" style={{ color: 'var(--color-text)' }}>
                                         {copy.settings.darkLabel}
                                     </p>

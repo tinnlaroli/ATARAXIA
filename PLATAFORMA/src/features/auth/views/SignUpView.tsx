@@ -78,8 +78,8 @@ export const SignUpView = ({ onSwitchStep }: SignUpViewProps) => {
         <>
         <div className="w-full">
             <div className="mb-6 flex justify-center">
-                <div className="flex size-12 items-center justify-center rounded-full bg-violet-600/10">
-                    <User className="size-6 text-violet-400" />
+                <div className="flex size-12 items-center justify-center rounded-full bg-wellness-600/10">
+                    <User className="size-6 text-wellness-400" />
                 </div>
             </div>
 
@@ -109,7 +109,7 @@ export const SignUpView = ({ onSwitchStep }: SignUpViewProps) => {
                         </div>
                         <label
                             htmlFor="photo-upload"
-                            className="absolute bottom-0 right-0 flex size-8 cursor-pointer items-center justify-center rounded-full bg-violet-600 text-white shadow-lg transition-transform hover:scale-110 active:scale-95"
+                            className="absolute bottom-0 right-0 flex size-8 cursor-pointer items-center justify-center rounded-full bg-wellness-600 text-white shadow-lg transition-transform hover:scale-110 active:scale-95"
                         >
                             <Camera className="size-4" />
                             <input
@@ -356,7 +356,7 @@ export const SignUpView = ({ onSwitchStep }: SignUpViewProps) => {
                 <button
                     type="submit"
                     disabled={isLoading || !allValidationsPassed}
-                    className="w-full rounded-lg bg-violet-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-violet-500 focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 focus:ring-offset-zinc-900 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                    className="w-full rounded-lg bg-wellness-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-wellness-500 focus:ring-2 focus:ring-wellness-500 focus:ring-offset-2 focus:ring-offset-zinc-900 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                 >
                     {isLoading ? (
                         <div className="flex items-center justify-center gap-2">

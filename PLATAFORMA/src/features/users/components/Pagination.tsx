@@ -55,7 +55,7 @@ function Pagination({ page, totalPages, limit, setSearchParams }: PaginationProp
     };
 
     return (
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-2 text-sm text-zinc-600 dark:text-zinc-400 border-t border-zinc-200 dark:border-zinc-800">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-2 text-sm text-zinc-600 dark:text-zinc-400 border-t border-[var(--color-border)]">
             <div className="flex items-center gap-1">
                 <button
                     onClick={() => goToPage(1)}
@@ -111,7 +111,7 @@ function Pagination({ page, totalPages, limit, setSearchParams }: PaginationProp
                                     transition-all duration-200
                                     ${
                                         pg === page
-                                            ? 'bg-violet-50 dark:bg-violet-950/50 text-violet-600 dark:text-violet-400 font-medium border border-violet-200 dark:border-violet-900'
+                                            ? 'bg-wellness-50 dark:bg-wellness-50 text-wellness-600 dark:text-wellness-400 font-medium border border-wellness-200 dark:border-wellness-200'
                                             : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-900 dark:hover:text-zinc-300'
                                     }
                                 `}
@@ -166,7 +166,7 @@ function Pagination({ page, totalPages, limit, setSearchParams }: PaginationProp
                             border border-zinc-200 dark:border-zinc-700 
                             bg-white dark:bg-zinc-900 
                             rounded-md px-2 py-1.5 text-xs
-                            focus:outline-none focus:ring-1 focus:ring-violet-500 focus:border-violet-500
+                            focus:outline-none focus:ring-1 focus:ring-wellness-500 focus:border-wellness-500
                             text-zinc-700 dark:text-zinc-300
                             cursor-pointer transition-colors
                         "

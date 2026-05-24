@@ -211,6 +211,39 @@ type DashboardLocale = {
         localBlendRf: string;
         localBlendGbm: string;
         usersLabel: string;
+        kpiAccuracy: string;
+        kpiAccuracySub: string;
+        kpiDestinations: string;
+        kpiDestinationsSub: string;
+        kpiAssessments: string;
+        kpiAssessmentsSub: string;
+        pipelineTitle: string;
+        pipelineStep1Title: string;
+        pipelineStep1Desc: string;
+        pipelineStep2Title: string;
+        pipelineStep2Desc: string;
+        pipelineStep3Title: string;
+        pipelineStep3Desc: string;
+        badgeClassifier: string;
+        badgeMatchmaker: string;
+        badgeCatalog: string;
+        classMetricsTitle: string;
+        classColProfile: string;
+        classColF1: string;
+        classColPrecision: string;
+        classColRecall: string;
+        classColSupport: string;
+        retrainTitle: string;
+        retrainAutoOn: string;
+        retrainAutoOff: string;
+        retrainPending: (n: number) => string;
+        retrainInFlight: string;
+        retrainAssessmentsLabel: string;
+        profileDistributionTitle: string;
+        modelTypeLabel: string;
+        hybridThresholdLabel: (threshold: number) => string;
+        metricsSavedAt: (date: string) => string;
+        profileLabels: Record<string, string>;
     };
     viewModel: {
         roleLabels: Record<number, string>;
@@ -280,7 +313,7 @@ const es: DashboardLocale = {
             '/dashboard/poi': 'Puntos de interes',
             '/dashboard/estadisticas': 'Estadisticas',
             '/dashboard/instrumentos': 'Instrumentos',
-            '/dashboard/ml': 'ML / IA',
+            '/dashboard/ml': 'ML Wellness',
             '/dashboard/configuracion': 'Configuracion',
         },
         notificationTitle: 'Notificaciones',
@@ -489,13 +522,13 @@ const es: DashboardLocale = {
         shellRemoveLabel: (label) => `Eliminar widget ${label}`,
     },
     mlObservability: {
-        title: 'ML / Observabilidad IA',
-        subtitle: 'Motor hibrido v4: LightFM WARP + CF Pearson + Random Forest + ContentModel',
-        trainBtn: 'Entrenar modelo',
-        trainingLabel: 'Entrenando en segundo plano...',
+        title: 'ML / IA Wellness',
+        subtitle: 'Clasificador de estrés + matchmaker terapéutico · destinos México',
+        trainBtn: 'Reentrenar clasificador',
+        trainingLabel: 'Reentrenando clasificador…',
         refreshBtn: 'Actualizar',
-        bannerTitle: 'Recoleccion de datos activa',
-        bannerDesc: 'La app movil envia senales implicitas (tiempo en pantalla, favoritos, filtros, ubicacion GPS) y calificaciones explicitas (1-5 estrellas). LightFM WARP usa el perfil del viajero (tiposTurismo, grupo, presupuesto) + features del POI (categoria, precio, distancia). El motor mejora automaticamente con cada re-entrenamiento usando las tablas user_interaction y user_rating.',
+        bannerTitle: 'Pipeline ATARAXIA (modo wellness)',
+        bannerDesc: 'El turista completa el check-in Q1–Q4 y sus preferencias de viaje. El API guarda la evaluación en stress_assessment, llama a MODELO (/recommend) y el clasificador HistGradientBoosting calibrado predice Burnout, Fatiga física o Hiperactividad ansiosa. El matchmaker filtra destinos por beneficio óptimo y similitud (coseno/Pearson). Cada nueva evaluación puede disparar reentrenamiento automático (debounce ~45 s).',
         errorRetry: 'Reintentar',
         kpiRmse: 'Mejor RMSE almacenado',
         kpiRmseSub: 'Menor = mejor prediccion',
@@ -522,7 +555,7 @@ const es: DashboardLocale = {
         emptyHint: 'Las metricas apareceran la primera vez que el MODELO entrene y persista su estado en la base de datos.',
         emptyTrainBtn: 'Iniciar primer entrenamiento',
         toastTrainTitle: 'Entrenamiento iniciado',
-        toastTrainDesc: 'El modelo esta re-entrenando en segundo plano (RF + GBM + LightFM). Los resultados se actualizaran automaticamente en ~8 minutos.',
+        toastTrainDesc: 'El clasificador de estrés se reentrena con datos sintéticos + evaluaciones reales (peso ×3). Los KPIs se actualizarán en ~2 minutos.',
         toastErrorTitle: 'Error',
         toastErrorDesc: 'No se pudo iniciar el entrenamiento.',
         algoLabels: {
@@ -533,8 +566,8 @@ const es: DashboardLocale = {
             hybrid_cf_rf:      'Hibrido CF + RF',
             hybrid_triple:     'Hibrido v4 (LightFM + CF + RF)',
         },
-        trainTooltipActive: 'Entrenamiento en curso — espera ~8 minutos antes de volver a entrenar',
-        trainTooltipIdle: 'Re-entrenar RF, GBM y LightFM con datos actuales',
+        trainTooltipActive: 'Reentrenamiento en curso — espera ~2 minutos',
+        trainTooltipIdle: 'Fusionar evaluaciones reales y volver a entrenar el clasificador',
         rankingTitle: 'Metricas de ranking (test set Yelp)',
         rankingNdcg: 'NDCG@5',
         rankingNdcgSub: 'Calidad del orden de recomendaciones',
@@ -550,7 +583,44 @@ const es: DashboardLocale = {
         localBlendTitle: 'Pesos del blending local (POIs)',
         localBlendRf: 'RF',
         localBlendGbm: 'GBM',
-        usersLabel: 'usuarios en matriz',
+        usersLabel: 'check-ins guardados',
+        kpiAccuracy: 'Accuracy clasificador',
+        kpiAccuracySub: 'Hold-out test · macro-F1 en subtexto',
+        kpiDestinations: 'Destinos activos',
+        kpiDestinationsSub: 'Catálogo wellness_destination',
+        kpiAssessments: 'Evaluaciones reales',
+        kpiAssessmentsSub: 'Tabla stress_assessment',
+        pipelineTitle: 'Flujo de recomendación',
+        pipelineStep1Title: '1 · Check-in emocional',
+        pipelineStep1Desc: 'Q1 energía · Q2 tensión · Q3 rumiación · Q4 activación',
+        pipelineStep2Title: '2 · Clasificación + match',
+        pipelineStep2Desc: 'Perfil de estrés + beneficio óptimo por destino (aislamiento, restauración, esfuerzo)',
+        pipelineStep3Title: '3 · Aprendizaje',
+        pipelineStep3Desc: 'Reentrenamiento automático al acumular nuevas evaluaciones',
+        badgeClassifier: 'Clasificador estrés (HGB)',
+        badgeMatchmaker: 'Matchmaker wellness',
+        badgeCatalog: 'Catálogo destinos',
+        classMetricsTitle: 'F1 por perfil (test)',
+        classColProfile: 'Perfil',
+        classColF1: 'F1',
+        classColPrecision: 'Precisión',
+        classColRecall: 'Recall',
+        classColSupport: 'Soporte',
+        retrainTitle: 'Reentrenamiento',
+        retrainAutoOn: 'Auto-retrain activo',
+        retrainAutoOff: 'Auto-retrain desactivado (ML_AUTO_RETRAIN=0)',
+        retrainPending: (n) => `${n} evaluación(es) nueva(s) pendientes de incorporar`,
+        retrainInFlight: 'Entrenamiento en curso en el API…',
+        retrainAssessmentsLabel: 'Evaluaciones en BD',
+        profileDistributionTitle: 'Perfiles detectados (30 días)',
+        modelTypeLabel: 'Arquitectura',
+        hybridThresholdLabel: (t) => `Umbral híbrido reglas+ML: ${(t * 100).toFixed(0)}% confianza`,
+        metricsSavedAt: (date) => `Última métrica guardada: ${date}`,
+        profileLabels: {
+            Burnout: 'Burnout',
+            Fatiga_Fisica: 'Fatiga física',
+            Hiperactividad_Ansiosa: 'Hiperactividad ansiosa',
+        },
     },
     viewModel: {
         roleLabels: {
@@ -625,7 +695,7 @@ const en: DashboardLocale = {
             '/dashboard/poi': 'Points of interest',
             '/dashboard/estadisticas': 'Statistics',
             '/dashboard/instrumentos': 'Instruments',
-            '/dashboard/ml': 'ML / AI',
+            '/dashboard/ml': 'ML Wellness',
             '/dashboard/configuracion': 'Settings',
         },
         notificationTitle: 'Notifications',
@@ -834,13 +904,13 @@ const en: DashboardLocale = {
         shellRemoveLabel: (label) => `Remove ${label} widget`,
     },
     mlObservability: {
-        title: 'ML / AI Observability',
-        subtitle: 'Hybrid engine v4: LightFM WARP + CF Pearson + Random Forest + ContentModel',
-        trainBtn: 'Train model',
-        trainingLabel: 'Training in background...',
+        title: 'ML / Wellness AI',
+        subtitle: 'Stress classifier + therapeutic matchmaker · Mexico destinations',
+        trainBtn: 'Retrain classifier',
+        trainingLabel: 'Retraining classifier…',
         refreshBtn: 'Refresh',
-        bannerTitle: 'Active data collection',
-        bannerDesc: 'The mobile app sends implicit signals (screen time, favorites, filters, GPS location) and explicit ratings (1-5 stars). LightFM WARP uses the traveler profile (tourism types, group, budget) and POI features (category, price, distance). The engine improves automatically with each retraining using the user_interaction and user_rating tables.',
+        bannerTitle: 'ATARAXIA pipeline (wellness mode)',
+        bannerDesc: 'Tourists complete the Q1–Q4 check-in and travel preferences. The API stores stress_assessment, calls MODELO (/recommend), and a calibrated HistGradientBoosting classifier predicts Burnout, Physical fatigue, or Anxious hyperactivity. The matchmaker ranks destinations by therapeutic benefit and similarity (cosine/Pearson). New assessments can trigger automatic retraining (debounce ~45s).',
         errorRetry: 'Try again',
         kpiRmse: 'Best stored RMSE',
         kpiRmseSub: 'Lower = better prediction',
@@ -867,7 +937,7 @@ const en: DashboardLocale = {
         emptyHint: 'Metrics will appear the first time the MODEL trains and persists its state to the database.',
         emptyTrainBtn: 'Start first training',
         toastTrainTitle: 'Training started',
-        toastTrainDesc: 'The model is retraining in the background (RF + GBM + LightFM). Results will auto-update in ~8 minutes.',
+        toastTrainDesc: 'The stress classifier retrains on synthetic + real assessments (×3 weight). KPIs update in ~2 minutes.',
         toastErrorTitle: 'Error',
         toastErrorDesc: 'Could not start training.',
         algoLabels: {
@@ -878,8 +948,8 @@ const en: DashboardLocale = {
             hybrid_cf_rf:      'Hybrid CF + RF',
             hybrid_triple:     'Hybrid v4 (LightFM + CF + RF)',
         },
-        trainTooltipActive: 'Training in progress — wait ~8 minutes before retraining',
-        trainTooltipIdle: 'Retrain RF, GBM and LightFM with current data',
+        trainTooltipActive: 'Retraining in progress — wait ~2 minutes',
+        trainTooltipIdle: 'Merge real assessments and retrain the classifier',
         rankingTitle: 'Ranking metrics (Yelp test set)',
         rankingNdcg: 'NDCG@5',
         rankingNdcgSub: 'Quality of recommendation ordering',
@@ -895,7 +965,44 @@ const en: DashboardLocale = {
         localBlendTitle: 'Local blend weights (POIs)',
         localBlendRf: 'RF',
         localBlendGbm: 'GBM',
-        usersLabel: 'users in matrix',
+        usersLabel: 'stored check-ins',
+        kpiAccuracy: 'Classifier accuracy',
+        kpiAccuracySub: 'Hold-out test · macro-F1 in subtitle',
+        kpiDestinations: 'Active destinations',
+        kpiDestinationsSub: 'wellness_destination catalog',
+        kpiAssessments: 'Real assessments',
+        kpiAssessmentsSub: 'stress_assessment table',
+        pipelineTitle: 'Recommendation flow',
+        pipelineStep1Title: '1 · Emotional check-in',
+        pipelineStep1Desc: 'Q1 energy · Q2 tension · Q3 rumination · Q4 activation',
+        pipelineStep2Title: '2 · Classify + match',
+        pipelineStep2Desc: 'Stress profile + optimal benefit per destination',
+        pipelineStep3Title: '3 · Learning',
+        pipelineStep3Desc: 'Auto-retrain when new assessments accumulate',
+        badgeClassifier: 'Stress classifier (HGB)',
+        badgeMatchmaker: 'Wellness matchmaker',
+        badgeCatalog: 'Destination catalog',
+        classMetricsTitle: 'F1 per profile (test)',
+        classColProfile: 'Profile',
+        classColF1: 'F1',
+        classColPrecision: 'Precision',
+        classColRecall: 'Recall',
+        classColSupport: 'Support',
+        retrainTitle: 'Retraining',
+        retrainAutoOn: 'Auto-retrain enabled',
+        retrainAutoOff: 'Auto-retrain disabled (ML_AUTO_RETRAIN=0)',
+        retrainPending: (n) => `${n} new assessment(s) pending merge`,
+        retrainInFlight: 'Training in progress on API…',
+        retrainAssessmentsLabel: 'DB assessments',
+        profileDistributionTitle: 'Profiles detected (30 days)',
+        modelTypeLabel: 'Architecture',
+        hybridThresholdLabel: (t) => `Hybrid rules+ML threshold: ${(t * 100).toFixed(0)}% confidence`,
+        metricsSavedAt: (date) => `Last saved metrics: ${date}`,
+        profileLabels: {
+            Burnout: 'Burnout',
+            Fatiga_Fisica: 'Physical fatigue',
+            Hiperactividad_Ansiosa: 'Anxious hyperactivity',
+        },
     },
     viewModel: {
         roleLabels: {
@@ -970,7 +1077,7 @@ const fr: DashboardLocale = {
             '/dashboard/poi': 'Points d interet',
             '/dashboard/estadisticas': 'Statistiques',
             '/dashboard/instrumentos': 'Instruments',
-            '/dashboard/ml': 'ML / IA',
+            '/dashboard/ml': 'ML Wellness',
             '/dashboard/configuracion': 'Configuration',
         },
         notificationTitle: 'Notifications',
@@ -1179,13 +1286,13 @@ const fr: DashboardLocale = {
         shellRemoveLabel: (label) => `Supprimer le widget ${label}`,
     },
     mlObservability: {
-        title: 'ML / Observabilite IA',
-        subtitle: 'Moteur hybride v4 : LightFM WARP + CF Pearson + Random Forest + ContentModel',
-        trainBtn: 'Entrainer le modele',
-        trainingLabel: 'Entrainement en arriere-plan...',
+        title: 'ML / IA Wellness',
+        subtitle: 'Classifieur de stress + matchmaker therapeutique · destinations Mexique',
+        trainBtn: 'Reentrainer le classifieur',
+        trainingLabel: 'Reentrainement du classifieur…',
         refreshBtn: 'Actualiser',
-        bannerTitle: 'Collecte de donnees active',
-        bannerDesc: 'L application mobile envoie des signaux implicites (temps d ecran, favoris, filtres, localisation GPS) et des notes explicites (1 a 5 etoiles). LightFM WARP utilise le profil du voyageur (types de tourisme, groupe, budget) et les features du POI (categorie, prix, distance). Le modele s ameliore automatiquement lors du reentrainement avec les tables user_interaction et user_rating.',
+        bannerTitle: 'Pipeline ATARAXIA (mode wellness)',
+        bannerDesc: 'Le touriste complete le check-in Q1–Q4 et ses preferences. L API enregistre stress_assessment, appelle MODELO (/recommend) et un HistGradientBoosting calibre predit Burnout, Fatigue physique ou Hyperactivite anxieuse. Le matchmaker classe les destinations par benefice therapeutique. Chaque evaluation peut declencher un reentrainement automatique (debounce ~45 s).',
         errorRetry: 'Reessayer',
         kpiRmse: 'Meilleur RMSE stocke',
         kpiRmseSub: 'Plus bas = meilleure prediction',
@@ -1212,7 +1319,7 @@ const fr: DashboardLocale = {
         emptyHint: 'Les metriques apparaitront la premiere fois que le MODELE s entrainera et persistera son etat en base de donnees.',
         emptyTrainBtn: 'Demarrer le premier entrainement',
         toastTrainTitle: 'Entrainement demarre',
-        toastTrainDesc: 'Le modele se reentrainement en arriere-plan (RF + GBM + LightFM). Les resultats se mettront a jour automatiquement en ~8 minutes.',
+        toastTrainDesc: 'Le classifieur se reentraine avec donnees synthetiques + reelles (poids ×3). KPI mis a jour en ~2 minutes.',
         toastErrorTitle: 'Erreur',
         toastErrorDesc: 'Impossible de demarrer l entrainement.',
         algoLabels: {
@@ -1223,8 +1330,8 @@ const fr: DashboardLocale = {
             hybrid_cf_rf:      'Hybride CF + RF',
             hybrid_triple:     'Hybride v4 (LightFM + CF + RF)',
         },
-        trainTooltipActive: 'Entrainement en cours — attendez ~8 minutes avant de reentrainer',
-        trainTooltipIdle: 'Reentrainer RF, GBM et LightFM avec les donnees actuelles',
+        trainTooltipActive: 'Reentrainement en cours — attendez ~2 minutes',
+        trainTooltipIdle: 'Fusionner les evaluations reelles et reentrainer',
         rankingTitle: 'Metriques de classement (jeu de test Yelp)',
         rankingNdcg: 'NDCG@5',
         rankingNdcgSub: 'Qualite de l ordre des recommandations',
@@ -1240,7 +1347,44 @@ const fr: DashboardLocale = {
         localBlendTitle: 'Poids du blending local (POIs)',
         localBlendRf: 'RF',
         localBlendGbm: 'GBM',
-        usersLabel: 'utilisateurs dans la matrice',
+        usersLabel: 'check-ins enregistres',
+        kpiAccuracy: 'Accuracy classifieur',
+        kpiAccuracySub: 'Test hold-out · macro-F1 en sous-titre',
+        kpiDestinations: 'Destinations actives',
+        kpiDestinationsSub: 'Catalogue wellness_destination',
+        kpiAssessments: 'Evaluations reelles',
+        kpiAssessmentsSub: 'Table stress_assessment',
+        pipelineTitle: 'Flux de recommandation',
+        pipelineStep1Title: '1 · Check-in emotionnel',
+        pipelineStep1Desc: 'Q1 energie · Q2 tension · Q3 rumination · Q4 activation',
+        pipelineStep2Title: '2 · Classification + match',
+        pipelineStep2Desc: 'Profil de stress + benefice optimal par destination',
+        pipelineStep3Title: '3 · Apprentissage',
+        pipelineStep3Desc: 'Reentrainement auto selon nouvelles evaluations',
+        badgeClassifier: 'Classifieur stress (HGB)',
+        badgeMatchmaker: 'Matchmaker wellness',
+        badgeCatalog: 'Catalogue destinations',
+        classMetricsTitle: 'F1 par profil (test)',
+        classColProfile: 'Profil',
+        classColF1: 'F1',
+        classColPrecision: 'Precision',
+        classColRecall: 'Rappel',
+        classColSupport: 'Support',
+        retrainTitle: 'Reentrainement',
+        retrainAutoOn: 'Auto-retrain actif',
+        retrainAutoOff: 'Auto-retrain desactive (ML_AUTO_RETRAIN=0)',
+        retrainPending: (n) => `${n} evaluation(s) en attente d incorporation`,
+        retrainInFlight: 'Entrainement en cours sur l API…',
+        retrainAssessmentsLabel: 'Evaluations en BD',
+        profileDistributionTitle: 'Profils detectes (30 jours)',
+        modelTypeLabel: 'Architecture',
+        hybridThresholdLabel: (t) => `Seuil hybride regles+ML : ${(t * 100).toFixed(0)}% confiance`,
+        metricsSavedAt: (date) => `Dernieres metriques : ${date}`,
+        profileLabels: {
+            Burnout: 'Burnout',
+            Fatiga_Fisica: 'Fatigue physique',
+            Hiperactividad_Ansiosa: 'Hyperactivite anxieuse',
+        },
     },
     viewModel: {
         roleLabels: {

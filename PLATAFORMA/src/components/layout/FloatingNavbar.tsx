@@ -211,7 +211,7 @@ export const FloatingNavbar: React.FC<FloatingNavbarProps> = ({ navLinks, handle
                                 }}
                                 className="flex-shrink-0"
                                 >
-                                    <img src={logoSrc} alt="SMARTUR" className="h-9 w-auto transition-all duration-300" />
+                                    <img src={logoSrc} alt="ATARAXIA" className="h-9 w-auto transition-all duration-300" />
                                 </a>
 
                             {/* Desktop Menu */}

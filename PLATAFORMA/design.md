@@ -1,4 +1,4 @@
-# SMARTUR Design System
+# ATARAXIA Design System — Wellness
 
 **Canonical product UI spec for PLATAFORMA.** Agents and skills must follow this file first, then [.agents/AGENTS.md](.agents/AGENTS.md) for skill routing.
 

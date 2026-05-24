@@ -34,7 +34,7 @@ const B2BFunnelWidget: React.FC<Props> = ({ stats, density }) => {
             sublabel:   copy.b2bCompaniesLabel,
             value:      stats.total_companies,
             icon:       Building2,
-            color:      DASHBOARD_COLORS.purple,
+            color:      DASHBOARD_COLORS.chart1,
             percentage: 100,
         },
         {
@@ -42,7 +42,7 @@ const B2BFunnelWidget: React.FC<Props> = ({ stats, density }) => {
             sublabel:   copy.b2bServicesLabel,
             value:      stats.total_services,
             icon:       Layers3,
-            color:      DASHBOARD_COLORS.cyan,
+            color:      DASHBOARD_COLORS.chart2,
             percentage: Math.min(100, Math.round((stats.total_services / topValue) * 100)),
         },
         {
@@ -50,7 +50,7 @@ const B2BFunnelWidget: React.FC<Props> = ({ stats, density }) => {
             sublabel:   copy.b2bEvalsLabel,
             value:      stats.total_evaluations,
             icon:       ClipboardCheck,
-            color:      DASHBOARD_COLORS.green,
+            color:      DASHBOARD_COLORS.chart5,
             percentage: Math.min(100, Math.round((stats.total_evaluations / topValue) * 100)),
         },
     ];
@@ -64,9 +64,9 @@ const B2BFunnelWidget: React.FC<Props> = ({ stats, density }) => {
             <div className="mb-3 flex items-center gap-2 shrink-0">
                 <div
                     className="flex size-9 shrink-0 items-center justify-center rounded-2xl"
-                    style={{ background: `${DASHBOARD_COLORS.purple}16` }}
+                    style={{ background: `${DASHBOARD_COLORS.chart1}16` }}
                 >
-                    <Building2 className="size-4" style={{ color: DASHBOARD_COLORS.purple }} />
+                    <Building2 className="size-4" style={{ color: DASHBOARD_COLORS.chart1 }} />
                 </div>
                 <div className="min-w-0">
                     <h2 className="truncate text-sm font-bold" style={{ color: 'var(--color-text)' }}>

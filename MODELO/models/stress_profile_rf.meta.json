@@ -1,42 +1,42 @@
 {
-  "accuracy": 0.5379241516966068,
-  "macro_f1": 0.5357636471711316,
+  "accuracy": 0.5363908275174477,
+  "macro_f1": 0.5332805589282132,
   "classification_report": {
     "Burnout": {
-      "precision": 0.46319018404907975,
-      "recall": 0.438953488372093,
-      "f1-score": 0.4507462686567164,
-      "support": 344.0
+      "precision": 0.46325878594249204,
+      "recall": 0.42028985507246375,
+      "f1-score": 0.44072948328267475,
+      "support": 345.0
     },
     "Fatiga_Fisica": {
-      "precision": 0.5910290237467019,
-      "recall": 0.6726726726726727,
-      "f1-score": 0.6292134831460674,
+      "precision": 0.5790816326530612,
+      "recall": 0.6816816816816816,
+      "f1-score": 0.6262068965517241,
       "support": 333.0
     },
     "Hiperactividad_Ansiosa": {
-      "precision": 0.5521885521885522,
-      "recall": 0.5046153846153846,
-      "f1-score": 0.5273311897106109,
+      "precision": 0.5570469798657718,
+      "recall": 0.5107692307692308,
+      "f1-score": 0.5329052969502408,
       "support": 325.0
     },
-    "accuracy": 0.5379241516966068,
+    "accuracy": 0.5363908275174477,
     "macro avg": {
-      "precision": 0.5354692533281113,
-      "recall": 0.5387471818867168,
-      "f1-score": 0.5357636471711316,
-      "support": 1002.0
+      "precision": 0.5331291328204416,
+      "recall": 0.5375802558411253,
+      "f1-score": 0.5332805589282132,
+      "support": 1003.0
     },
     "weighted avg": {
-      "precision": 0.5345422831155835,
-      "recall": 0.5379241516966068,
-      "f1-score": 0.5348976476661672,
-      "support": 1002.0
+      "precision": 0.532102426001999,
+      "recall": 0.5363908275174477,
+      "f1-score": 0.532176261010045,
+      "support": 1003.0
     }
   },
-  "n_train": 4006,
-  "n_test": 1002,
-  "n_real_assessments": 8,
+  "n_train": 4008,
+  "n_test": 1003,
+  "n_real_assessments": 11,
   "n_features": 7,
   "feature_cols": [
     "q1_energia_cognitiva",
@@ -50,8 +50,8 @@
   "model_type": "HistGradientBoosting+CalibratedClassifierCV",
   "hybrid_threshold": 0.58,
   "class_distribution": {
-    "Burnout": 1721,
-    "Fatiga_Fisica": 1665,
+    "Burnout": 1723,
+    "Fatiga_Fisica": 1666,
     "Hiperactividad_Ansiosa": 1622
   }
 }

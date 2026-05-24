@@ -102,7 +102,7 @@ export default function EditUserModal({ user, onClose, onSubmit }: Props) {
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50 p-4">
             <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-xl w-full max-w-md transform transition-all">
-                <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 px-6 py-4">
+                <div className="flex items-center justify-between border-b border-[var(--color-border)] px-6 py-4">
                     <h2 className="text-base font-semibold text-zinc-900 dark:text-zinc-100">
                         {mod.users.editTitle}
                     </h2>
@@ -111,7 +111,7 @@ export default function EditUserModal({ user, onClose, onSubmit }: Props) {
                 <form onSubmit={handleSubmit} className="p-6 gap-y-5 flex flex-col">
                     <div className="flex flex-col items-center justify-center gap-y-3 pb-2">
                         <div className="relative group">
-                            <div className="size-20 overflow-hidden rounded-full border-2 border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800 transition-colors group-hover:border-violet-500">
+                            <div className="size-20 overflow-hidden rounded-full border-2 border-[var(--color-border)] bg-zinc-50 dark:bg-zinc-800 transition-colors group-hover:border-wellness-500">
                                 {previewUrl ? (
                                     <img
                                         src={previewUrl}
@@ -126,7 +126,7 @@ export default function EditUserModal({ user, onClose, onSubmit }: Props) {
                             </div>
                             <label
                                 htmlFor="edit-photo-upload"
-                                className="absolute bottom-0 right-0 flex size-7 cursor-pointer items-center justify-center rounded-full bg-violet-600 text-white shadow-lg transition-transform hover:scale-110 active:scale-95"
+                                className="absolute bottom-0 right-0 flex size-7 cursor-pointer items-center justify-center rounded-full bg-wellness-600 text-white shadow-lg transition-transform hover:scale-110 active:scale-95"
                             >
                                 <Camera className="size-3.5" />
                                 <input
@@ -153,7 +153,7 @@ export default function EditUserModal({ user, onClose, onSubmit }: Props) {
                                 name="name"
                                 value={formData.name}
                                 onChange={handleFieldChange}
-                                className={`w-full rounded-lg border px-4 py-2.5 text-sm bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 placeholder:text-zinc-400 dark:placeholder:text-zinc-500 transition-colors ${errors.name ? 'border-red-400 focus:ring-red-400 dark:border-red-500' : 'border-zinc-200 dark:border-zinc-700 focus:ring-violet-500/20 focus:border-violet-500 dark:focus:ring-violet-400/20 dark:focus:border-violet-400'}`}
+                                className={`w-full rounded-lg border px-4 py-2.5 text-sm bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 placeholder:text-zinc-400 dark:placeholder:text-zinc-500 transition-colors ${errors.name ? 'border-red-400 focus:ring-red-400 dark:border-red-500' : 'border-zinc-200 dark:border-zinc-700 focus:ring-wellness-500/20 focus:border-wellness-500 dark:focus:ring-wellness-400/20 dark:focus:border-wellness-400'}`}
                                 placeholder={mod.users.namePlaceholderShort}
                             />
                             {errors.name && <p className="flex items-center gap-1 text-xs text-red-500 mt-0.5"><AlertCircle className="size-3" />{errors.name}</p>}
@@ -172,7 +172,7 @@ export default function EditUserModal({ user, onClose, onSubmit }: Props) {
                                 type="password"
                                 value={formData.password}
                                 onChange={handleFieldChange}
-                                className={`w-full rounded-lg border px-4 py-2.5 text-sm bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 placeholder:text-zinc-400 dark:placeholder:text-zinc-500 transition-colors ${errors.password ? 'border-red-400 focus:ring-red-400 dark:border-red-500' : 'border-zinc-200 dark:border-zinc-700 focus:ring-violet-500/20 focus:border-violet-500 dark:focus:ring-violet-400/20 dark:focus:border-violet-400'}`}
+                                className={`w-full rounded-lg border px-4 py-2.5 text-sm bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 placeholder:text-zinc-400 dark:placeholder:text-zinc-500 transition-colors ${errors.password ? 'border-red-400 focus:ring-red-400 dark:border-red-500' : 'border-zinc-200 dark:border-zinc-700 focus:ring-wellness-500/20 focus:border-wellness-500 dark:focus:ring-wellness-400/20 dark:focus:border-wellness-400'}`}
                                 placeholder={mod.users.passwordLeaveBlank}
                             />
                             {errors.password && <p className="flex items-center gap-1 text-xs text-red-500 mt-0.5"><AlertCircle className="size-3" />{errors.password}</p>}
@@ -189,8 +189,8 @@ export default function EditUserModal({ user, onClose, onSubmit }: Props) {
                                 onChange={handleFieldChange}
                                 className="w-full rounded-lg border border-zinc-200 dark:border-zinc-700 px-4 py-2.5 text-sm
                                      bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100
-                                     focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500
-                                     dark:focus:ring-violet-400/20 dark:focus:border-violet-400
+                                     focus:outline-none focus:ring-2 focus:ring-wellness-500/20 focus:border-wellness-500
+                                     dark:focus:ring-wellness-400/20 dark:focus:border-wellness-400
                                      cursor-pointer transition-colors"
                             >
                                 <option value={1} className="py-2">
@@ -213,8 +213,8 @@ export default function EditUserModal({ user, onClose, onSubmit }: Props) {
                                 onChange={handleFieldChange}
                                 className="w-full rounded-lg border border-zinc-200 dark:border-zinc-700 px-4 py-2.5 text-sm 
                                      bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100
-                                     focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500
-                                     dark:focus:ring-violet-400/20 dark:focus:border-violet-400
+                                     focus:outline-none focus:ring-2 focus:ring-wellness-500/20 focus:border-wellness-500
+                                     dark:focus:ring-wellness-400/20 dark:focus:border-wellness-400
                                      cursor-pointer transition-colors"
                             >
                                 <option value="true" className="py-2">
@@ -226,7 +226,7 @@ export default function EditUserModal({ user, onClose, onSubmit }: Props) {
                             </select>
                         </div>
                     </div>
-                    <div className="flex justify-end gap-2 pt-4 border-t border-zinc-200 dark:border-zinc-800">
+                    <div className="flex justify-end gap-2 pt-4 border-t border-[var(--color-border)]">
                         <button
                             type="button"
                             onClick={onClose}
@@ -245,10 +245,10 @@ export default function EditUserModal({ user, onClose, onSubmit }: Props) {
                             type="submit"
                             className="inline-flex items-center gap-1.5 
                    px-3 py-2 text-sm font-medium 
-                   rounded-md bg-violet-600 dark:bg-violet-500
+                   rounded-md bg-wellness-600 dark:bg-wellness-500
                    text-white
-                   hover:bg-violet-700 dark:hover:bg-violet-600
-                   focus:outline-none focus:ring-2 focus:ring-violet-500/20
+                   hover:bg-wellness-600 dark:hover:bg-wellness-600
+                   focus:outline-none focus:ring-2 focus:ring-wellness-500/20
                    transition-colors"
                         >
                             <Save className="size-4" />

@@ -80,7 +80,7 @@ export default function LocationTable({ locations, selectedLocations, onToggle, 
                                     </DataTableLinkButton>
                                 </DataTableCell>
                                 <DataTableCell className="w-40">
-                                    <TableBadge text={loc.state} color={TABLE_BADGE_COLORS.violet} />
+                                    <TableBadge text={loc.state} color={TABLE_BADGE_COLORS.wellness} />
                                 </DataTableCell>
                                 <DataTableCell className="w-44">{loc.municipality}</DataTableCell>
                                 <DataTableCell className="w-32 tabular-nums text-[var(--color-text-alt)]">

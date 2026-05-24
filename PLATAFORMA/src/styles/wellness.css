@@ -1,0 +1,218 @@
+/* Utilidades UI — siempre sobre tokens.css */
+
+.wellness-page {
+  min-height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.wellness-glow-primary {
+  background: radial-gradient(
+    ellipse at 30% 20%,
+    rgba(var(--rgb-primary), 0.35) 0%,
+    transparent 55%
+  );
+}
+
+.wellness-glow-earth {
+  background: radial-gradient(
+    ellipse at 80% 80%,
+    rgba(var(--rgb-earth), 0.22) 0%,
+    transparent 50%
+  );
+}
+
+.wellness-card {
+  background: var(--glass-surface);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+
+.wellness-card-solid {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.wellness-btn-primary {
+  background: var(--color-primary-deep);
+  color: var(--color-text-on-primary);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  transition: background 0.2s var(--ease-standard), transform 0.15s ease;
+}
+
+.wellness-btn-primary:hover {
+  background: var(--color-primary);
+  color: var(--color-forest);
+}
+
+.wellness-btn-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.wellness-btn-secondary {
+  background: transparent;
+  color: var(--color-primary-deep);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+}
+
+.wellness-btn-secondary:hover {
+  background: rgba(var(--rgb-primary), 0.12);
+}
+
+.wellness-chip-active {
+  border-color: var(--color-primary-deep) !important;
+  background: rgba(var(--rgb-primary), 0.28) !important;
+  color: var(--color-forest) !important;
+}
+
+.wellness-accent-text {
+  color: var(--color-primary-deep);
+}
+
+.wellness-muted {
+  color: var(--color-text-alt);
+}
+
+.wellness-modal {
+  background: var(--color-canvas-elevated);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-modal);
+}
+
+.wellness-modal-header {
+  background: var(--color-primary-deep);
+  color: var(--color-text-on-primary);
+}
+
+.wellness-input {
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  border-radius: var(--radius-md);
+}
+
+.wellness-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
+  border-color: var(--color-primary-deep);
+}
+
+.wellness-badge {
+  background: rgba(var(--rgb-primary), 0.18);
+  color: var(--color-primary-deep);
+  border: 1px solid rgba(var(--rgb-primary-deep), 0.2);
+}
+
+.wellness-badge-muted {
+  background: rgba(var(--rgb-forest), 0.06);
+  color: var(--color-text-alt);
+}
+
+.wellness-alert-error {
+  color: var(--color-danger);
+  background: rgba(var(--rgb-danger), 0.1);
+  border: 1px solid rgba(var(--rgb-danger), 0.25);
+}
+
+.wellness-alert-success {
+  color: var(--color-success);
+  background: rgba(var(--rgb-success), 0.12);
+}
+
+.wellness-spinner {
+  border-color: var(--color-border);
+  border-top-color: var(--color-primary-deep);
+}
+
+.wellness-table-row-active {
+  background: rgba(var(--rgb-primary), 0.12);
+  color: var(--color-primary-deep);
+  border-color: rgba(var(--rgb-primary-deep), 0.25);
+}
+
+.wellness-chart-stroke {
+  stroke: var(--color-chart-1);
+}
+
+.wellness-chart-fill {
+  fill: rgba(var(--rgb-chart-1), 0.25);
+}
+
+/* Paneles dashboard / modales / tablas */
+.wellness-panel {
+  background: var(--color-canvas-elevated);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.wellness-panel-muted {
+  background: var(--color-surface-muted);
+  border-color: var(--color-border);
+}
+
+.wellness-overlay {
+  background: var(--overlay-scrim);
+}
+
+.wellness-table-shell {
+  background: var(--color-canvas-elevated);
+  border: 1px solid var(--color-border);
+}
+
+.wellness-table-head {
+  background: var(--color-surface-muted);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.wellness-field {
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  border-radius: var(--radius-md);
+}
+
+.wellness-field::placeholder {
+  color: var(--color-text-alt);
+  opacity: 0.75;
+}
+
+.wellness-field:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
+  border-color: var(--color-primary-deep);
+}
+
+/* Formulario legacy (Step1–4) */
+.wellness-step-title {
+  color: var(--color-text);
+}
+
+.wellness-step-subtitle,
+.wellness-step-label {
+  color: var(--color-text-alt);
+}
+
+.wellness-chip {
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-alt);
+  color: var(--color-text-alt);
+  transition: border-color 0.2s var(--ease-standard), background 0.2s var(--ease-standard);
+}
+
+.wellness-chip:hover {
+  border-color: var(--color-border-strong);
+}
+
+.wellness-chip-selected {
+  border-color: var(--color-primary-deep) !important;
+  background: var(--color-primary-deep) !important;
+  color: var(--color-text-on-primary) !important;
+  box-shadow: 0 8px 24px rgba(var(--rgb-primary-deep), 0.2);
+}

@@ -1,0 +1,11 @@
+{
+  "accuracy": 0.5363908275174477,
+  "macro_f1": 0.5332805589282132,
+  "n_train": 4008,
+  "n_test": 1003,
+  "n_real_assessments": 11,
+  "hybrid_test_accuracy": 0.466,
+  "hybrid_test_macro_f1": 0.44222835863097926,
+  "figures_dir": "C:\\Users\\tinn\\Documents\\Dev\\ATARAXIA\\MODELO\\models\\paper_figures",
+  "latex_table": "C:\\Users\\tinn\\Documents\\Dev\\ATARAXIA\\MODELO\\models\\paper_figures\\table_stress_metrics.tex"
+}

@@ -72,14 +72,14 @@ const EvaluationResultModal: React.FC<Props> = ({ isOpen, onClose, evaluationId 
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Evaluación #${evaluationId} — SMARTUR</title>
+  <title>Evaluación #${evaluationId} — ATARAXIA</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Segoe UI', system-ui, sans-serif; color: #18181b; padding: 2.5rem; max-width: 680px; margin: 0 auto; }
-    .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; padding-bottom: 1.25rem; border-bottom: 2px solid #7c3aed; }
-    .logo { font-size: 1.4rem; font-weight: 900; color: #7c3aed; letter-spacing: -0.5px; }
+    .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; padding-bottom: 1.25rem; border-bottom: 2px solid #4a5d48; }
+    .logo { font-size: 1.4rem; font-weight: 900; color: #4a5d48; letter-spacing: -0.5px; }
     .meta { font-size: 0.8rem; color: #71717a; margin-top: 2px; }
-    .score-card { background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%); color: #fff; border-radius: 16px; padding: 1.5rem; margin-bottom: 1.75rem; }
+    .score-card { background: linear-gradient(135deg, #4a5d48 0%, #7d9b76 100%); color: #fffbf8; border-radius: 16px; padding: 1.5rem; margin-bottom: 1.75rem; }
     .score-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; opacity: 0.75; }
     .score-value { font-size: 4rem; font-weight: 900; line-height: 1; margin: 0.2rem 0; }
     .score-value span { font-size: 1.25rem; opacity: 0.6; }
@@ -88,7 +88,7 @@ const EvaluationResultModal: React.FC<Props> = ({ isOpen, onClose, evaluationId 
     .criterion { border: 1px solid #e4e4e7; border-radius: 12px; padding: 0.875rem 1rem; margin-bottom: 0.6rem; }
     .criterion-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.4rem; }
     .criterion-name { font-size: 0.875rem; font-weight: 600; color: #18181b; }
-    .criterion-score { background: #ede9fe; color: #7c3aed; padding: 2px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; white-space: nowrap; }
+    .criterion-score { background: #dce8d4; color: #4a5d48; padding: 2px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; white-space: nowrap; }
     .criterion-obs { font-size: 0.8rem; color: #71717a; font-style: italic; }
     .general-obs { background: #fafafa; border: 1px solid #e4e4e7; border-radius: 12px; padding: 1rem 1.125rem; font-size: 0.875rem; color: #52525b; font-style: italic; line-height: 1.65; }
     .footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #e4e4e7; font-size: 0.72rem; color: #a1a1aa; text-align: center; }
@@ -98,7 +98,7 @@ const EvaluationResultModal: React.FC<Props> = ({ isOpen, onClose, evaluationId 
 <body>
   <div class="header">
     <div>
-      <div class="logo">SMARTUR</div>
+      <div class="logo">ATARAXIA</div>
       <div class="meta">Resultado de Evaluación · ID #${evaluationId}</div>
     </div>
   </div>
@@ -129,7 +129,7 @@ const EvaluationResultModal: React.FC<Props> = ({ isOpen, onClose, evaluationId 
   <div class="general-obs">"${evaluation.generalObservations || 'No se registraron observaciones generales.'}"</div>
 
   <div class="footer">
-    Generado por SMARTUR · ${new Date().toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' })}
+    Generado por ATARAXIA · ${new Date().toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' })}
   </div>
 </body>
 </html>`;
@@ -146,10 +146,10 @@ const EvaluationResultModal: React.FC<Props> = ({ isOpen, onClose, evaluationId 
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/60 z-[60] backdrop-blur-md animate-in fade-in duration-300">
-            <div className="bg-white dark:bg-[#121214] rounded-2xl shadow-2xl w-full max-w-2xl max-h-[85vh] flex flex-col overflow-hidden border border-zinc-200 dark:border-zinc-800">
+        <div className="fixed inset-0 flex items-center justify-center bg-[var(--overlay-scrim)] z-[60] backdrop-blur-md animate-in fade-in duration-300">
+            <div className="wellness-modal wellness-modal rounded-2xl shadow-2xl w-full max-w-2xl max-h-[85vh] flex flex-col overflow-hidden">
                 {/* Header */}
-                <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 px-8 py-5 bg-violet-600">
+                <div className="flex items-center justify-between border-b border-[var(--color-border)] px-8 py-5 bg-wellness-600">
                     <div className="flex items-center gap-3">
                         <div className="p-2 bg-white/20 rounded-lg">
                             <Award className="size-6 text-white" />
@@ -167,7 +167,7 @@ const EvaluationResultModal: React.FC<Props> = ({ isOpen, onClose, evaluationId 
                 <div className="flex-1 overflow-y-auto p-8 custom-scrollbar">
                     {isLoading ? (
                         <div className="flex flex-col items-center justify-center py-20">
-                            <div className="size-10 animate-spin rounded-full border-4 border-zinc-200 border-t-violet-600 mb-4"></div>
+                            <div className="size-10 animate-spin rounded-full border-4 border-zinc-200 border-t-wellness-600 mb-4"></div>
                             <p className="text-zinc-500">
                                 {res.loading}
                             </p>
@@ -175,8 +175,8 @@ const EvaluationResultModal: React.FC<Props> = ({ isOpen, onClose, evaluationId 
                     ) : evaluation ? (
                         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
                             {/* Score Card */}
-                            <div className="rounded-2xl bg-violet-600 p-6 text-white shadow-xl">
-                                <div className="flex justify-between items-center text-violet-100 mb-2">
+                            <div className="rounded-2xl bg-wellness-600 p-6 text-white shadow-xl">
+                                <div className="flex justify-between items-center text-wellness-100 mb-2">
                                     <span className="text-xs font-semibold uppercase tracking-widest">
                                         {res.totalScore}
                                     </span>
@@ -188,19 +188,19 @@ const EvaluationResultModal: React.FC<Props> = ({ isOpen, onClose, evaluationId 
                                             ? Number(evaluation.totalScore).toFixed(1)
                                             : '0.0'}
                                     </span>
-                                    <span className="text-lg font-semibold text-violet-200 mb-1">
+                                    <span className="text-lg font-semibold text-wellness-200 mb-1">
                                         {res.ofMax}
                                     </span>
                                 </div>
                                 <div className="mt-4 pt-4 border-t border-white/20 grid grid-cols-2 gap-4">
                                     <div className="flex items-center gap-2">
-                                        <Clock className="size-3.5 text-violet-200" />
+                                        <Clock className="size-3.5 text-wellness-200" />
                                         <span className="text-xs">
                                             {evaluation.evaluationTime} {res.minSuffix}
                                         </span>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <User className="size-3.5 text-violet-200" />
+                                        <User className="size-3.5 text-wellness-200" />
                                         <span className="text-xs">
                                             {res.evaluator(evaluation.evaluatorId)}
                                         </span>
@@ -231,7 +231,7 @@ const EvaluationResultModal: React.FC<Props> = ({ isOpen, onClose, evaluationId 
                                                     <span className="text-sm font-semibold text-zinc-800 dark:text-zinc-200">
                                                         {detail.criterion_name}
                                                     </span>
-                                                    <span className="px-2 py-0.5 rounded-lg bg-violet-100 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 text-xs font-semibold">
+                                                    <span className="px-2 py-0.5 rounded-lg bg-wellness-100 dark:bg-wellness-100 text-wellness-600 dark:text-wellness-400 text-xs font-semibold">
                                                         {detail.assigned_score} / 4
                                                     </span>
                                                 </div>
@@ -270,7 +270,7 @@ const EvaluationResultModal: React.FC<Props> = ({ isOpen, onClose, evaluationId 
                     )}
                 </div>
 
-                <div className="border-t border-zinc-200 dark:border-zinc-800 px-8 py-4 bg-zinc-50 dark:bg-zinc-900/50 flex items-center justify-between gap-3">
+                <div className="border-t border-[var(--color-border)] px-8 py-4 bg-zinc-50 dark:bg-zinc-900/50 flex items-center justify-between gap-3">
                     <button
                         onClick={handlePrint}
                         disabled={!evaluation}

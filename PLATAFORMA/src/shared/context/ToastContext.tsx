@@ -29,10 +29,10 @@ interface ToastContextValue {
 
 // Accent color per type (left border + icon)
 const TOAST_ACCENTS: Record<NotificationType, { color: string; icon: typeof CheckCircle }> = {
-    success: { color: '#22c55e', icon: CheckCircle },
-    error:   { color: '#ef4444', icon: XCircle },
-    info:    { color: '#3b82f6', icon: Info },
-    warning: { color: '#f59e0b', icon: AlertCircle },
+    success: { color: 'var(--color-success)', icon: CheckCircle },
+    error:   { color: 'var(--color-danger)', icon: XCircle },
+    info:    { color: 'var(--color-info)', icon: Info },
+    warning: { color: 'var(--color-warning)', icon: AlertCircle },
 };
 
 // --- Componente Notification (Interno para el Contexto) ---

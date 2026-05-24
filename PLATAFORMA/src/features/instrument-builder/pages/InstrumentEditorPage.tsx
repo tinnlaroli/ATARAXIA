@@ -262,7 +262,7 @@ export const InstrumentEditorPage = () => {
     if (loading) {
         return (
             <div className="flex min-h-[60vh] items-center justify-center">
-                <Loader2 className="size-8 animate-spin text-violet-500" />
+                <Loader2 className="size-8 animate-spin text-wellness-500" />
             </div>
         );
     }
@@ -273,7 +273,7 @@ export const InstrumentEditorPage = () => {
                 <div className="rounded-2xl border border-zinc-200 bg-white p-8 text-center shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
                     <AlertCircle className="mx-auto size-12 text-rose-400" />
                     <p className="mt-4 text-lg font-medium text-zinc-900 dark:text-zinc-100">{error}</p>
-                    <button onClick={fetchRubric} className="mt-4 rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white">
+                    <button onClick={fetchRubric} className="mt-4 rounded-lg bg-wellness-600 px-4 py-2 text-sm font-medium text-white">
                         {ie.retryLoad}
                     </button>
                 </div>
@@ -303,7 +303,7 @@ export const InstrumentEditorPage = () => {
                         onClick={() => setPreview(!preview)}
                         className={`flex items-center gap-1.5 rounded-lg border px-3 py-2 text-sm font-medium transition-colors ${
                             preview
-                                ? 'border-violet-200 bg-violet-50 text-violet-700 dark:border-violet-800 dark:bg-violet-950/30 dark:text-violet-400'
+                                ? 'border-wellness-200 bg-wellness-50 text-wellness-600 dark:border-wellness-700 dark:bg-wellness-100 dark:text-wellness-400'
                                 : 'border-zinc-200 bg-white text-zinc-600 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400'
                         }`}
                     >
@@ -367,7 +367,7 @@ export const InstrumentEditorPage = () => {
                         <button
                             onClick={handleSaveTemplate}
                             disabled={saving || preview}
-                            className="flex items-center gap-1.5 rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-violet-500 disabled:opacity-50"
+                            className="flex items-center gap-1.5 rounded-lg bg-wellness-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-wellness-500 disabled:opacity-50"
                         >
                             {saving ? <Loader2 className="size-4 animate-spin" /> : <Save className="size-4" />}
                             {ie.saveMetadata}
@@ -419,7 +419,7 @@ export const InstrumentEditorPage = () => {
                                     <div className="space-y-2">
                                         {(c.levels || []).map((l, li) => (
                                             <label key={li} className="flex items-center gap-2 text-sm text-zinc-700 dark:text-zinc-300">
-                                                <input type="radio" name={`preview-${c.id_criterion}`} disabled className="text-violet-600" />
+                                                <input type="radio" name={`preview-${c.id_criterion}`} disabled className="text-wellness-600" />
                                                 {l.description} {l.score > 0 && <span className="text-xs text-zinc-400">({l.score} {ie.ptsWord})</span>}
                                             </label>
                                         ))}
@@ -432,7 +432,7 @@ export const InstrumentEditorPage = () => {
                                     <div className="space-y-2">
                                         {(c.levels || []).map((l, li) => (
                                             <label key={li} className="flex items-center gap-2 text-sm text-zinc-700 dark:text-zinc-300">
-                                                <input type="checkbox" disabled className="rounded text-violet-600" />
+                                                <input type="checkbox" disabled className="rounded text-wellness-600" />
                                                 {l.description} {l.score > 0 && <span className="text-xs text-zinc-400">({l.score} {ie.ptsWord})</span>}
                                             </label>
                                         ))}
@@ -475,7 +475,7 @@ export const InstrumentEditorPage = () => {
                         <div className="flex items-center gap-2">
                             <button
                                 onClick={addCriterion}
-                                className="flex items-center gap-1.5 rounded-xl bg-violet-600 px-4 py-2 text-sm font-semibold text-white shadow-lg transition-all hover:bg-violet-500 hover:scale-[1.02] active:scale-[0.98]"
+                                className="flex items-center gap-1.5 rounded-xl bg-wellness-600 px-4 py-2 text-sm font-semibold text-white shadow-lg transition-all hover:bg-wellness-500 hover:scale-[1.02] active:scale-[0.98]"
                             >
                                 <Plus className="size-4" />
                                 {ie.addQuestion}
@@ -496,7 +496,7 @@ export const InstrumentEditorPage = () => {
                     </div>
 
                     {criteria.length === 0 ? (
-                        <div className="flex min-h-[30vh] flex-col items-center justify-center rounded-2xl border-2 border-dashed border-zinc-200 dark:border-zinc-800">
+                        <div className="flex min-h-[30vh] flex-col items-center justify-center rounded-2xl border-2 border-dashed border-[var(--color-border)]">
                             <Plus className="mb-4 size-12 text-zinc-300 dark:text-zinc-600" />
                             <p className="text-zinc-500 dark:text-zinc-400">
                                 {ie.emptyQuestionsHint}
@@ -528,7 +528,7 @@ export const InstrumentEditorPage = () => {
                                                 <ChevronDown className="h-3.5 w-3.5" />
                                             </button>
                                         </div>
-                                        <span className="flex size-7 items-center justify-center rounded-full bg-violet-600 text-xs font-bold text-white shadow-sm shrink-0">
+                                        <span className="flex size-7 items-center justify-center rounded-full bg-wellness-600 text-xs font-bold text-white shadow-sm shrink-0">
                                             {i + 1}
                                         </span>
                                         <input
@@ -536,7 +536,7 @@ export const InstrumentEditorPage = () => {
                                             value={c.name}
                                             onChange={(e) => updateCriterion(i, { name: e.target.value })}
                                             placeholder={ie.questionNamePlaceholder}
-                                            className="flex-1 border-0 border-b-2 border-transparent bg-transparent py-1 text-base font-medium text-zinc-900 placeholder:text-zinc-300 focus:border-violet-500 focus:ring-0 dark:text-white dark:placeholder:text-zinc-600"
+                                            className="flex-1 border-0 border-b-2 border-transparent bg-transparent py-1 text-base font-medium text-zinc-900 placeholder:text-zinc-300 focus:border-wellness-500 focus:ring-0 dark:text-white dark:placeholder:text-zinc-600"
                                         />
                                         {LEVELS_FIELD_TYPES.has(c.field_type) && (!c.levels || c.levels.length === 0) && (
                                             <span className="shrink-0 flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-700 dark:bg-amber-900/30 dark:text-amber-400" title={ie.noLevelsTooltip}>
@@ -621,7 +621,7 @@ export const InstrumentEditorPage = () => {
                                                     id={`required-${i}`}
                                                     checked={c.is_required}
                                                     onChange={(e) => updateCriterion(i, { is_required: e.target.checked })}
-                                                    className="rounded border-zinc-300 text-violet-600 dark:border-zinc-600"
+                                                    className="rounded border-zinc-300 text-wellness-600 dark:border-zinc-600"
                                                 />
                                                 <label htmlFor={`required-${i}`} className="text-sm text-zinc-600 dark:text-zinc-400">
                                                     {ie.requiredFieldLabel}
@@ -649,7 +649,7 @@ export const InstrumentEditorPage = () => {
                                                     </label>
                                                     <button
                                                         onClick={() => addLevel(i)}
-                                                        className="flex items-center gap-1 text-xs font-medium text-violet-600 hover:text-violet-500 dark:text-violet-400"
+                                                        className="flex items-center gap-1 text-xs font-medium text-wellness-600 hover:text-wellness-500 dark:text-wellness-400"
                                                     >
                                                         <Plus className="size-3" />
                                                         {ie.addOption}

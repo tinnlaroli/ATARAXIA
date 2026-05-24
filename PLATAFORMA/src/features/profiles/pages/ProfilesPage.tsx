@@ -173,7 +173,7 @@ export const ProfilesPage = () => {
                                                         {travelTypeLabel ? (
                                                             <TableBadge
                                                                 text={travelTypeLabel}
-                                                                color="bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300"
+                                                                color="bg-wellness-100 text-wellness-600 dark:bg-wellness-100 dark:text-wellness-300"
                                                             />
                                                         ) : (
                                                             <span className="text-xs text-zinc-400">{m.profiles.notAvailable}</span>
@@ -223,7 +223,7 @@ export const ProfilesPage = () => {
                                                         {profile.activity_level ? (
                                                             <TableBadge
                                                                 text={m.profiles.activityLevel(profile.activity_level)}
-                                                                color="bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300"
+                                                                color="bg-wellness-100 text-wellness-600 dark:bg-wellness-100 dark:text-wellness-300"
                                                             />
                                                         ) : null}
                                                     </div>

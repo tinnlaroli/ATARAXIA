@@ -129,7 +129,7 @@ export default function UserTable({ users, selectedUsers, onToggle, onViewDetail
                                     <TableBadge
                                         text={user.role_id === 1 ? 'Administrador' : 'Usuario'}
                                         color={
-                                            user.role_id === 1 ? TABLE_BADGE_COLORS.violet : TABLE_BADGE_COLORS.neutral
+                                            user.role_id === 1 ? TABLE_BADGE_COLORS.wellness : TABLE_BADGE_COLORS.neutral
                                         }
                                     />
                                 </DataTableCell>

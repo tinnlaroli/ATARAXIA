@@ -28,6 +28,12 @@ cd MODELO/src && python -m wellness_catalog --sync
 
 # API local (Docker host)
 # http://localhost:8100/docs
+
+# Figuras para paper (PDF/PNG 300 dpi + tabla LaTeX)
+python MODELO/scripts/generate_paper_figures.py
+python MODELO/scripts/generate_paper_figures.py --quick   # sin curva de aprendizaje (~8 min menos)
+# Jupyter: MODELO/notebooks/wellness_model_evaluation.ipynb
+# Salida: MODELO/models/paper_figures/
 ```
 
 ## Endpoints (FastAPI, puerto interno 8000 → host 8100)
@@ -37,6 +43,7 @@ cd MODELO/src && python -m wellness_catalog --sync
 | GET | `/health` | `stress_model_loaded`, `destinations_count` |
 | POST | `/recommend/{user_id}` | Body: `{ q1, q2, q3, q4, top_n?, similarity? }` |
 | GET | `/metrics` | accuracy, macro_f1 del clasificador |
+| POST | `/api/v2/ml/session-satisfaction` | Encuesta post-plan (fit_rating 1–5, por session_id) |
 | GET | `/evaluate` | Informe offline (clasificador + matchmaking) |
 | POST | `/train-stress` | Reentrena clasificador (sintético + real ×3 peso) |
 | POST | `/sync-catalog` | UPSERT CSV → Postgres |

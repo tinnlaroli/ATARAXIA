@@ -3,7 +3,6 @@ import { ArrowLeft, ArrowRight, Sparkles } from 'lucide-react';
 import { useFormRecommendations } from '../hooks/useFormRecommendations';
 import SmartURLoader from '../../auth/components/SmartURLoader';
 import type { WellnessAnswers, WellnessRecommendationsResponse } from '../types/types';
-import { useTheme } from '../../../contexts/ThemeContext';
 
 const QUESTIONS = [
     {
@@ -57,8 +56,6 @@ interface Props {
 }
 
 export function WellnessQuestionnaire({ onBack, onComplete, userId, token }: Props) {
-    const { theme } = useTheme();
-    const isDark = theme === 'dark';
     const [step, setStep] = useState(0);
     const [answers, setAnswers] = useState<Partial<WellnessAnswers>>({});
     const { loading, error, getRecommendations } = useFormRecommendations();
@@ -96,25 +93,23 @@ export function WellnessQuestionnaire({ onBack, onComplete, userId, token }: Pro
         return (
             <div className="flex flex-col items-center justify-center py-16 gap-6">
                 <SmartURLoader />
-                <p className={isDark ? 'text-zinc-400' : 'text-zinc-600'}>
-                    Analizando tu perfil y buscando destinos terapéuticos…
-                </p>
+                <p className="wellness-muted">Analizando tu perfil y buscando destinos terapéuticos…</p>
             </div>
         );
     }
 
     return (
         <div className="space-y-8">
-            <div className="flex items-center gap-2 text-sm font-medium text-violet-400">
+            <div className="flex items-center gap-2 text-sm font-medium wellness-accent-text">
                 <Sparkles className="size-4" />
                 Cuestionario wellness · Paso {step + 1} de {QUESTIONS.length}
             </div>
 
             <div>
-                <h2 className={`text-2xl font-semibold ${isDark ? 'text-white' : 'text-zinc-900'}`}>
+                <h2 className="text-2xl font-semibold" style={{ color: 'var(--color-text)' }}>
                     {current.title}
                 </h2>
-                <p className={`mt-2 ${isDark ? 'text-zinc-400' : 'text-zinc-600'}`}>{current.subtitle}</p>
+                <p className="mt-2 wellness-muted">{current.subtitle}</p>
             </div>
 
             <div className="grid gap-3">
@@ -123,13 +118,10 @@ export function WellnessQuestionnaire({ onBack, onComplete, userId, token }: Pro
                         key={opt.value}
                         type="button"
                         onClick={() => setAnswer(opt.value)}
-                        className={`w-full rounded-2xl border px-5 py-4 text-left transition-all ${
-                            selected === opt.value
-                                ? 'border-violet-500 bg-violet-500/15 text-violet-300'
-                                : isDark
-                                  ? 'border-zinc-700 bg-zinc-800/50 text-zinc-200 hover:border-zinc-600'
-                                  : 'border-zinc-200 bg-white text-zinc-800 hover:border-violet-300'
+                        className={`w-full rounded-2xl border px-5 py-4 text-left transition-all wellness-card-solid ${
+                            selected === opt.value ? 'wellness-chip-active' : ''
                         }`}
+                        style={{ color: 'var(--color-text)' }}
                     >
                         {opt.label}
                     </button>
@@ -137,18 +129,16 @@ export function WellnessQuestionnaire({ onBack, onComplete, userId, token }: Pro
             </div>
 
             {error && (
-                <p className="text-sm text-red-400" role="alert">
+                <p className="text-sm rounded-xl px-4 py-3 wellness-alert-error" role="alert">
                     {error}
                 </p>
             )}
 
-            <div className="flex justify-between pt-4">
+            <div className="flex justify-between pt-4" style={{ borderTop: '1px solid var(--color-border)' }}>
                 <button
                     type="button"
                     onClick={() => (step === 0 ? onBack?.() : setStep((s) => s - 1))}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-xl ${
-                        isDark ? 'text-zinc-400 hover:text-white' : 'text-zinc-600 hover:text-zinc-900'
-                    }`}
+                    className="flex items-center gap-2 px-4 py-2 rounded-xl wellness-muted hover:opacity-80"
                 >
                     <ArrowLeft className="size-4" />
                     Atrás
@@ -158,7 +148,7 @@ export function WellnessQuestionnaire({ onBack, onComplete, userId, token }: Pro
                         type="button"
                         disabled={!canNext}
                         onClick={() => setStep((s) => s + 1)}
-                        className="flex items-center gap-2 px-6 py-3 bg-violet-600 text-white rounded-xl font-semibold disabled:opacity-40"
+                        className="flex items-center gap-2 px-6 py-3 wellness-btn-primary rounded-xl font-semibold disabled:opacity-40"
                     >
                         Siguiente
                         <ArrowRight className="size-4" />
@@ -168,7 +158,7 @@ export function WellnessQuestionnaire({ onBack, onComplete, userId, token }: Pro
                         type="button"
                         disabled={!canNext}
                         onClick={handleSubmit}
-                        className="flex items-center gap-2 px-6 py-3 bg-violet-600 text-white rounded-xl font-semibold disabled:opacity-40"
+                        className="flex items-center gap-2 px-6 py-3 wellness-btn-primary rounded-xl font-semibold disabled:opacity-40"
                     >
                         Ver mis destinos
                         <ArrowRight className="size-4" />

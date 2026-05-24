@@ -49,6 +49,22 @@ export const formApi = {
         );
     },
 
+    /** Encuesta post-resultado: ¿Este plan encaja con cómo te sientes? (1–5) */
+    submitSessionSatisfaction: async (
+        sessionId: number,
+        fitRating: number,
+        token?: string | null,
+    ): Promise<void> => {
+        const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+        if (token) headers.Authorization = `Bearer ${token}`;
+
+        await axios.post(
+            `${REC_API_BASE}/ml/session-satisfaction`,
+            { session_id: sessionId, fit_rating: fitRating },
+            { headers },
+        );
+    },
+
     /** Recomendación directa a MODELO (sin persistir sesión) */
     getRecommendations: async ({
         userId,

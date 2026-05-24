@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from 'react-router-dom';
+﻿import { NavLink, useNavigate } from 'react-router-dom';
 import {
     X, Users, Building2, Wrench, Settings, MapPin,
     ChevronLeft, ChevronRight, Home, LogOut, UserCircle,
@@ -101,7 +101,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                             <motion.img
                                 key="icon"
                                 src="/image.png"
-                                alt="Smartur"
+                                alt="ATARAXIA"
                                 initial={{ opacity: 0, scale: 0.7 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.7 }}
@@ -111,8 +111,8 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                         ) : (
                             <motion.img
                                 key="logo"
-                                src="/smartur.png"
-                                alt="Smartur"
+                                src="/ATARAXIA.png"
+                                alt="ATARAXIA"
                                 initial={{ opacity: 0, x: -10 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 exit={{ opacity: 0, x: -10 }}

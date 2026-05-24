@@ -33,12 +33,12 @@ const Breadcrumb = ({ pathname, routeLabels }: { pathname: string; routeLabels: 
         <nav className="flex items-center gap-1 text-sm">
             {crumbs.map((crumb, i) => (
                 <span key={crumb.path} className="flex items-center gap-1">
-                    {i > 0 && <ChevronRight className="h-3.5 w-3.5 text-zinc-400" />}
+                    {i > 0 && <ChevronRight className="h-3.5 w-3.5 wellness-muted" />}
                     <span
                         className={
                             i === crumbs.length - 1
                                 ? 'font-semibold'
-                                : 'text-zinc-400 dark:text-zinc-500'
+                                : 'wellness-muted'
                         }
                         style={i === crumbs.length - 1 ? { color: 'var(--color-text)' } : {}}
                     >
@@ -104,8 +104,8 @@ const NotificationPanel = ({
                 <button
                     type="button"
                     onClick={onClear}
-                    className="inline-flex items-center gap-1 rounded-xl px-2.5 py-1 text-[11px] font-semibold transition hover:bg-zinc-100 dark:hover:bg-zinc-800"
-                    style={{ color: 'var(--color-text-alt)' }}
+                    className="inline-flex items-center gap-1 rounded-xl px-2.5 py-1 text-[11px] font-semibold transition hover:opacity-80"
+                    style={{ background: 'rgba(var(--rgb-primary), 0.12)', color: 'var(--color-text-alt)' }}
                 >
                     <Trash2 className="h-3.5 w-3.5" />
                     {clearLabel}
@@ -233,30 +233,30 @@ export default function AppLayout() {
                         <button
                             onClick={startTour}
                             title="Ver tour del dashboard"
-                            className="rounded-xl p-2 transition-colors nav-item-idle hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                            className="rounded-xl p-2 transition-colors nav-item-idle"
                         >
-                            <HelpCircle className="size-[18px]" style={{ color: 'var(--color-purple)' }} />
+                            <HelpCircle className="size-[18px]" style={{ color: 'var(--color-earth)' }} />
                         </button>
 
                         {/* Theme toggle */}
                         <button
                             onClick={toggleTheme}
                             title={theme === 'dark' ? copy.layout.clearToLight : copy.layout.clearToDark}
-                            className="rounded-xl p-2 transition-colors nav-item-idle hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                            className="rounded-xl p-2 transition-colors nav-item-idle"
                         >
                             {theme === 'dark'
-                                ? <Sun className="size-[18px] text-amber-400" />
-                                : <Moon className="size-[18px] text-violet-400" />}
+                                ? <Sun className="size-[18px]" style={{ color: 'var(--color-earth)' }} />
+                                : <Moon className="size-[18px]" style={{ color: 'var(--color-primary-deep)' }} />}
                         </button>
 
                         {/* Notification bell */}
                         <div className="relative" ref={notifWrapperRef}>
                             <button
                                 onClick={handleToggleNotifications}
-                                className="relative rounded-xl p-2 transition-colors nav-item-idle hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                                className="relative rounded-xl p-2 transition-colors nav-item-idle"
                                 title={copy.layout.notificationTitle}
                             >
-                                <Bell className="size-[18px]" style={{ color: 'var(--color-purple)' }} />
+                                <Bell className="size-[18px]" style={{ color: 'var(--color-primary-deep)' }} />
                                 {unreadCount > 0 && (
                                     <motion.span
                                         animate={{ scale: [1, 1.3, 1] }}
@@ -290,12 +290,14 @@ export default function AppLayout() {
 
                         {/* User pill */}
                         <div
-                            className="flex items-center gap-2.5 rounded-xl border px-3 py-1.5 transition-colors hover:bg-zinc-50 dark:hover:bg-zinc-800/60"
+                            className="flex items-center gap-2.5 rounded-xl border px-3 py-1.5 transition-colors"
+                            onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(var(--rgb-primary), 0.08)'; }}
+                            onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
                             style={{ borderColor: 'var(--color-border)' }}
                         >
                             <div
                                 className="flex size-7 items-center justify-center rounded-lg text-xs font-bold text-white shadow-sm"
-                                style={{ background: 'var(--color-purple)' }}
+                                style={{ background: 'var(--color-primary-deep)' }}
                             >
                                 {user ? getInitials(user.name) : 'U'}
                             </div>
@@ -313,9 +315,9 @@ export default function AppLayout() {
                         <button
                             onClick={handleLogout}
                             title={t('header.logout')}
-                            className="rounded-xl p-2 text-zinc-400 transition-colors hover:bg-rose-50 hover:text-rose-500 dark:hover:bg-rose-900/20"
+                            className="rounded-xl p-2 transition-colors hover:opacity-80"
                         >
-                            <LogOut className="size-4" style={{ color: 'var(--color-pink)' }} />
+                            <LogOut className="size-4" style={{ color: 'var(--color-earth)' }} />
                         </button>
                     </div>
                 </header>
@@ -339,9 +341,9 @@ export default function AppLayout() {
 
                     <span
                         className="ml-3 text-base font-bold"
-                        style={{ color: 'var(--color-purple)' }}
+                        style={{ color: 'var(--color-primary-deep)' }}
                     >
-                        Smartur
+                        ATARAXIA
                     </span>
 
                     <div className="ml-auto flex items-center gap-2">

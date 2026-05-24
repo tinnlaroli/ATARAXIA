@@ -60,7 +60,7 @@ export const AuthModal: React.FC = () => {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={closeModal}
-                            className="fixed inset-0 bg-black/60 backdrop-blur-sm"
+                            className="fixed inset-0 bg-[var(--overlay-scrim)] backdrop-blur-sm"
                         />
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -89,7 +89,7 @@ export const AuthModal: React.FC = () => {
                             </div>
 
                             <p className={`mt-8 text-center text-xs ${isDark ? 'text-zinc-600' : 'text-zinc-500'}`}>
-                                © 2024 Smartur. Todos los derechos reservados.
+                                © 2024 ATARAXIA. Todos los derechos reservados.
                             </p>
                         </motion.div>
                     </div>

@@ -1,5 +1,26 @@
 @import "./styles/tokens.css";
+@import "./styles/wellness.css";
 @import "tailwindcss";
+
+/* Tailwind v4 — map wellness tokens (no hardcoded brand hex) */
+@theme {
+  --color-wellness-50: rgba(var(--rgb-primary), 0.08);
+  --color-wellness-100: rgba(var(--rgb-primary), 0.14);
+  --color-wellness-200: rgba(var(--rgb-primary), 0.22);
+  --color-wellness-300: rgba(var(--rgb-primary), 0.38);
+  --color-wellness-400: rgb(var(--rgb-primary));
+  --color-wellness-500: rgb(var(--rgb-primary-deep));
+  --color-wellness-600: rgb(var(--rgb-primary-deep));
+  --color-wellness-700: rgb(var(--rgb-forest));
+  --color-wellness-800: rgb(var(--rgb-forest));
+  --color-wellness-900: rgba(var(--rgb-primary-deep), 0.85);
+  --color-wellness-950: rgb(var(--rgb-canvas));
+
+  --color-wellness-muted: var(--color-surface-muted);
+  --color-wellness-border: var(--color-border);
+  --color-wellness-canvas: var(--color-canvas);
+  --color-wellness-elevated: var(--color-canvas-elevated);
+}
 
 /* Dark mode via `data-theme="dark"` attribute on <html> */
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
@@ -41,9 +62,9 @@ button {
 
 /* Sidebar nav item states using design tokens */
 .nav-item-active {
-  background: rgba(var(--rgb-purple-accent), 0.12);
-  color: var(--color-purple);
-  box-shadow: 0 1px 3px rgba(var(--rgb-purple-accent), 0.1);
+  background: rgba(var(--rgb-primary), 0.22);
+  color: var(--color-primary-deep);
+  box-shadow: 0 1px 3px rgba(var(--rgb-forest), 0.06);
 }
 
 .nav-item-idle {
@@ -172,7 +193,7 @@ button {
 
 /* Drag-over highlight for drop targets */
 .widget-cell--drag-over {
-  outline: 2px solid var(--color-purple);
+  outline: 2px solid var(--color-primary-deep);
   outline-offset: -2px;
   border-radius: 28px;
 }

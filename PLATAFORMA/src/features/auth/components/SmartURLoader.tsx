@@ -470,7 +470,7 @@ export default function SmartURLoader({ onFinished, isReady = false }: SmartURLo
           ref={svgRef}
           viewBox="0 0 169.42 218.53"
           className="smartur-loader-svg"
-          aria-label="Cargando SMARTUR"
+          aria-label="Cargando ATARAXIA"
         >
           <g>
             {PIN_PATHS.map((p, i) => (
@@ -501,7 +501,7 @@ export default function SmartURLoader({ onFinished, isReady = false }: SmartURLo
         <img
           ref={logoRef}
           src={smarturLogo}
-          alt="SMARTUR"
+          alt="ATARAXIA"
           className="loader-full-logo"
           style={{
             position: "absolute",

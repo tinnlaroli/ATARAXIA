@@ -611,6 +611,17 @@ CREATE TABLE IF NOT EXISTS ml_recommendation_feedback (
 );
 CREATE INDEX idx_ml_rec_feedback_session ON ml_recommendation_feedback (session_id);
 
+-- Encuesta post-resultado wellness (1 pregunta, 1–5) por sesión de recomendación
+CREATE TABLE ml_session_satisfaction (
+  id SERIAL PRIMARY KEY,
+  session_id INT NOT NULL UNIQUE REFERENCES ml_recommendation_session(id) ON DELETE CASCADE,
+  user_id VARCHAR(64) NOT NULL,
+  fit_rating SMALLINT NOT NULL CHECK (fit_rating BETWEEN 1 AND 5),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+CREATE INDEX idx_ml_session_satisfaction_created ON ml_session_satisfaction (created_at DESC);
+CREATE INDEX idx_ml_session_satisfaction_rating ON ml_session_satisfaction (fit_rating);
+
 INSERT INTO location (name, state, municipality, latitude, longitude)
 VALUES
   ('Ixtaczoquitlán',          'Veracruz', 'Ixtaczoquitlán',        18.816700, -97.066700),

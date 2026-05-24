@@ -4,14 +4,14 @@ import type React from 'react';
 import type { ReactNode, TdHTMLAttributes, ThHTMLAttributes } from 'react';
 
 export const DATA_TABLE_SHELL_CLASS =
-    'flex h-full flex-col overflow-hidden rounded-lg border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-[#121214]';
+    'wellness-table-shell flex h-full flex-col overflow-hidden rounded-lg';
 
 export const DATA_TABLE_SCROLL_CLASS = 'flex-1 min-h-0 overflow-y-auto';
 
 export const DATA_TABLE_CLASS = 'min-w-full';
 
 export const DATA_TABLE_HEAD_CLASS =
-    'border-b border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-[#18181b]';
+    'wellness-table-head border-b';
 
 export const DATA_TABLE_HEAD_CELL_CLASS =
     'px-5 py-3.5 text-left text-xs font-bold uppercase tracking-wider';
@@ -19,10 +19,10 @@ export const DATA_TABLE_HEAD_CELL_CLASS =
 export const DATA_TABLE_CELL_CLASS = 'px-5 py-3.5 text-sm';
 
 export const TABLE_CHECKBOX_CLASS =
-    'size-4 cursor-pointer rounded accent-violet-600 dark:accent-violet-400 focus:ring-violet-500 focus:ring-offset-0';
+    'size-4 cursor-pointer rounded accent-wellness-600 dark:accent-wellness-400 focus:ring-wellness-500 focus:ring-offset-0';
 
 export const TABLE_BADGE_COLORS = {
-    violet: 'bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300',
+    wellness: 'bg-wellness-100 text-wellness-600 dark:bg-wellness-100 dark:text-wellness-300',
     emerald: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300',
     rose: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300',
     neutral: 'bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300',

@@ -35,9 +35,9 @@ const LangSwitchWidget: React.FC = () => {
                 <div className="flex items-center gap-2">
                     <div
                         className="flex size-7 items-center justify-center rounded-xl"
-                        style={{ background: `${DASHBOARD_COLORS.purple}16` }}
+                        style={{ background: `${DASHBOARD_COLORS.chart1}16` }}
                     >
-                        <Globe2 className="size-3.5" style={{ color: DASHBOARD_COLORS.purple }} />
+                        <Globe2 className="size-3.5" style={{ color: DASHBOARD_COLORS.chart1 }} />
                     </div>
                     <p className="text-[11px] font-bold uppercase tracking-widest" style={{ color: 'var(--color-text-alt)' }}>
                         {copy.langSwitchTitle}
@@ -53,7 +53,7 @@ const LangSwitchWidget: React.FC = () => {
                     style={{
                         borderColor: 'var(--color-border)',
                         background: 'var(--color-bg-alt)',
-                        color: theme === 'dark' ? DASHBOARD_COLORS.warning : DASHBOARD_COLORS.purple,
+                        color: theme === 'dark' ? DASHBOARD_COLORS.warning : DASHBOARD_COLORS.chart1,
                     }}
                 >
                     {theme === 'dark' ? (
@@ -75,11 +75,11 @@ const LangSwitchWidget: React.FC = () => {
                             onClick={() => changeLanguage(code)}
                             className="flex items-center gap-2.5 rounded-2xl border px-3 py-2 text-left text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.98]"
                             style={{
-                                borderColor: isActive ? DASHBOARD_COLORS.purple : 'var(--color-border)',
+                                borderColor: isActive ? DASHBOARD_COLORS.chart1 : 'var(--color-border)',
                                 background: isActive
-                                    ? `${DASHBOARD_COLORS.purple}12`
+                                    ? `${DASHBOARD_COLORS.chart1}12`
                                     : 'var(--color-bg-alt)',
-                                color: isActive ? DASHBOARD_COLORS.purple : 'var(--color-text)',
+                                color: isActive ? DASHBOARD_COLORS.chart1 : 'var(--color-text)',
                             }}
                         >
                             <span className="text-base leading-none">{flag}</span>
@@ -87,7 +87,7 @@ const LangSwitchWidget: React.FC = () => {
                             {isActive && (
                                 <span
                                     className="size-1.5 rounded-full shrink-0"
-                                    style={{ background: DASHBOARD_COLORS.purple }}
+                                    style={{ background: DASHBOARD_COLORS.chart1 }}
                                 />
                             )}
                         </button>

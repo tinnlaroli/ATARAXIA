@@ -3,17 +3,17 @@ import { getDashboardText } from '../../../shared/i18n/dashboardLocale';
 import type { LanguageCode } from '../../../contexts/LanguageContext';
 
 export const DASHBOARD_COLORS = {
-    pink: '#FC478E',
-    purple: '#984EFD',
-    cyan: '#4DB9CA',
-    green: '#9CCC44',
-    orange: '#FF7D1F',
-    success: '#10B981',
-    warning: '#F59E0B',
-    danger: '#EF4444',
+    chart1: 'var(--color-chart-1)',
+    chart2: 'var(--color-chart-2)',
+    chart3: 'var(--color-chart-3)',
+    chart4: 'var(--color-chart-4)',
+    chart5: 'var(--color-chart-5)',
+    success: 'var(--color-success)',
+    warning: 'var(--color-warning)',
+    danger: 'var(--color-danger)',
 } as const;
 
-export const DASHBOARD_STORAGE_KEY = 'smartur-dashboard-preferences';
+export const DASHBOARD_STORAGE_KEY = 'ataraxia-dashboard-preferences';
 
 export type ChartMode = 'mixed' | 'volume' | 'score';
 export type DensityMode = 'comfortable' | 'compact';
@@ -136,10 +136,10 @@ export interface DashboardViewModel {
 }
 
 const DISTRIBUTION_COLORS = [
-    DASHBOARD_COLORS.purple,
-    DASHBOARD_COLORS.cyan,
-    DASHBOARD_COLORS.orange,
-    DASHBOARD_COLORS.pink,
+    DASHBOARD_COLORS.chart1,
+    DASHBOARD_COLORS.chart2,
+    DASHBOARD_COLORS.chart3,
+    DASHBOARD_COLORS.chart4,
 ];
 
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
@@ -325,10 +325,10 @@ export const deriveDashboardViewModel = (stats: DashboardStats, lang: LanguageCo
     const trendData = filterTrendByRange(allTrendData, timeRange);
 
     const operationalData: OperationalPoint[] = [
-        { name: copy.operationalNames.locations, value: stats.total_locations, fill: DASHBOARD_COLORS.cyan },
-        { name: copy.operationalNames.services, value: stats.total_services, fill: DASHBOARD_COLORS.purple },
-        { name: copy.operationalNames.companies, value: stats.total_companies, fill: DASHBOARD_COLORS.green },
-        { name: copy.operationalNames.poi, value: stats.total_poi, fill: DASHBOARD_COLORS.orange },
+        { name: copy.operationalNames.locations, value: stats.total_locations, fill: DASHBOARD_COLORS.chart2 },
+        { name: copy.operationalNames.services, value: stats.total_services, fill: DASHBOARD_COLORS.chart1 },
+        { name: copy.operationalNames.companies, value: stats.total_companies, fill: DASHBOARD_COLORS.chart5 },
+        { name: copy.operationalNames.poi, value: stats.total_poi, fill: DASHBOARD_COLORS.chart3 },
     ];
 
     const distributionData = stats.users_by_role
@@ -371,10 +371,9 @@ export const deriveDashboardViewModel = (stats: DashboardStats, lang: LanguageCo
         ? copy.activitySummary(formatCount(recentActivity.length, locale))
         : copy.activitySummaryEmpty;
 
-    // Score range distribution from top_services
     const scoreBandDefs = [
         { label: copy.scoreOutstanding, min: 4.3, max: Infinity, fill: DASHBOARD_COLORS.success },
-        { label: copy.scoreGood, min: 3.5, max: 4.3, fill: DASHBOARD_COLORS.cyan },
+        { label: copy.scoreGood, min: 3.5, max: 4.3, fill: DASHBOARD_COLORS.chart2 },
         { label: copy.scoreAttention, min: 3.0, max: 3.5, fill: DASHBOARD_COLORS.warning },
         { label: copy.scoreImprove, min: 0, max: 3.0, fill: DASHBOARD_COLORS.danger },
     ];
@@ -398,7 +397,6 @@ export const deriveDashboardViewModel = (stats: DashboardStats, lang: LanguageCo
         ? copy.scoreRangeSummary(scoreRangeBands[0].label, scoreRangeBands[0].count)
         : copy.scoreRangeSummaryEmpty;
 
-    // Top companies — grouped from top_services
     const companyMap = new Map<string, { totalScore: number; count: number; evaluations: number }>();
     stats.top_services.forEach((s) => {
         const score = clamp(Number(s.avg_score), 0, 5);

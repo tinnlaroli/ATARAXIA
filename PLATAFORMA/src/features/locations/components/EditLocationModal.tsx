@@ -54,12 +54,12 @@ export default function EditLocationModal({ onClose, onSubmit, location }: Props
     };
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/60 z-[60] backdrop-blur-sm animate-in fade-in duration-200">
-            <div className="bg-white dark:bg-[#121214] rounded-xl shadow-2xl w-full max-w-lg max-h-[92vh] flex flex-col overflow-hidden">
+        <div className="fixed inset-0 flex items-center justify-center bg-[var(--overlay-scrim)] z-[60] backdrop-blur-sm animate-in fade-in duration-200">
+            <div className="wellness-modal rounded-xl shadow-2xl w-full max-w-lg max-h-[92vh] flex flex-col overflow-hidden">
                 {/* Header */}
-                <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 px-6 py-4 shrink-0">
+                <div className="flex items-center justify-between border-b border-[var(--color-border)] px-6 py-4 shrink-0">
                     <h2 className="text-lg font-semibold text-zinc-900 dark:text-white flex items-center gap-2">
-                        <MapPin className="size-5 text-violet-500" />
+                        <MapPin className="size-5 text-wellness-500" />
                         {mod.locations.editTitle}
                     </h2>
                     <button
@@ -83,7 +83,7 @@ export default function EditLocationModal({ onClose, onSubmit, location }: Props
                                 name="name"
                                 value={formData.name}
                                 onChange={handleFieldChange}
-                                className={`w-full rounded-lg border px-4 py-2 focus:ring-2 outline-none transition-all dark:bg-zinc-800/50 dark:text-white ${errors.name ? 'border-red-400 focus:ring-red-400 dark:border-red-500' : 'border-zinc-300 dark:border-zinc-700 focus:ring-violet-500'}`}
+                                className={`w-full rounded-lg border px-4 py-2 focus:ring-2 outline-none transition-all dark:bg-zinc-800/50 dark:text-white ${errors.name ? 'border-red-400 focus:ring-red-400 dark:border-red-500' : 'border-zinc-300 dark:border-zinc-700 focus:ring-wellness-500'}`}
                             />
                             {errors.name && <p className="flex items-center gap-1 text-xs text-red-500 mt-0.5"><AlertCircle className="size-3" />{errors.name}</p>}
                         </div>
@@ -99,7 +99,7 @@ export default function EditLocationModal({ onClose, onSubmit, location }: Props
                                     name="state"
                                     value={formData.state}
                                     onChange={handleFieldChange}
-                                    className={`w-full rounded-lg border px-4 py-2 focus:ring-2 outline-none transition-all dark:bg-zinc-800/50 dark:text-white ${errors.state ? 'border-red-400 focus:ring-red-400 dark:border-red-500' : 'border-zinc-300 dark:border-zinc-700 focus:ring-violet-500'}`}
+                                    className={`w-full rounded-lg border px-4 py-2 focus:ring-2 outline-none transition-all dark:bg-zinc-800/50 dark:text-white ${errors.state ? 'border-red-400 focus:ring-red-400 dark:border-red-500' : 'border-zinc-300 dark:border-zinc-700 focus:ring-wellness-500'}`}
                                 />
                                 {errors.state && <p className="flex items-center gap-1 text-xs text-red-500 mt-0.5"><AlertCircle className="size-3" />{errors.state}</p>}
                             </div>
@@ -112,7 +112,7 @@ export default function EditLocationModal({ onClose, onSubmit, location }: Props
                                     name="municipality"
                                     value={formData.municipality}
                                     onChange={handleFieldChange}
-                                    className="w-full rounded-lg border border-zinc-300 dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white px-4 py-2 focus:ring-2 focus:ring-violet-500 outline-none transition-all"
+                                    className="w-full rounded-lg border border-zinc-300 dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white px-4 py-2 focus:ring-2 focus:ring-wellness-500 outline-none transition-all"
                                 />
                             </div>
                         </div>
@@ -149,7 +149,7 @@ export default function EditLocationModal({ onClose, onSubmit, location }: Props
                                         name="latitude"
                                         value={formData.latitude}
                                         onChange={handleFieldChange}
-                                        className="w-full rounded-lg border border-zinc-300 dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white pl-8 pr-3 py-2 focus:ring-2 focus:ring-violet-500 outline-none transition-all font-mono text-sm"
+                                        className="w-full rounded-lg border border-zinc-300 dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white pl-8 pr-3 py-2 focus:ring-2 focus:ring-wellness-500 outline-none transition-all font-mono text-sm"
                                     />
                                 </div>
                             </div>
@@ -164,7 +164,7 @@ export default function EditLocationModal({ onClose, onSubmit, location }: Props
                                         name="longitude"
                                         value={formData.longitude}
                                         onChange={handleFieldChange}
-                                        className="w-full rounded-lg border border-zinc-300 dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white pl-8 pr-3 py-2 focus:ring-2 focus:ring-violet-500 outline-none transition-all font-mono text-sm"
+                                        className="w-full rounded-lg border border-zinc-300 dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white pl-8 pr-3 py-2 focus:ring-2 focus:ring-wellness-500 outline-none transition-all font-mono text-sm"
                                     />
                                 </div>
                             </div>
@@ -172,7 +172,7 @@ export default function EditLocationModal({ onClose, onSubmit, location }: Props
                     </div>
 
                     {/* Footer */}
-                    <div className="flex justify-end gap-3 px-6 pb-6 pt-2 border-t border-zinc-200 dark:border-zinc-800">
+                    <div className="flex justify-end gap-3 px-6 pb-6 pt-2 border-t border-[var(--color-border)]">
                         <button
                             type="button"
                             onClick={onClose}
@@ -182,7 +182,7 @@ export default function EditLocationModal({ onClose, onSubmit, location }: Props
                         </button>
                         <button
                             type="submit"
-                            className="rounded-lg bg-violet-600 px-5 py-2 text-sm font-medium text-white shadow-lg hover:bg-violet-700 active:scale-[0.98] transition-all flex items-center gap-2"
+                            className="rounded-lg bg-wellness-600 px-5 py-2 text-sm font-medium text-white shadow-lg hover:bg-wellness-600 active:scale-[0.98] transition-all flex items-center gap-2"
                         >
                             <Save className="size-4" />
                             {mod.locations.saveChanges}

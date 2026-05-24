@@ -31,25 +31,25 @@ const CoverageWidget: React.FC<Props> = ({ stats, density }) => {
             label: copy.coverageLocations,
             value: stats.total_locations,
             icon: MapPin,
-            color: DASHBOARD_COLORS.cyan,
+            color: DASHBOARD_COLORS.chart2,
         },
         {
             label: copy.coverageCompanies,
             value: stats.total_companies,
             icon: Building2,
-            color: DASHBOARD_COLORS.purple,
+            color: DASHBOARD_COLORS.chart1,
         },
         {
             label: copy.coverageServices,
             value: stats.total_services,
             icon: Layers3,
-            color: DASHBOARD_COLORS.green,
+            color: DASHBOARD_COLORS.chart5,
         },
         {
             label: copy.coveragePoi,
             value: stats.total_poi,
             icon: Star,
-            color: DASHBOARD_COLORS.orange,
+            color: DASHBOARD_COLORS.chart3,
         },
     ];
 
@@ -62,9 +62,9 @@ const CoverageWidget: React.FC<Props> = ({ stats, density }) => {
             <div className="mb-3 flex items-center gap-2 shrink-0">
                 <div
                     className="flex size-9 shrink-0 items-center justify-center rounded-2xl"
-                    style={{ background: `${DASHBOARD_COLORS.cyan}16` }}
+                    style={{ background: `${DASHBOARD_COLORS.chart2}16` }}
                 >
-                    <MapPin className="size-4" style={{ color: DASHBOARD_COLORS.cyan }} />
+                    <MapPin className="size-4" style={{ color: DASHBOARD_COLORS.chart2 }} />
                 </div>
                 <div className="min-w-0">
                     <h2 className="truncate text-sm font-bold" style={{ color: 'var(--color-text)' }}>

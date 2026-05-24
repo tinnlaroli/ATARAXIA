@@ -67,9 +67,9 @@ const CatalogItem: React.FC<{
             {/* Icon */}
             <div
                 className="flex size-9 shrink-0 items-center justify-center rounded-xl"
-                style={{ background: `${DASHBOARD_COLORS.purple}18` }}
+                style={{ background: `${DASHBOARD_COLORS.chart1}18` }}
             >
-                <Icon className="size-4" style={{ color: DASHBOARD_COLORS.purple }} />
+                <Icon className="size-4" style={{ color: DASHBOARD_COLORS.chart1 }} />
             </div>
 
             {/* Info */}
@@ -81,7 +81,7 @@ const CatalogItem: React.FC<{
                     {def.isNew && (
                         <span
                             className="rounded-full px-1.5 py-px text-[9px] font-bold uppercase tracking-widest text-white"
-                            style={{ background: DASHBOARD_COLORS.purple }}
+                            style={{ background: DASHBOARD_COLORS.chart1 }}
                         >
                             {newBadge}
                         </span>
@@ -100,7 +100,7 @@ const CatalogItem: React.FC<{
                 type="button"
                 onClick={onAdd}
                 className="flex size-8 shrink-0 items-center justify-center rounded-xl text-white shadow-sm transition hover:opacity-90 active:scale-90"
-                style={{ background: DASHBOARD_COLORS.purple }}
+                style={{ background: DASHBOARD_COLORS.chart1 }}
                 aria-label={addAriaLabel}
             >
                 <Plus className="size-4" />
@@ -180,9 +180,9 @@ export const WidgetCatalog: React.FC<WidgetCatalogProps> = ({
                             <div className="flex items-center gap-2.5">
                                 <div
                                     className="flex size-8 items-center justify-center rounded-xl"
-                                    style={{ background: `${DASHBOARD_COLORS.purple}18` }}
+                                    style={{ background: `${DASHBOARD_COLORS.chart1}18` }}
                                 >
-                                    <LayoutGrid className="size-4" style={{ color: DASHBOARD_COLORS.purple }} />
+                                    <LayoutGrid className="size-4" style={{ color: DASHBOARD_COLORS.chart1 }} />
                                 </div>
                                 <div>
                                     <p className="text-sm font-bold" style={{ color: 'var(--color-text)' }}>

@@ -249,19 +249,19 @@ const EvaluationWizardModal: React.FC<Props> = ({
     const showWizard = !!selectedTemplate && !loadingTemplates;
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/60 z-50 backdrop-blur-md animate-in fade-in duration-300">
-            <div className="bg-white dark:bg-[#121214] rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden transform transition-all border border-zinc-200 dark:border-zinc-800">
+        <div className="fixed inset-0 flex items-center justify-center bg-[var(--overlay-scrim)] z-50 backdrop-blur-md animate-in fade-in duration-300">
+            <div className="wellness-modal rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden transform transition-all border border-[var(--color-border)]">
 
                 {/* Header */}
-                <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 px-8 py-5 bg-zinc-50/50 dark:bg-zinc-900/50">
+                <div className="flex items-center justify-between border-b border-[var(--color-border)] px-8 py-5 bg-zinc-50/50 dark:bg-zinc-900/50">
                     <div>
                         <h2 className="text-xl font-semibold text-zinc-900 dark:text-white flex items-center gap-3">
-                            <ClipboardList className="size-6 text-violet-500" />
+                            <ClipboardList className="size-6 text-wellness-500" />
                             {ev.wizard.title}
                         </h2>
                         <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
                             {ev.wizard.evaluating}{' '}
-                            <span className="font-semibold text-violet-500">{serviceName}</span>
+                            <span className="font-semibold text-wellness-500">{serviceName}</span>
                             {serviceType && (
                                 <span className="ml-2 inline-flex items-center rounded-full bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 text-xs font-medium capitalize text-zinc-500">
                                     {serviceType}
@@ -276,7 +276,7 @@ const EvaluationWizardModal: React.FC<Props> = ({
 
                 {/* Stepper — only show when wizard is active */}
                 {showWizard && (
-                    <div className="px-8 py-6 border-b border-zinc-100 dark:border-zinc-800 bg-white dark:bg-[#121214]">
+                    <div className="px-8 py-6 border-b border-zinc-100 dark:border-zinc-800 wellness-modal">
                         <div className="flex items-center justify-between relative">
                             {stepsWithIcons.map((step, idx) => {
                                 const Icon = step.icon;
@@ -286,21 +286,21 @@ const EvaluationWizardModal: React.FC<Props> = ({
                                     <div key={step.title + idx} className="flex flex-col items-center z-10 flex-1">
                                         <div className={`size-10 rounded-xl flex items-center justify-center transition-all duration-300 ${
                                             isActive
-                                                ? 'bg-violet-600 text-white shadow-lg scale-110'
+                                                ? 'bg-wellness-600 text-white shadow-lg scale-110'
                                                 : isCompleted
                                                   ? 'bg-emerald-500 text-white'
                                                   : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-400'
                                         }`}>
                                             {isCompleted ? <Check className="size-5" /> : <Icon className="size-5" />}
                                         </div>
-                                        <span className={`text-[10px] font-semibold uppercase tracking-wider mt-2 ${isActive ? 'text-violet-500' : 'text-zinc-500'}`}>
+                                        <span className={`text-[10px] font-semibold uppercase tracking-wider mt-2 ${isActive ? 'text-wellness-500' : 'text-zinc-500'}`}>
                                             {step.title}
                                         </span>
                                     </div>
                                 );
                             })}
                             <div className="absolute top-5 left-0 right-0 h-0.5 bg-zinc-100 dark:bg-zinc-800 -z-10 mx-10">
-                                <div className="h-full bg-violet-500 transition-all duration-500"
+                                <div className="h-full bg-wellness-500 transition-all duration-500"
                                     style={{ width: `${(currentStep / (stepsWithIcons.length - 1)) * 100}%` }} />
                             </div>
                         </div>
@@ -313,7 +313,7 @@ const EvaluationWizardModal: React.FC<Props> = ({
                     {/* Loading templates */}
                     {loadingTemplates && (
                         <div className="flex flex-col items-center justify-center h-64 gap-4">
-                            <div className="size-12 animate-spin rounded-full border-4 border-zinc-200 border-t-violet-600" />
+                            <div className="size-12 animate-spin rounded-full border-4 border-zinc-200 border-t-wellness-600" />
                             <p className="text-zinc-500 animate-pulse">{ev.wizard.loadingTemplates}</p>
                         </div>
                     )}
@@ -349,9 +349,9 @@ const EvaluationWizardModal: React.FC<Props> = ({
                                             setSelectedTemplate(t);
                                             getRubric(t.id);
                                         }}
-                                        className="flex items-start gap-4 rounded-xl border border-zinc-200 dark:border-zinc-800 p-4 text-left transition-all hover:border-violet-400 hover:shadow-md active:scale-[0.98]"
+                                        className="flex items-start gap-4 rounded-xl border border-[var(--color-border)] p-4 text-left transition-all hover:border-wellness-400 hover:shadow-md active:scale-[0.98]"
                                     >
-                                        <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-violet-600 text-white shadow-sm">
+                                        <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-wellness-600 text-white shadow-sm">
                                             <FileText className="size-5" />
                                         </div>
                                         <div className="min-w-0">
@@ -369,7 +369,7 @@ const EvaluationWizardModal: React.FC<Props> = ({
                         <>
                             {isLoading && (
                                 <div className="flex flex-col items-center justify-center h-64">
-                                    <div className="size-12 animate-spin rounded-full border-4 border-zinc-200 border-t-violet-600 mb-4" />
+                                    <div className="size-12 animate-spin rounded-full border-4 border-zinc-200 border-t-wellness-600 mb-4" />
                                     <p className="text-zinc-500 animate-pulse">{ev.wizard.loadingRubric}</p>
                                 </div>
                             )}
@@ -378,7 +378,7 @@ const EvaluationWizardModal: React.FC<Props> = ({
                                     {currentStep < 3 ? (
                                         <>
                                             <div className="mb-6">
-                                                <p className="text-xs font-semibold uppercase tracking-widest text-violet-500 mb-1">
+                                                <p className="text-xs font-semibold uppercase tracking-widest text-wellness-500 mb-1">
                                                     {selectedTemplate?.name}
                                                 </p>
                                                 <h3 className="text-2xl font-semibold text-zinc-900 dark:text-white">
@@ -390,7 +390,7 @@ const EvaluationWizardModal: React.FC<Props> = ({
                                                 {stepCriteria.map((criterion) => (
                                                     <div key={criterion.id_criterion} className="space-y-4">
                                                         <div className="flex items-center gap-2">
-                                                            <span className="size-8 rounded-lg bg-violet-100 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 flex items-center justify-center font-semibold text-sm">
+                                                            <span className="size-8 rounded-lg bg-wellness-100 dark:bg-wellness-100 text-wellness-600 dark:text-wellness-400 flex items-center justify-center font-semibold text-sm">
                                                                 {criterion.order_index || 1}
                                                             </span>
                                                             <h4 className="text-lg font-semibold text-zinc-800 dark:text-zinc-200">{criterion.name}</h4>
@@ -402,7 +402,7 @@ const EvaluationWizardModal: React.FC<Props> = ({
                                                                     onChange={(e) => dispatch({ type: 'SET_TEXT', criterionId: criterion.id_criterion, text: e.target.value })}
                                                                     placeholder={ev.wizard.textPlaceholder}
                                                                     rows={4}
-                                                                    className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 dark:bg-zinc-900/50 p-4 text-sm text-zinc-900 dark:text-white focus:ring-2 focus:ring-violet-500 outline-none resize-none"
+                                                                    className="w-full rounded-xl border border-[var(--color-border)] dark:bg-zinc-900/50 p-4 text-sm text-zinc-900 dark:text-white focus:ring-2 focus:ring-wellness-500 outline-none resize-none"
                                                                 />
                                                             ) : (
                                                                 criterion.levels.sort((a, b) => a.score - b.score).map((level) => {
@@ -413,16 +413,16 @@ const EvaluationWizardModal: React.FC<Props> = ({
                                                                             onClick={() => handleScoreSelect(criterion.id_criterion, level.id_subcriterion, level.score)}
                                                                             className={`flex items-start gap-4 p-4 rounded-xl border transition-all duration-200 text-left group ${
                                                                                 isSelected
-                                                                                    ? 'bg-violet-50 dark:bg-violet-900/20 border-violet-500 ring-1 ring-violet-500'
-                                                                                    : 'bg-white dark:bg-zinc-900/30 border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700'
+                                                                                    ? 'bg-wellness-50 dark:bg-wellness-100 border-wellness-500 ring-1 ring-wellness-500'
+                                                                                    : 'bg-white dark:bg-zinc-900/30 border-[var(--color-border)] hover:border-zinc-300 dark:hover:border-zinc-700'
                                                                             }`}
                                                                         >
-                                                                            <div className={`mt-1 size-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${isSelected ? 'border-violet-600 bg-violet-600' : 'border-zinc-300 dark:border-zinc-600'}`}>
+                                                                            <div className={`mt-1 size-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${isSelected ? 'border-wellness-600 bg-wellness-600' : 'border-zinc-300 dark:border-zinc-600'}`}>
                                                                                 {isSelected && <div className="h-1.5 w-1.5 rounded-full bg-white" />}
                                                                             </div>
                                                                             <div>
                                                                                 <div className="flex items-center gap-2 mb-1">
-                                                                                    <span className={`text-sm font-semibold ${isSelected ? 'text-violet-600 dark:text-violet-400' : 'text-zinc-600 dark:text-zinc-400'}`}>
+                                                                                    <span className={`text-sm font-semibold ${isSelected ? 'text-wellness-600 dark:text-wellness-400' : 'text-zinc-600 dark:text-zinc-400'}`}>
                                                                                         {ev.wizard.scoreLabel} {level.score}
                                                                                     </span>
                                                                                 </div>
@@ -451,7 +451,7 @@ const EvaluationWizardModal: React.FC<Props> = ({
                                                         id="general-observations"
                                                         value={generalObservations}
                                                         onChange={(e) => dispatch({ type: 'SET_OBSERVATIONS', value: e.target.value })}
-                                                        className="w-full h-40 rounded-xl border border-zinc-200 dark:border-zinc-800 dark:bg-zinc-900/50 p-4 text-sm text-zinc-900 dark:text-white focus:ring-2 focus:ring-violet-500 outline-none resize-none"
+                                                        className="w-full h-40 rounded-xl border border-[var(--color-border)] dark:bg-zinc-900/50 p-4 text-sm text-zinc-900 dark:text-white focus:ring-2 focus:ring-wellness-500 outline-none resize-none"
                                                         placeholder={ev.wizard.generalObservationsPh}
                                                     />
                                                 </div>
@@ -459,7 +459,7 @@ const EvaluationWizardModal: React.FC<Props> = ({
                                                     <label htmlFor="evidence-upload" className="block text-xs font-semibold uppercase tracking-widest text-zinc-500">
                                                         {ev.wizard.photoEvidence}
                                                     </label>
-                                                    <div className="border-2 border-dashed border-zinc-200 dark:border-zinc-800 rounded-xl p-8 flex flex-col items-center justify-center gap-3 bg-zinc-50/50 dark:bg-zinc-900/20 relative">
+                                                    <div className="border-2 border-dashed border-[var(--color-border)] rounded-xl p-8 flex flex-col items-center justify-center gap-3 bg-zinc-50/50 dark:bg-zinc-900/20 relative">
                                                         <Camera className="size-10 text-zinc-400" />
                                                         <p className="text-sm text-zinc-500 text-center">{ev.wizard.photoEvidenceHint}</p>
                                                         <input id="evidence-upload" type="file" multiple onChange={handleFileUpload} className="absolute inset-0 opacity-0 cursor-pointer" />
@@ -488,7 +488,7 @@ const EvaluationWizardModal: React.FC<Props> = ({
 
                 {/* Footer — only show when wizard is active */}
                 {showWizard && !isLoading && (
-                    <div className="flex items-center justify-between border-t border-zinc-200 dark:border-zinc-800 px-8 py-5 bg-zinc-50/30 dark:bg-zinc-900/30">
+                    <div className="flex items-center justify-between border-t border-[var(--color-border)] px-8 py-5 bg-zinc-50/30 dark:bg-zinc-900/30">
                         <button
                             onClick={() => dispatch({ type: 'SET_STEP', step: Math.max(0, currentStep - 1) })}
                             disabled={currentStep === 0}
@@ -505,7 +505,7 @@ const EvaluationWizardModal: React.FC<Props> = ({
                             {!isLastStep ? (
                                 <button
                                     onClick={() => dispatch({ type: 'SET_STEP', step: Math.min(stepsWithIcons.length - 1, currentStep + 1) })}
-                                    className="flex items-center gap-2 px-8 py-2.5 bg-violet-600 text-white rounded-xl text-sm font-semibold hover:bg-violet-700 shadow-lg active:scale-[0.98] transition-all"
+                                    className="flex items-center gap-2 px-8 py-2.5 bg-wellness-600 text-white rounded-xl text-sm font-semibold hover:bg-wellness-600 shadow-lg active:scale-[0.98] transition-all"
                                 >
                                     {ev.wizard.next}
                                     <ChevronRight className="size-4" />
@@ -525,7 +525,7 @@ const EvaluationWizardModal: React.FC<Props> = ({
 
                 {/* Footer for error / no template state */}
                 {(showTemplateError || (showTemplateSelect && matchingTemplates.length === 0)) && (
-                    <div className="flex justify-end border-t border-zinc-200 dark:border-zinc-800 px-8 py-4">
+                    <div className="flex justify-end border-t border-[var(--color-border)] px-8 py-4">
                         <button onClick={onClose} className="rounded-xl px-6 py-2.5 text-sm font-semibold text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
                             {ev.wizard.close}
                         </button>
